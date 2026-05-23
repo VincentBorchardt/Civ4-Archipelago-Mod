@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Civ4GameText xmlns="http://www.firaxis.com">
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_ARCHIPELAGO</Tag>
+		<English>Archipelago</English>
+		<French>Archipelago</French>
+		<German>Archipelago</German>
+		<Italian>Archipelago</Italian>
+		<Spanish>Archipelago</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_SERVER</Tag>
+		<English>Archipelago Server:</English>
+		<French>Archipelago Server:</French>
+		<German>Archipelago Server:</German>
+		<Italian>Archipelago Server:</Italian>
+		<Spanish>Archipelago Server:</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_USERNAME</Tag>
+		<English>Username:</English>
+		<French>Username:</French>
+		<German>Username:</German>
+		<Italian>Username:</Italian>
+		<Spanish>Username:</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_PASSWORD</Tag>
+		<English>Password:</English>
+		<French>Password:</French>
+		<German>Password:</German>
+		<Italian>Password:</Italian>
+		<Spanish>Password:</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_CONNECT_TO_ARCHIPELAGO</Tag>
+		<English>Connect</English>
+		<French>Connect</French>
+		<German>Connect</German>
+		<Italian>Connect</Italian>
+		<Spanish>Connect</Spanish>
+	</TEXT>
+</Civ4GameText>
