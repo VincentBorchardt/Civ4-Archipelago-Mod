@@ -6,10 +6,17 @@
 import CvUtil
 from CvPythonExtensions import *
 
+import ConfigParser
+import os
+
 # globals
 gc = CyGlobalContext()
 UserProfile = CyUserProfile()
 localText = CyTranslator()
+
+iniFilename = "%USERPROFILE%\Documents\My Games\Beyond the Sword\Mods\Civ4-Archipelago-Mod\Civ4-Archipelago-Mod.ini"
+config = ConfigParser.ConfigParser()
+config.read(iniFilename)
 
 class CvOptionsScreen:
 	"Options Screen"
@@ -22,7 +29,6 @@ class CvOptionsScreen:
 		self.iGraphicOptionsTabID	= 1
 		self.iAudioOptionsTabID		= 2
 		self.iOtherOptionsTabID	        = 3
-		#self.iArchipelagoOptionsTabID	= 4
 		
 		self.callbackIFace = "CvOptionsScreenCallbackInterface"
 		
@@ -37,8 +43,6 @@ class CvOptionsScreen:
 		return self.szAudioOptionsTabName
 	def getOtherOptionsTabName(self):
 		return self.szOtherOptionsTabName
-	#def getArchipelagoOptionsTabName(self):
-		#return self.szOtherOptionsTabName
 		
 	# Used by Callback Interface to set path via checkbox
 	def getMusicPath(self):
@@ -58,6 +62,14 @@ class CvOptionsScreen:
 		self.getTabControl().setText("ProfileNameEditBox", szWideProfName)
 	def getProfileEditCtrlText(self):
 		return self.getTabControl().getText("ProfileNameEditBox")
+
+	# Used by Callback Interface to get Archipelago info from editboxes
+	def getArchipelagoServer(self):
+		return self.getTabControl().getText("ArchipelagoServerEditBox")
+	def getArchipelagoUsername(self):
+		return self.getTabControl().getText("ArchipelagoUsernameEditBox")
+	def getArchipelagoPassword(self):
+		return self.getTabControl().getText("ArchipelagoPasswordEditBox")
 		
 	# Called from C++ after a custom music path is selected via FileDialogBox
 	def updateMusicPath (self, szMusicPath):
@@ -956,7 +968,7 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = UserProfile.getProfileName()
+		szEditBoxDesc = "archipelago.gg:38281"
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoServerEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
@@ -967,7 +979,7 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = UserProfile.getProfileName()
+		szEditBoxDesc = "Player1"
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoUsernameEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
@@ -978,13 +990,13 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = UserProfile.getProfileName()
+		szEditBoxDesc = ""
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoPasswordEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
 		tab.attachEdit("ArchipelagoVBox", szWidgetName, szWideEditBoxDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
 
-		# New Profile Button
+		# Connect to Archipelago Button
 		szOptionDesc = localText.getText("TXT_KEY_OPTIONS_CONNECT_TO_ARCHIPELAGO", ())
 		szCallbackFunction = "connectToArchipelago"
 		szWidgetName = "ConnectToArchipelagoButton"

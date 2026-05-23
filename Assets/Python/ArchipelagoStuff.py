@@ -30,6 +30,12 @@ def checkIfArchipelagoTech(tech):
 		modPopupA.setHeaderString("This is an Archipelago Tech")
 		modPopupA.setBodyString(popupMessage)
 		modPopupA.launch()
+
+def connectToArchipelagoServer(server, username, password):
+	modPopup = PyPopup()
+	modPopup.setHeaderString(server)
+	modPopup.setBodyString(username)
+	modPopup.launch()
 			
 	
 	

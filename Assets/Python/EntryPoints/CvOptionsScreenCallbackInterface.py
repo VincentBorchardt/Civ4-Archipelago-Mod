@@ -3,6 +3,7 @@ import CvScreensInterface
 import Popup as PyPopup
 import CvUtil
 import string
+import ArchipelagoStuff
 
 localText = CyTranslator()
 UserProfile = CyUserProfile()
@@ -479,6 +480,18 @@ def loadProfile(szProfile):
 		
 		return 0
 		
+######################################## ARCHIPELAGO ########################################
+
+def connectToArchipelago( argsList ):
+    "passes the server, username, and password to ArchipelagoStuff"
+    szName = argsList
+
+    szArchipelagoServer = getOptionsScreen().getArchipelagoServer()
+    szArchipelagoUsername = getOptionsScreen().getArchipelagoUsername()
+    szArchipelagoPassword = getOptionsScreen().getArchipelagoPassword()
+
+    ArchipelagoStuff.connectToArchipelagoServer(szArchipelagoServer, szArchipelagoUsername, szArchipelagoPassword)
+
 def handleExitButtonInput ( argsList ):
 	"Exits the screen"
 	szName = argsList
