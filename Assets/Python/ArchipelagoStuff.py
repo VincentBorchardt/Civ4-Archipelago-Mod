@@ -2,6 +2,8 @@ from CvPythonExtensions import *
 from PyHelpers import *
 from Popup import PyPopup
 
+from CommonClient import *
+
 # constants
 gc = CyGlobalContext()
 cyGame = CyGame()
