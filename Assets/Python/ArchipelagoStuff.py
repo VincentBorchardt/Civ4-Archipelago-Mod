@@ -2,7 +2,7 @@ from CvPythonExtensions import *
 from PyHelpers import *
 from Popup import PyPopup
 
-from CommonClient import *
+import socket
 
 # constants
 gc = CyGlobalContext()
@@ -34,10 +34,35 @@ def checkIfArchipelagoTech(tech):
 		modPopupA.launch()
 
 def connectToArchipelagoServer(server, username, password):
-	modPopup = PyPopup()
-	modPopup.setHeaderString(server)
-	modPopup.setBodyString(username)
+	#modPopup = PyPopup()
+	#modPopup.setHeaderString(server)
+	#modPopup.setBodyString(username)
+	#modPopup.launch()
+	client_program(server, username, password)
+
+def client_program(server, username, password):
+    host = socket.gethostname()  # as both code is running on same pc
+    port = 5000  # socket server port number
+
+    client_socket = socket.socket()  # instantiate
+    client_socket.connect((host, port))  # connect to the server
+
+    message = server  # take input
+
+    while message.lower().strip() != 'bye':
+        client_socket.send(message.encode())  # send message
+        data = client_socket.recv(1024).decode()  # receive response
+
+        modPopup = PyPopup()
+	modPopup.setHeaderString("recieved data")
+	modPopup.setBodyString(data)
 	modPopup.launch()
+
+        #print('Received from server: ' + data)  # show in terminal
+
+        message = 'bye'  # again take input
+
+    client_socket.close()  # close the connection
 			
 	
-	
+
