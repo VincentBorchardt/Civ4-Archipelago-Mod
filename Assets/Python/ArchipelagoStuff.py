@@ -47,7 +47,8 @@ def client_program(server, username, password):
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
-    message = server  # take input
+    # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
+    message = server + ";" + username + ';' + password
 
     while message.lower().strip() != 'bye':
         client_socket.send(message.encode())  # send message
