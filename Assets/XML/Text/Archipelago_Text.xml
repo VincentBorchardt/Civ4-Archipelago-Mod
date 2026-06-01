@@ -40,4 +40,12 @@
 		<Italian>Connect</Italian>
 		<Spanish>Connect</Spanish>
 	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_OPTIONS_DISCONNECT_FROM_ARCHIPELAGO</Tag>
+		<English>Disconnect</English>
+		<French>Disconnect</French>
+		<German>Disconnect</German>
+		<Italian>Disconnect</Italian>
+		<Spanish>Disconnect</Spanish>
+	</TEXT>
 </Civ4GameText>

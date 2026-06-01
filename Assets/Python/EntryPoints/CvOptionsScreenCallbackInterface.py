@@ -492,6 +492,11 @@ def connectToArchipelago( argsList ):
 
     ArchipelagoStuff.connectToArchipelagoServer(szArchipelagoServer, szArchipelagoUsername, szArchipelagoPassword)
 
+def disconnectFromArchipelago( argsList ):
+    szName = argsList
+
+    ArchipelagoStuff.disconnectFromArchipelagoServer()
+
 def handleExitButtonInput ( argsList ):
 	"Exits the screen"
 	szName = argsList

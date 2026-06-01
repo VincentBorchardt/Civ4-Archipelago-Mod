@@ -3,6 +3,7 @@ from PyHelpers import *
 from Popup import PyPopup
 
 import socket
+import errno
 
 # constants
 gc = CyGlobalContext()
@@ -13,57 +14,88 @@ pyGame = PyGame()
 popupHeader = "Tutorial"
 popupMessage = "This is a Python tutorial.\n\nby Baldyr"
 
-def showPopup():
+client_socket = socket.socket()  # instantiate
+
+def showPopup(header, body):
 	"""Displays the welcome message on game start"""
 	modPopup = PyPopup()
-	modPopup.setHeaderString(popupHeader)
-	modPopup.setBodyString(popupMessage)
+	modPopup.setHeaderString(header)
+	modPopup.setBodyString(body)
 	modPopup.launch()
 
 def checkIfArchipelagoTech(tech):
-	showPopup()
 	
 	tech_info = gc.getTechInfo(tech)
     
 	# FLAVOR_ARCHIPELAGO is FlavorValue(8); currently hardcoded
 	flavor_weight = tech_info.getFlavorValue(8)
         if flavor_weight > 0:
-		modPopupA = PyPopup()
-		modPopupA.setHeaderString("This is an Archipelago Tech")
-		modPopupA.setBodyString(popupMessage)
-		modPopupA.launch()
+                showPopup("This is an Archipelago Tech", popupMessage)
+
+def isSocketConnected():
+    try:
+        client_socket.getpeername()
+    except socket.error:
+        return False
+    try:
+        # this will try to read bytes  without removing them from buffer (peek only) (Windows doesn't have MSG_DONTWAIT)
+        data = client_socket.recv(16, socket.MSG_PEEK)
+        if len(data) == 0:
+            return False
+    except OSError, e:
+        if e.errno == errno.EWOULDBLOCK:
+            return True  # socket is open and reading from it would block
+        if e.errno == errno.ECONNREFUSED:
+            return False  # socket was closed for some other reason
+        else:
+            showPopup("Unknown OSError", str(e.errno))
+            return False
+    except Exception, e:
+        showPopup("Unknown Error", str(e))
+        return False
+    return True
 
 def connectToArchipelagoServer(server, username, password):
-	#modPopup = PyPopup()
-	#modPopup.setHeaderString(server)
-	#modPopup.setBodyString(username)
-	#modPopup.launch()
-	client_program(server, username, password)
+        if isSocketConnected():
+            showPopup("Connection Error", "Already connected to a server.")
+            return
+        if server == "":
+            showPopup("Connection Error", "Please enter a server name.")
+            return
+        if username == "":
+            showPopup("Connection Error", "Please enter a slot name.")
+            return
+        #try: # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
+        host = socket.gethostname()  # as both code is running on same pc
+        port = 5000  # socket server port number
+        client_socket.connect((host, port))  # connect to the server
 
-def client_program(server, username, password):
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
+        # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
+        message = server + ";" + username + ';' + password
 
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
-
-    # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
-    message = server + ";" + username + ';' + password
-
-    while message.lower().strip() != 'bye':
         client_socket.send(message.encode())  # send message
         data = client_socket.recv(1024).decode()  # receive response
 
-        modPopup = PyPopup()
-	modPopup.setHeaderString("recieved data")
-	modPopup.setBodyString(data)
-	modPopup.launch()
+        showPopup("Received Data", data)
+        #except Error:
 
-        #print('Received from server: ' + data)  # show in terminal
+def disconnectFromArchipelagoServer():
+    if not isSocketConnected():
+        showPopup("Connection Error", "Not connected to a server")
+        return
+    try:
+        client_socket.settimeout(3.0)
+        client_socket.shutdown(socket.SHUT_RDWR)
+    except Exception, e:
+        showPopup("Shutdown Error", str(e))
+    showPopup("after shutdown" "test")
+    client_socket.close()
+    showPopup("after close", "test")
+    return
+    
+            
 
-        message = 'bye'  # again take input
 
-    client_socket.close()  # close the connection
 			
 	
 

@@ -1002,6 +1002,12 @@ class CvOptionsScreen:
 		szWidgetName = "ConnectToArchipelagoButton"
 		tab.attachButton("ArchipelagoVBox", szWidgetName, szOptionDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
 
+                # Disconnect from Archipelago Button
+		szOptionDesc = localText.getText("TXT_KEY_OPTIONS_DISCONNECT_FROM_ARCHIPELAGO", ())
+		szCallbackFunction = "disconnectFromArchipelago"
+		szWidgetName = "DisconnectFromArchipelagoButton"
+		tab.attachButton("ArchipelagoVBox", szWidgetName, szOptionDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
+
 		########## EXIT
 
 		tab.attachHSeparator("OtherVBox", "OtherExitSeparator")
