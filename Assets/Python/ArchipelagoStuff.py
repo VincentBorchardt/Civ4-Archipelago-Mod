@@ -4,6 +4,10 @@ from Popup import PyPopup
 
 import socket
 import errno
+import threading
+
+# TODO NEED TO EVENTUALLY IMPLEMENT A SAFE UNPICKLER!!!
+import pickle
 
 # constants
 gc = CyGlobalContext()
@@ -14,10 +18,11 @@ pyGame = PyGame()
 popupHeader = "Tutorial"
 popupMessage = "This is a Python tutorial.\n\nby Baldyr"
 
-client_socket = socket.socket()  # instantiate
+socket_to_archipelago = socket.socket()  # instantiate
+socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
+#lock = threading.Lock()
 
 def showPopup(header, body):
-	"""Displays the welcome message on game start"""
 	modPopup = PyPopup()
 	modPopup.setHeaderString(header)
 	modPopup.setBodyString(body)
@@ -34,12 +39,12 @@ def checkIfArchipelagoTech(tech):
 
 def isSocketConnected():
     try:
-        client_socket.getpeername()
+        socket_to_archipelago.getpeername()
     except socket.error:
         return False
     try:
         # this will try to read bytes  without removing them from buffer (peek only) (Windows doesn't have MSG_DONTWAIT)
-        data = client_socket.recv(16, socket.MSG_PEEK)
+        data = socket_to_archipelago.recv(16, socket.MSG_PEEK)
         if len(data) == 0:
             return False
     except OSError, e:
@@ -56,40 +61,46 @@ def isSocketConnected():
     return True
 
 def connectToArchipelagoServer(server, username, password):
-        if isSocketConnected():
-            showPopup("Connection Error", "Already connected to a server.")
-            return
-        if server == "":
-            showPopup("Connection Error", "Please enter a server name.")
-            return
-        if username == "":
-            showPopup("Connection Error", "Please enter a slot name.")
-            return
-        #try: # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
-        host = socket.gethostname()  # as both code is running on same pc
-        port = 5000  # socket server port number
-        client_socket.connect((host, port))  # connect to the server
+    #if isSocketConnected():
+    #showPopup("Connection Error", "Already connected to a server.")
+    #return
+    if server == "":
+        showPopup("Connection Error", "Please enter a server name.")
+        return
+    if username == "":
+        showPopup("Connection Error", "Please enter a slot name.")
+        return
+    #try: # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
+    socket_to_archipelago = socket.socket()  # instantiate
+    #socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
+    host = socket.gethostname()  # as both code is running on same pc
+    port = 5000  # socket server port number
 
-        # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
-        message = server + ";" + username + ';' + password
+    socket_to_archipelago.connect((host, port))  # connect to the server
 
-        client_socket.send(message.encode())  # send message
-        data = client_socket.recv(1024).decode()  # receive response
+    # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
+    #message = server + ";" + username + ';' + password
+    messageDict = { "type":"connect", "server":server, "username":username, "password":password }
+    messagePickle = pickle.dumps(messageDict, 2)
+    #header = struct.pack('>I', len(serialized_data))
 
-        showPopup("Received Data", data)
-        #except Error:
+    socket_to_archipelago.sendall(messagePickle)  # send message
+    data = socket_to_archipelago.recv(1024)  # receive response
+    showPopup("Received Data", data)
+
+    #except Error:
 
 def disconnectFromArchipelagoServer():
-    if not isSocketConnected():
-        showPopup("Connection Error", "Not connected to a server")
-        return
+    #if not isSocketConnected():
+        #showPopup("Connection Error", "Not connected to a server")
+        #return
     try:
-        client_socket.settimeout(3.0)
-        client_socket.shutdown(socket.SHUT_RDWR)
+        socket_to_archipelago.settimeout(3.0)
+        socket_to_archipelago.shutdown(socket.SHUT_RDWR)
     except Exception, e:
         showPopup("Shutdown Error", str(e))
-    showPopup("after shutdown" "test")
-    client_socket.close()
+    showPopup("after shutdown", "test")
+    socket_to_archipelago.close()
     showPopup("after close", "test")
     return
     
