@@ -85,8 +85,11 @@ def connectToArchipelagoServer(server, username, password):
     #header = struct.pack('>I', len(serialized_data))
 
     socket_to_archipelago.sendall(messagePickle)  # send message
-    data = socket_to_archipelago.recv(1024)  # receive response
-    showPopup("Received Data", data)
+    data_pickle = socket_to_archipelago.recv(1024)  # receive response
+    data_dict = pickle.loads(data_pickle)
+    if data_dict["cmd"] == "Connected":
+        showPopup("Connected", "Successfully Connected")
+    #showPopup("Received Data", data)
 
     #except Error:
 
