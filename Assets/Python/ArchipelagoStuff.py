@@ -4,7 +4,6 @@ from Popup import PyPopup
 
 import socket
 import errno
-import threading
 
 # TODO NEED TO EVENTUALLY IMPLEMENT A SAFE UNPICKLER!!!
 import pickle
@@ -36,6 +35,21 @@ def checkIfArchipelagoTech(tech):
 	flavor_weight = tech_info.getFlavorValue(8)
         if flavor_weight > 0:
                 showPopup("This is an Archipelago Tech", popupMessage)
+
+def checkForReads():
+    # The AI does a defensive check here; I don't think I care (and it's not accurate anyway)
+
+    try:
+        data_pickle = socket_to_archipelago.recv(1024)  # receive response
+        if data_pickle:
+            data_dict = pickle.loads(data_pickle)
+            if data_dict["cmd"] == "Connected":
+                showPopup("Connected", "Successfully Connected")
+    except socket.error, e: # Python 2.4 comma syntax
+        err_code = e[0]
+        # If the code is just "no data available right now", release control
+        if err_code in (errno.EWOULDBLOCK, errno.EAGAIN, 10035):
+            return None 
 
 def isSocketConnected():
     try:
@@ -85,10 +99,7 @@ def connectToArchipelagoServer(server, username, password):
     #header = struct.pack('>I', len(serialized_data))
 
     socket_to_archipelago.sendall(messagePickle)  # send message
-    data_pickle = socket_to_archipelago.recv(1024)  # receive response
-    data_dict = pickle.loads(data_pickle)
-    if data_dict["cmd"] == "Connected":
-        showPopup("Connected", "Successfully Connected")
+    
     #showPopup("Received Data", data)
 
     #except Error:

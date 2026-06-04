@@ -48,6 +48,8 @@ import ScreenInput as PyScreenInput
 from CvScreenEnums import *
 from CvPythonExtensions import *
 
+import ArchipelagoStuff
+
 g_bIsScreenActive = -1
 
 def toggleSetNoScreens():
@@ -665,6 +667,8 @@ def update (argsList):
 	if (HandleInputMap.has_key(argsList[0])):
 		screen = HandleInputMap.get(argsList[0])
 		screen.update(argsList[1])
+
+	ArchipelagoStuff.checkForReads()
 
 def onClose (argsList):
 	# allows overides for mods
