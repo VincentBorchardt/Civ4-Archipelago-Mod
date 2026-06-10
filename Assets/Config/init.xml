@@ -186,4 +186,8 @@
 		<tab module="BugSystemOptionsTab"/>
 		<tab module="BugCreditsOptionsTab"/>
 	</screen>
+
+        <!-- Archipelago Screen -->
+
+        <load mod="Civ4ArchipelagoMod"/>
 </bug>
