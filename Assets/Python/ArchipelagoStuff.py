@@ -21,7 +21,7 @@ socket_to_archipelago = socket.socket()  # instantiate
 socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
 #lock = threading.Lock()
 
-def showPopup(header, body):
+def showPopup(header=popupHeader, body=popupMessage):
 	modPopup = PyPopup()
 	modPopup.setHeaderString(header)
 	modPopup.setBodyString(body)
