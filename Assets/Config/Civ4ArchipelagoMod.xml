@@ -8,6 +8,9 @@
     <!-- This creates Civ4ArchipelagoMod.ini inside the mod's UserSettings folder -->
     <options id="ArchipelagoOptions" file="Civ4ArchipelagoMod.ini">
         <section id="ProfileSettings">
+            <option id="ArchipelagoServer" 
+                    type="string" 
+                    default="archipelago.gg"/>
             <option id="ArchipelagoDomain" 
                     type="string" 
                     default="archipelago.gg"/>

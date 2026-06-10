@@ -24,7 +24,6 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         columnL, columnR = self.addTwoColumnLayout(screen, column, "ServerSettings")
         
         # 3. Add your elements using your working storage mapping: ModID__SettingName
-        self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoDomain")
-        self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoPort")
+        self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoServer")
         self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoUsername")
         self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoPassword")
