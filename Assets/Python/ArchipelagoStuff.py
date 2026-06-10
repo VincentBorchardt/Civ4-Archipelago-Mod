@@ -83,26 +83,26 @@ def connectToArchipelagoServer(server, username, password):
     if server == "":
         showPopup("Connection Error", "Please enter a server name.")
         return
-    if server.find(":") == -1:
-        showPopup("Connection Error", "Server must contain a domain and port.")
-        return
+    #if server.find(":") == -1:
+        #showPopup("Connection Error", "Server must contain a domain and port.")
+        #return
     if username == "":
         showPopup("Connection Error", "Please enter a slot name.")
         return
-    splitServer = server.split(":")
-    domain = splitServer[0]
-    port = splitServer[1]
-    if not port.isdigit():
-        showPopup("Connection Error", "Port must be a number.")
-        return
-    # TODO Should check if all four fields have any characters that will cause parsing errors
-    BugOptions.getOption("Archipelago__ArchipelagoDomain").setValue(domain)
-    BugOptions.getOption("Archipelago__ArchipelagoPort").setValue(int(port))
-    BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
-    if password == "":
-        BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue("None")
-    else:
-        BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
+    #splitServer = server.split(":")
+    #domain = splitServer[0]
+    #port = splitServer[1]
+    #if not port.isdigit():
+        #showPopup("Connection Error", "Port must be a number.")
+        #return
+    # TODO Should check if all fields have any characters that will cause parsing errors
+    #BugOptions.getOption("Archipelago__ArchipelagoDomain").setValue(domain)
+    #BugOptions.getOption("Archipelago__ArchipelagoPort").setValue(int(port))
+    #BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
+    #if password == "":
+        #BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue("None")
+    #else:
+        #BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
     
     
     #try: # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
@@ -113,8 +113,6 @@ def connectToArchipelagoServer(server, username, password):
 
     socket_to_archipelago.connect((host, port))  # connect to the server
 
-    # THIS BREAKS IF YOU USE A ; IN THE FIELDS!!!
-    #message = server + ";" + username + ';' + password
     messageDict = { "type":"connect", "server":server, "username":username, "password":password }
     messagePickle = pickle.dumps(messageDict, 2)
     #header = struct.pack('>I', len(serialized_data))

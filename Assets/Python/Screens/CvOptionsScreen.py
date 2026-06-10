@@ -970,9 +970,7 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		domain = BugOptions.getOption("Archipelago__ArchipelagoDomain").getValue()
-		port = str(BugOptions.getOption("Archipelago__ArchipelagoPort").getValue())
-		szEditBoxDesc = domain + ":" + port
+		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoServerEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
@@ -994,11 +992,7 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
-		if password == "None":
-                    szEditBoxDesc = ""
-                else:
-                    szEditBoxDesc = password
+		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoPasswordEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
