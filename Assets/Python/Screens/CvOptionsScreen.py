@@ -6,6 +6,8 @@
 import CvUtil
 from CvPythonExtensions import *
 
+import BugOptions
+
 import ConfigParser
 import os
 
@@ -968,7 +970,9 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = "archipelago.gg:38281"
+		domain = BugOptions.getOption("Archipelago__ArchipelagoDomain").getValue()
+		port = str(BugOptions.getOption("Archipelago__ArchipelagoPort").getValue())
+		szEditBoxDesc = domain + ":" + port
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoServerEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
@@ -979,7 +983,7 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = "Player1"
+		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoUsernameEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
@@ -990,7 +994,11 @@ class CvOptionsScreen:
 		
 	
 		#szCallbackIFace = ""
-		szEditBoxDesc = ""
+		password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
+		if password == "None":
+                    szEditBoxDesc = ""
+                else:
+                    szEditBoxDesc = password
 		szCallbackFunction = "DummyCallback"
 		szWidgetName = "ArchipelagoPasswordEditBox"
 		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)

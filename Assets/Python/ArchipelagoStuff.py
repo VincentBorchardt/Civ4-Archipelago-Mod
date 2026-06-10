@@ -2,6 +2,8 @@ from CvPythonExtensions import *
 from PyHelpers import *
 from Popup import PyPopup
 
+import BugOptions
+
 import socket
 import errno
 
@@ -81,9 +83,28 @@ def connectToArchipelagoServer(server, username, password):
     if server == "":
         showPopup("Connection Error", "Please enter a server name.")
         return
+    if server.find(":") == -1:
+        showPopup("Connection Error", "Server must contain a domain and port.")
+        return
     if username == "":
         showPopup("Connection Error", "Please enter a slot name.")
         return
+    splitServer = server.split(":")
+    domain = splitServer[0]
+    port = splitServer[1]
+    if not port.isdigit():
+        showPopup("Connection Error", "Port must be a number.")
+        return
+    # TODO Should check if all four fields have any characters that will cause parsing errors
+    BugOptions.getOption("Archipelago__ArchipelagoDomain").setValue(domain)
+    BugOptions.getOption("Archipelago__ArchipelagoPort").setValue(int(port))
+    BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
+    if password == "":
+        BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue("None")
+    else:
+        BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
+    
+    
     #try: # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
     socket_to_archipelago = socket.socket()  # instantiate
     #socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
