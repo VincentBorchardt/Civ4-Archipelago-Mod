@@ -167,6 +167,7 @@
 	<!-- Options Screen -->
 	
 	<screen id="BUGFull">
+		<tab module="ArchipelagoTab"/>
 		<tab module="BugGeneralOptionsTab"/>
 		<tab module="BugMapOptionsTab"/>
 		<tab module="BugCityScreenOptionsTab"/>
