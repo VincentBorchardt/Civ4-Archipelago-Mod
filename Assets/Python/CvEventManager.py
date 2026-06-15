@@ -20,7 +20,9 @@ import sys
 import CvWorldBuilderScreen
 import CvAdvisorUtils
 import CvTechChooser
+
 import ArchipelagoStuff
+import ArchipelagoLocations
 
 gc = CyGlobalContext()
 localText = CyTranslator()
@@ -676,7 +678,7 @@ class CvEventManager:
 	def onTechAcquired(self, argsList):
 		'Tech Acquired'
 		iTechType, iTeam, iPlayer, bAnnounce = argsList
-		ArchipelagoStuff.checkIfArchipelagoTech(iTechType)
+		ArchipelagoLocations.checkIfArchipelagoTech(iTechType)
 		# Note that iPlayer may be NULL (-1) and not a refer to a player object
 		
 		# Show tech splash when applicable
