@@ -22,11 +22,20 @@ TECH_TO_LOCATION_ID = {
     "TECH_ARCHIPELAGO1" : 1
 }
 
+# Should this be here? I don't know if this is persistent or not
+checkedLocations = []
+
 def checkIfArchipelagoTech(tech):
 	
-	tech_info = gc.getTechInfo(tech)
+    tech_info = gc.getTechInfo(tech)
     
-	# FLAVOR_ARCHIPELAGO is FlavorValue(8); currently hardcoded
-	flavor_weight = tech_info.getFlavorValue(8)
-        if flavor_weight > 0:
-                ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
+    # FLAVOR_ARCHIPELAGO is FlavorValue(8); currently hardcoded
+    flavor_weight = tech_info.getFlavorValue(8)
+    if flavor_weight > 0:
+        tech_name = tech_info.getType()
+        tech_id = TECH_TO_LOCATION_ID[tech_name]
+        checkedLocations.append(tech_id)
+        messageDict = {"type" : "LocationChecks", "locations" : checkedLocations}
+        dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
+        # Presumably pass this to something that will get items
+        ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
