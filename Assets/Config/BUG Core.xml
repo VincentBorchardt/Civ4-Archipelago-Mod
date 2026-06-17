@@ -109,4 +109,8 @@
 	
 	<shortcut module="BugHelp" function="launch" keys="Alt Ctrl F1"/>
 		<!--arg type="string" value="TXT_KEY_BUG_HELP_FILE"/-->
+
+	<event type="GameStart" module="ArchipelagoItems" function="loadArchipelagoData"/>
+	<event type="OnLoad" module="ArchipelagoItems" function="loadArchipelagoData"/>
+	<event type="SaveGame" module="ArchipelagoItems" function="saveArchipelagoData"/>
 </mod>
