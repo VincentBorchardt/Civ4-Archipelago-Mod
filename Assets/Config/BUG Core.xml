@@ -116,4 +116,5 @@
 	<event type="SaveGame" module="ArchipelagoItems" function="saveArchipelagoData"/>
 	<event type="EndPlayerTurn" module="ArchipelagoEvents" function="onEndPlayerTurn"/>
 	<event type="techAcquired" module="ArchipelagoEvents" function="onTechAcquired"/>
+	<event type="popupResult" module="ArchipelagoEvents" function="onPopupResult"/>
 </mod>

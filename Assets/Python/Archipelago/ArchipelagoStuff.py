@@ -20,6 +20,9 @@ pyGame = PyGame()
 popupHeader = "Tutorial"
 popupMessage = "This is a Python tutorial.\n\nby Baldyr"
 
+hasConnectedToArchipelago = False
+isConnectedToArchipelago = False
+
 socket_to_archipelago = socket.socket()
 socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
 
@@ -35,29 +38,95 @@ def showPopup(header=popupHeader, body=popupMessage):
 def sendAndReceiveData(messageDict, waitForRead=True):
     messagePickle = pickle.dumps(messageDict, 2)
 
-    # Not sure what error to try and catch for "connection refused"--it's "10061" on Windows 11
     socket_to_archipelago = socket.socket()  # instantiate
+    socket_to_archipelago.settimeout(2.0)
     host = socket.gethostname()  # as both code is running on same pc
     port = 5000  # socket server port number
-    socket_to_archipelago.connect((host, port))  # connect to the server
-    socket_to_archipelago.sendall(messagePickle)  # send message
 
-    if waitForRead:
+    # OUTER TRY: Handles only the finally cleanup in Python 2.4
+    try:
+        # INNER TRY: Handles the execution and exception catching
         try:
-            data_pickle = socket_to_archipelago.recv(1024)  # receive response
-            if data_pickle:
-                data_dict = pickle.loads(data_pickle)
-                if "cmd" in data_dict:
-                    return data_dict
-            # TODO throw a good error message
+            socket_to_archipelago.connect((host, port))  # connect to the server
+            socket_to_archipelago.sendall(messagePickle)  # send message
+
+            isConnectedToArchipelago = True
+            hasConnectedToArchipelago = True
+
+            if waitForRead:
+                data_pickle = socket_to_archipelago.recv(1024)
+                if data_pickle:
+                    data_dict = pickle.loads(data_pickle)
+                    if isinstance(data_dict, dict) and "cmd" in data_dict:
+                        return data_dict
+                return None
+                    
+        except socket.timeout:
+            is_connected_to_ap = False
+            CyInterface().addImmediateMessage("AP Error: Connection timed out.", "")
             return None
-                
+            
         except socket.error, e:
-            # TODO I want this to always be None; I guess returning nothing does that, but need a cleaner thing (especially if I add a timeout)
             err_code = e[0]
-            # If the code is just "no data available right now", release control
+            
+            if err_code == errno.ECONNREFUSED:
+                is_connected_to_ap = False
+                CyInterface().addImmediateMessage("AP Error: Connection refused. Is the client open?", "")
+                return None
+                
             if err_code in (errno.EWOULDBLOCK, errno.EAGAIN, 10035):
                 return None
+                
+            is_connected_to_ap = False
+            CyInterface().addImmediateMessage("AP Network Error Code: " + str(err_code), "")
+            return None
+            
+    finally:
+        # This finally block is now legal because it only pairs with the outer try
+        try:
+            socket_to_archipelago.close()
+        except Exception:
+            pass
+
+def initialConnectToArchipelago():
+    if not hasConnectedToArchipelago:
+        forceSetupPopup(False)
+    else:
+        server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
+        username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
+        password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
+        connectToArchipelagoServer(server, username, password)
+
+def forceSetupPopup(failedConnection=False):
+    """Launches a clean, modular setup window using PyPopup."""
+    # Initialize the high-level PyPopup class
+    # Arguments: (UniquePopupID, EventContextType, bModalFlag)
+    popup = PyPopup(1111, EventContextTypes.NO_EVENTCONTEXT, True)
+    
+    popup.setHeaderString("Archipelago Connection Setup")
+    
+    if failedConnection:
+        popup.setBodyString("Connection Failed. Please check your information and verify your client is open.")
+    else:
+        popup.setBodyString("Please enter your Archipelago connection information below:")
+
+    # Grab your current defaults from BUG
+    server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
+    username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
+    password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
+    
+    # Create automatically labeled input boxes
+    # Arguments: (CurrentValue, LabelTitle, UniqueControlIndexID)
+    popup.createPythonEditBox(server, "Archipelago Server Address:", 0)
+    popup.createPythonEditBox(username, "Archipelago Username:", 1)
+    popup.createPythonEditBox(password, "Archipelago Password:", 2)
+    
+    # Add your submission button
+    popup.addButton("Save and Connect")
+    
+    # Launch immediately over the game screen
+    popup.launch(True, PopupStates.POPUPSTATE_IMMEDIATE)
+
 
 def connectToArchipelagoServer(server, username, password):
     if server == "":
