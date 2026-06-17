@@ -4,12 +4,6 @@ from Popup import PyPopup
 
 import BugOptions
 
-import socket
-import errno
-
-# TODO NEED TO EVENTUALLY IMPLEMENT A SAFE UNPICKLER!!!
-import pickle
-
 import ArchipelagoStuff
 
 # constants
@@ -37,5 +31,5 @@ def checkIfArchipelagoTech(tech):
         checkedLocations.append(tech_id)
         messageDict = {"type" : "LocationChecks", "locations" : checkedLocations}
         dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
-        # Presumably pass this to something that will get items
+        # Show something in the message log saying what you sent?
         ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)

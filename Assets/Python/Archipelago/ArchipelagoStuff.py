@@ -1,4 +1,5 @@
 from CvPythonExtensions import *
+import CvUtil
 from PyHelpers import *
 from Popup import PyPopup
 
@@ -19,7 +20,7 @@ pyGame = PyGame()
 popupHeader = "Tutorial"
 popupMessage = "This is a Python tutorial.\n\nby Baldyr"
 
-socket_to_archipelago = socket.socket()  # instantiate
+socket_to_archipelago = socket.socket()
 socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
 
 # TODO Use the message log for some of this stuff rather than PyPopup
@@ -27,23 +28,10 @@ def showPopup(header=popupHeader, body=popupMessage):
 	modPopup = PyPopup()
 	modPopup.setHeaderString(header)
 	modPopup.setBodyString(body)
-	modPopup.launch()
+	modPopup.launch() 
 
-def checkForReads():
-    # The AI does a defensive check here; I don't think I care (and it's not accurate anyway)
-
-    try:
-        data_pickle = socket_to_archipelago.recv(1024)  # receive response
-        if data_pickle:
-            data_dict = pickle.loads(data_pickle)
-            if data_dict["cmd"] == "Connected":
-                showPopup("Connected", "Successfully Connected")
-    except socket.error, e: # Python 2.4 comma syntax
-        err_code = e[0]
-        # If the code is just "no data available right now", release control
-        if err_code in (errno.EWOULDBLOCK, errno.EAGAIN, 10035):
-            return None 
-
+# TODO do I want to decouple sending and receiving?
+# Manually doing a socket every time seems wasteful, but it's a later optimization
 def sendAndReceiveData(messageDict, waitForRead=True):
     messagePickle = pickle.dumps(messageDict, 2)
 
@@ -61,10 +49,11 @@ def sendAndReceiveData(messageDict, waitForRead=True):
                 data_dict = pickle.loads(data_pickle)
                 if "cmd" in data_dict:
                     return data_dict
-            # throw a good error message
+            # TODO throw a good error message
             return None
                 
-        except socket.error, e: # Python 2.4 comma syntax
+        except socket.error, e:
+            # TODO I want this to always be None; I guess returning nothing does that, but need a cleaner thing (especially if I add a timeout)
             err_code = e[0]
             # If the code is just "no data available right now", release control
             if err_code in (errno.EWOULDBLOCK, errno.EAGAIN, 10035):
@@ -83,16 +72,16 @@ def connectToArchipelagoServer(server, username, password):
     BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
     BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
 
-    messageDict = { "type":"connect", "server":server, "username":username, "password":password }
+    messageDict = { "type":"Connect", "server":server, "username":username, "password":password }
     dataDict = sendAndReceiveData(messageDict)
+    CyInterface().addImmediateMessage(str(dataDict), "")
 
     if dataDict is None:
-        showPopup("Connection Error", "No Packet Received")
-    # I check for cmd in sendAndReceiveData
-    elif dataDict["cmd"] == "Connected":
+        showPopup("Connection Error", "No packet received from connectToArchipelagoServer")
+    elif dataDict.get("cmd") == "Connected":
         showPopup("Connected", "Successfully Connected")
     else:
-        showPopup("Connection Error", "Unexpected packet type: " + dataDict["cmd"])
+        showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd") + " in connectToArchipelagoServer")
 
 
 def disconnectFromArchipelagoServer():

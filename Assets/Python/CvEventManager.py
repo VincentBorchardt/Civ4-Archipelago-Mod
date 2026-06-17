@@ -23,6 +23,7 @@ import CvTechChooser
 
 import ArchipelagoStuff
 import ArchipelagoLocations
+import ArchipelagoItems
 
 gc = CyGlobalContext()
 localText = CyTranslator()
@@ -382,6 +383,9 @@ class CvEventManager:
 		
 		CvAdvisorUtils.resetAdvisorNags()
 		CvAdvisorUtils.endTurnFeats(iPlayer)
+
+                if (gc.getPlayer(iPlayer).isHuman()):
+                    ArchipelagoItems.receiveItems()
 
 	def onEndTurnReady(self, argsList):
 		iGameTurn = argsList[0]
