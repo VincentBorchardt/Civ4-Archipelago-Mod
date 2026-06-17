@@ -21,10 +21,6 @@ import CvWorldBuilderScreen
 import CvAdvisorUtils
 import CvTechChooser
 
-import ArchipelagoStuff
-import ArchipelagoLocations
-import ArchipelagoItems
-
 gc = CyGlobalContext()
 localText = CyTranslator()
 PyPlayer = PyHelpers.PyPlayer
@@ -350,7 +346,6 @@ class CvEventManager:
 					popupInfo.addPopup(iPlayer)
 
 		CvAdvisorUtils.resetNoLiberateCities()
-		ArchipelagoStuff.showPopup()
 																	
 	def onGameEnd(self, argsList):
 		'Called at the End of the game'
@@ -384,8 +379,7 @@ class CvEventManager:
 		CvAdvisorUtils.resetAdvisorNags()
 		CvAdvisorUtils.endTurnFeats(iPlayer)
 
-                if (gc.getPlayer(iPlayer).isHuman()):
-                    ArchipelagoItems.receiveItems()
+                
 
 	def onEndTurnReady(self, argsList):
 		iGameTurn = argsList[0]
@@ -682,7 +676,6 @@ class CvEventManager:
 	def onTechAcquired(self, argsList):
 		'Tech Acquired'
 		iTechType, iTeam, iPlayer, bAnnounce = argsList
-		ArchipelagoLocations.checkIfArchipelagoTech(iTechType)
 		# Note that iPlayer may be NULL (-1) and not a refer to a player object
 		
 		# Show tech splash when applicable

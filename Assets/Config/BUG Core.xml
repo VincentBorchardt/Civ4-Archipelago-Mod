@@ -110,7 +110,10 @@
 	<shortcut module="BugHelp" function="launch" keys="Alt Ctrl F1"/>
 		<!--arg type="string" value="TXT_KEY_BUG_HELP_FILE"/-->
 
-	<event type="GameStart" module="ArchipelagoItems" function="loadArchipelagoData"/>
-	<event type="OnLoad" module="ArchipelagoItems" function="loadArchipelagoData"/>
+	<!-- Custom Archipelago Event Manager -->
+	<event type="GameStart" module="ArchipelagoEvents" function="onGameStart"/>
+	<event type="OnLoad" module="ArchipelagoEvents" function="onLoadGame"/>
 	<event type="SaveGame" module="ArchipelagoItems" function="saveArchipelagoData"/>
+	<event type="EndPlayerTurn" module="ArchipelagoEvents" function="onEndPlayerTurn"/>
+	<event type="techAcquired" module="ArchipelagoEvents" function="onTechAcquired"/>
 </mod>
