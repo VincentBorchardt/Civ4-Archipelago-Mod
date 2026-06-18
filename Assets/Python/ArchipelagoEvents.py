@@ -53,24 +53,29 @@ def onEndPlayerTurn(argsList):
         # Trigger your processing loop to fetch new network packets
         ArchipelagoItems.receiveItems()
 
-
-def onPopupResult(argsList):
-    iPopupID, iButtonID, pCustomData = argsList
     
-    if iPopupID == 1111:
-        # Wrap the result into PyPopup's dedicated return handler
-        popupReturn = CyPopupReturn(pCustomData)
+def handleArchipelagoPopupSubmission(argsList):
+    CyInterface().addImmediateMessage("handleArchipelagoPopupSubmission", "")
+    CyInterface().addImmediateMessage(str(argsList), "")
+    """
+    Processes the raw text input from the Archipelago setup popup.
+    """
+    # Unpack the engine data wrapper
+    # argsList for python buttons typically contains: (iData1, iData2, pCustomData)
+    iData1, iData2, pCustomData = argsList
+    
+    # Wrap the payload into the native C++ reader
+    popupReturn = CyPopupReturn(pCustomData)
         
-        # Read the text strings directly from our index slots (0, 1, 2)
-        server = popupReturn.getEditBoxString(0)
-        username = popupReturn.getEditBoxString(1)
-        password = popupReturn.getEditBoxString(2)
-        
-        # Update your BUG options on the fly
-        BugOptions.getOption("Archipelago__ArchipelagoServer").setValue(server)
-        BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
-        BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
-        
-        # Trigger your connection routine
-        ArchipelagoItems.sendAndReceiveData(server, username, password)
-                    
+    # Read the text strings directly from the index slots (0, 1, 2)
+    server = popupReturn.getEditBoxString(0)
+    username = popupReturn.getEditBoxString(1)
+    password = popupReturn.getEditBoxString(2)
+    
+    # Update your BUG options layout
+    BugOptions.getOption("Archipelago__ArchipelagoServer").setValue(server)
+    BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
+    BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
+    
+    # Trigger your connection loop
+    ArchipelagoStuff.connectToArchipelago(server, username, password)

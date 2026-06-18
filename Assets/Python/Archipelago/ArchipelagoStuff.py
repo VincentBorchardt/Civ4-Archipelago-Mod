@@ -92,6 +92,7 @@ def initialConnectToArchipelago():
     if not hasConnectedToArchipelago:
         forceSetupPopup(False)
     else:
+        CyInterface().addImmediateMessage("in else of initialConnectToArchipelago", "")
         server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
         username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
@@ -115,17 +116,20 @@ def forceSetupPopup(failedConnection=False):
     username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
     password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
     
-    # Create automatically labeled input boxes
-    # Arguments: (CurrentValue, LabelTitle, UniqueControlIndexID)
-    popup.createPythonEditBox(server, "Archipelago Server Address:", 0)
-    popup.createPythonEditBox(username, "Archipelago Username:", 1)
-    popup.createPythonEditBox(password, "Archipelago Password:", 2)
+    popup.setBodyString("\nArchipelago Server Address:")
+    popup.createEditBox(server, 0)
     
-    # Add your submission button
-    popup.addButton("Save and Connect")
+    popup.setBodyString("\nArchipelago Username:")
+    popup.createEditBox(username, 1)
     
-    # Launch immediately over the game screen
-    popup.launch(True, PopupStates.POPUPSTATE_IMMEDIATE)
+    popup.setBodyString("\nArchipelago Password:")
+    popup.createEditBox(password, 2)
+    
+    # 3. Add your custom button manually
+    popup.addPythonButton("onArchipelagoSaveAndConnect", "Save and Connect", "Connect to the Archipelago Server")
+    
+    # 4. Launch it! Set the first parameter to False to kill the default "OK" button
+    popup.launch(False, PopupStates.POPUPSTATE_IMMEDIATE)
 
 
 def connectToArchipelagoServer(server, username, password):

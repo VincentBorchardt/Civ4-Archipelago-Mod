@@ -1162,3 +1162,16 @@ def init():
 	createCivilopedia()
 	createTechSplash()
 # BUG - Options - end
+
+#######################################################################################
+## Archipelago
+#######################################################################################
+def onArchipelagoSaveAndConnect(argsList):
+    """
+    BUG/Vanilla bridge function for the custom Archipelago popup button.
+    Must reside strictly inside CvScreensInterface.py.
+    """
+    # Pass the underlying engine payload straight to your clean event script
+    CyInterface().addImmediateMessage("in onArchipelagoSaveAndConnect", "")
+    CyInterface().addImmediateMessage(str(argsList), "")
+    ArchipelagoEvents.handleArchipelagoPopupSubmission(argsList)
