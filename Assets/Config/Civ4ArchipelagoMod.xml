@@ -7,16 +7,13 @@
     <!-- The 'options' tag MUST have the 'file' attribute specified -->
     <!-- This creates Civ4ArchipelagoMod.ini inside the mod's UserSettings folder -->
     <options id="ArchipelagoOptions" file="Civ4ArchipelagoMod.ini">
+
+
+
         <section id="ProfileSettings">
             <option id="ArchipelagoServer" 
                     type="string" 
                     default="archipelago.gg"/>
-            <option id="ArchipelagoDomain" 
-                    type="string" 
-                    default="archipelago.gg"/>
-            <option id="ArchipelagoPort" 
-                    type="int" 
-                    default="38281"/>
             <option id="ArchipelagoUsername" 
                     type="string" 
                     default="Player1"/>
@@ -25,4 +22,5 @@
                     default="None"/>
         </section>
     </options>
+
 </mod>

@@ -1,15 +1,30 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<Civ4GameText xmlns="http://www.firaxis.com">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Archipelago Mod Text Definitions for Beyond the Sword & BUG -->
+<Civ4GameText xmlns="http://firaxis.com">
+
+	<!-- The Main Tab Title Text -->
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_ARCHIPELAGO</Tag>
-		<English>Archipelago</English>
-		<French>Archipelago</French>
-		<German>Archipelago</German>
-		<Italian>Archipelago</Italian>
-		<Spanish>Archipelago</Spanish>
+		<Tag>TXT_KEY_ARCHIPELAGOTAB</Tag>
+		<English>Archipelago Options</English>
+		<French>Archipelago Options</French>
+		<German>Archipelago Options</German>
+		<Italian>Archipelago Options</Italian>
+		<Spanish>Archipelago Options</Spanish>
 	</TEXT>
+
+	<!-- The Section Border Label Text -->
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_SERVER</Tag>
+		<Tag>TXT_KEY_SERVERSETTINGS</Tag>
+		<English>Connection Parameters</English>
+		<French>Connection Parameters</French>
+		<German>Connection Parameters</German>
+		<Italian>Connection Parameters</Italian>
+		<Spanish>Connection Parameters</Spanish>
+	</TEXT>
+
+	<!-- Automatic Label for self.addTextEdit(..., "Archipelago__ArchipelagoServer") -->
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOSERVER_TEXT</Tag>
 		<English>Archipelago Server:</English>
 		<French>Archipelago Server:</French>
 		<German>Archipelago Server:</German>
@@ -17,7 +32,17 @@
 		<Spanish>Archipelago Server:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_USERNAME</Tag>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOSERVER_HELP</Tag>
+		<English>Enter your target Archipelago server host address and port number.</English>
+		<French>Enter server address.</French>
+		<German>Enter server address.</German>
+		<Italian>Enter server address.</Italian>
+		<Spanish>Enter server address.</Spanish>
+	</TEXT>
+
+	<!-- Automatic Label for self.addTextEdit(..., "Archipelago__ArchipelagoUsername") -->
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOUSERNAME_TEXT</Tag>
 		<English>Username:</English>
 		<French>Username:</French>
 		<German>Username:</German>
@@ -25,7 +50,17 @@
 		<Spanish>Username:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_PASSWORD</Tag>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOUSERNAME_HELP</Tag>
+		<English>Enter your exact slot player name defined in your multiworld file.</English>
+		<French>Enter username.</French>
+		<German>Enter username.</German>
+		<Italian>Enter username.</Italian>
+		<Spanish>Enter username.</Spanish>
+	</TEXT>
+
+	<!-- Automatic Label for self.addTextEdit(..., "Archipelago__ArchipelagoPassword") -->
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOPASSWORD_TEXT</Tag>
 		<English>Password:</English>
 		<French>Password:</French>
 		<German>Password:</German>
@@ -33,19 +68,12 @@
 		<Spanish>Password:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_CONNECT_TO_ARCHIPELAGO</Tag>
-		<English>Connect</English>
-		<French>Connect</French>
-		<German>Connect</German>
-		<Italian>Connect</Italian>
-		<Spanish>Connect</Spanish>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOPASSWORD_HELP</Tag>
+		<English>Enter your Archipelago room token password if required.</English>
+		<French>Enter password.</French>
+		<German>Enter password.</German>
+		<Italian>Enter password.</Italian>
+		<Spanish>Enter password.</Spanish>
 	</TEXT>
-	<TEXT>
-		<Tag>TXT_KEY_OPTIONS_DISCONNECT_FROM_ARCHIPELAGO</Tag>
-		<English>Disconnect</English>
-		<French>Disconnect</French>
-		<German>Disconnect</German>
-		<Italian>Disconnect</Italian>
-		<Spanish>Disconnect</Spanish>
-	</TEXT>
+
 </Civ4GameText>

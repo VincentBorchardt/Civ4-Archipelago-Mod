@@ -4,9 +4,7 @@
 from CvPythonExtensions import *
 import BugOptionsTab
 import BugOptions
-
 import ArchipelagoStuff
-
 
 class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
     """Governs drawing, element arrangement, and layout rendering calculations."""
@@ -27,27 +25,28 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
 
         columnL, columnR = self.addTwoColumnLayout(screen, column, "ServerSettings")
         
-        # 3. Add your elements using your working storage mapping: ModID__SettingName
+        # 3. Add text edit elements mapped to your XML option definitions
         self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoServer")
         self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoUsername")
         self.addTextEdit(screen, columnL, columnR, "Archipelago__ArchipelagoPassword")
 
-        # FIX: Point the callback directly to an action function inside this module file
-        # Syntax: self.addButton(screen, layoutContainer, "Module.Function", "Button Display Text")
-        self.addButton(screen, columnL, "Connect", "ArchipelagoTab.onConnectClicked", )
-        self.addButton(screen, columnL, "Disconnect", "ArchipelagoTab.onDisconnectClicked")
+        # 4. THE BUTTON CALLBACK BINDING:
+        # Pass the exact name of the method defined below as a clean string.
+        # BUG evaluates this string to target the class method automatically.
+        self.addButton(screen, columnL, "BtnConnect", "onConnectClicked", "Save and Connect")
 
     def onConnectClicked(self, screen, button):
-        # This will now fire properly!
+        """
+        Fires automatically via BUG's Tab UI handler when the button is clicked.
+        """
+        # 1. Tell BUG to grab the modified text strings out of the text boxes
+        # and push them into the game's active options cache memory.
         screen.updateOptions()
 
-        # BugOptions is completely valid here if defined in your XML data sections
+        # 2. Extract values safely from your designated options module ID
         server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
         username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
 
-        ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
-        
-    def onDisconnectClicked(self, screen, button):
-        # Add your disconnect handler logic here
-        pass
+        # 3. Trigger your network connection routine
+        ArchipelagoStuff.connectToArchipelago(server, username, password)
