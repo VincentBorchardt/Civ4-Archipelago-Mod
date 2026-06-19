@@ -90,46 +90,13 @@ def sendAndReceiveData(messageDict, waitForRead=True):
 
 def initialConnectToArchipelago():
     if not hasConnectedToArchipelago:
-        forceSetupPopup(False)
+        pass
     else:
         CyInterface().addImmediateMessage("in else of initialConnectToArchipelago", "")
         server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
         username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
         connectToArchipelagoServer(server, username, password)
-
-def forceSetupPopup(failedConnection=False):
-    """Launches a clean, modular setup window using PyPopup."""
-    # Initialize the high-level PyPopup class
-    # Arguments: (UniquePopupID, EventContextType, bModalFlag)
-    popup = PyPopup(1111, EventContextTypes.NO_EVENTCONTEXT, True)
-    
-    popup.setHeaderString("Archipelago Connection Setup")
-    
-    if failedConnection:
-        popup.setBodyString("Connection Failed. Please check your information and verify your client is open.")
-    else:
-        popup.setBodyString("Please enter your Archipelago connection information below:")
-
-    # Grab your current defaults from BUG
-    server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
-    username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
-    password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
-    
-    popup.setBodyString("\nArchipelago Server Address:")
-    popup.createEditBox(server, 0)
-    
-    popup.setBodyString("\nArchipelago Username:")
-    popup.createEditBox(username, 1)
-    
-    popup.setBodyString("\nArchipelago Password:")
-    popup.createEditBox(password, 2)
-    
-    # 3. Add your custom button manually
-    popup.addPythonButton("onArchipelagoSaveAndConnect", "Save and Connect", "Connect to the Archipelago Server")
-    
-    # 4. Launch it! Set the first parameter to False to kill the default "OK" button
-    popup.launch(False, PopupStates.POPUPSTATE_IMMEDIATE)
 
 
 def connectToArchipelagoServer(server, username, password):
@@ -155,25 +122,5 @@ def connectToArchipelagoServer(server, username, password):
         showPopup("Connected", "Successfully Connected")
     else:
         showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd") + " in connectToArchipelagoServer")
-
-
-def disconnectFromArchipelagoServer():
-    #if not isSocketConnected():
-        #showPopup("Connection Error", "Not connected to a server")
-        #return
-    try:
-        socket_to_archipelago.settimeout(3.0)
-        socket_to_archipelago.shutdown(socket.SHUT_RDWR)
-    except Exception, e:
-        showPopup("Shutdown Error", str(e))
-    showPopup("after shutdown", "test")
-    socket_to_archipelago.close()
-    showPopup("after close", "test")
-    return
     
             
-
-
-			
-	
-

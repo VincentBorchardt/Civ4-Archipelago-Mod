@@ -4,6 +4,7 @@ import CvUtil
 import ArchipelagoStuff
 import ArchipelagoLocations
 import ArchipelagoItems
+import ArchipelagoScreen
 
 gc = CyGlobalContext()
 
@@ -20,8 +21,8 @@ def onTechAcquired(argsList):
         return
 
     ArchipelagoLocations.checkIfArchipelagoTech(eTech)
-    if not ArchipelagoStuff.is_connected_to_ap:
-        ArchipelagoStuff.forceSetupPopup()
+    if not ArchipelagoStuff.isConnectedToArchipelago:
+        pass
 
 def onGameStart(argsList):
     """
@@ -52,30 +53,5 @@ def onEndPlayerTurn(argsList):
     if gc.getPlayer(iPlayer).isHuman():
         # Trigger your processing loop to fetch new network packets
         ArchipelagoItems.receiveItems()
-
-    
-def handleArchipelagoPopupSubmission(argsList):
-    CyInterface().addImmediateMessage("handleArchipelagoPopupSubmission", "")
-    CyInterface().addImmediateMessage(str(argsList), "")
-    """
-    Processes the raw text input from the Archipelago setup popup.
-    """
-    # Unpack the engine data wrapper
-    # argsList for python buttons typically contains: (iData1, iData2, pCustomData)
-    iData1, iData2, pCustomData = argsList
-    
-    # Wrap the payload into the native C++ reader
-    popupReturn = CyPopupReturn(pCustomData)
-        
-    # Read the text strings directly from the index slots (0, 1, 2)
-    server = popupReturn.getEditBoxString(0)
-    username = popupReturn.getEditBoxString(1)
-    password = popupReturn.getEditBoxString(2)
-    
-    # Update your BUG options layout
-    BugOptions.getOption("Archipelago__ArchipelagoServer").setValue(server)
-    BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(username)
-    BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(password)
-    
-    # Trigger your connection loop
-    ArchipelagoStuff.connectToArchipelago(server, username, password)
+        if not ArchipelagoStuff.isConnectedToArchipelago:
+            pass
