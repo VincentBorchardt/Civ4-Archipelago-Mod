@@ -3,7 +3,11 @@ import CvScreensInterface
 import Popup as PyPopup
 import CvUtil
 import string
+
+import BugOptions
+import BugOptionsScreen
 import ArchipelagoStuff
+import ArchipelagoTab
 
 localText = CyTranslator()
 UserProfile = CyUserProfile()
@@ -496,6 +500,29 @@ def disconnectFromArchipelago( argsList ):
     szName = argsList
 
     ArchipelagoStuff.disconnectFromArchipelagoServer()
+
+def onConnectClicked( argsList ):
+    """
+    MANDATORY BUG INTERFACE ENTRY POINT.
+    Fires automatically when the Archipelago tab button is clicked.
+    """
+    CyInterface().addImmediateMessage(str(argsList), "")
+    (buttonName,) = argsList
+
+    options = BugOptions.getOptions()
+    
+    if options is not None:
+        # Force the screen layout container to push the input text values 
+        # into active memory caches
+        options.write()
+        
+        # Extract values from memory using your exact, working Archipelago__ settings keys
+        server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
+        username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
+        password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
+        
+        # Execute your active multiworld socket handshake
+        ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
 
 def handleExitButtonInput ( argsList ):
 	"Exits the screen"

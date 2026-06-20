@@ -35,18 +35,4 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         # BUG evaluates this string to target the class method automatically.
         self.addButton(screen, columnL, "BtnConnect", "onConnectClicked", "Save and Connect")
 
-    def onConnectClicked(self, screen, button):
-        """
-        Fires automatically via BUG's Tab UI handler when the button is clicked.
-        """
-        # 1. Tell BUG to grab the modified text strings out of the text boxes
-        # and push them into the game's active options cache memory.
-        screen.updateOptions()
 
-        # 2. Extract values safely from your designated options module ID
-        server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
-        username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
-        password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
-
-        # 3. Trigger your network connection routine
-        ArchipelagoStuff.connectToArchipelago(server, username, password)
