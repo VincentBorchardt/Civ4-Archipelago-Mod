@@ -75,5 +75,13 @@
 		<Italian>Enter password.</Italian>
 		<Spanish>Enter password.</Spanish>
 	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOCOMMAND_TEXT</Tag>
+		<English>Send Command:</English>
+		<French>Send Command:</French>
+		<German>Send Command:</German>
+		<Italian>Send Command:</Italian>
+		<Spanish>Send Command:</Spanish>
+	</TEXT>
 
 </Civ4GameText>

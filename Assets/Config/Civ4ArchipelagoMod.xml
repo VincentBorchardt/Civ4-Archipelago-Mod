@@ -20,6 +20,9 @@
             <option id="ArchipelagoPassword" 
                     type="string" 
                     default="None"/>
+	    <option id="ArchipelagoCommand" 
+		    type="string"
+		    default="None"/>
         </section>
     </options>
 
