@@ -51,7 +51,12 @@ def onEndPlayerTurn(argsList):
     # We only want to process incoming server checks at the end of the human's turn
     # This prevents the network loop from running on every single AI turn slice
     if gc.getPlayer(iPlayer).isHuman():
-        # Trigger your processing loop to fetch new network packets
-        ArchipelagoItems.receiveItems()
-        if not ArchipelagoStuff.isConnectedToArchipelago:
-            pass
+        if not ArchipelagoStuff.hasConnectedToArchipelago:
+            ArchipelagoStuff.showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
+        else:
+            # Trigger your processing loop to fetch new network packets
+            ArchipelagoItems.receiveItems()
+            if not ArchipelagoStuff.isConnectedToArchipelago:
+                ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
+
+

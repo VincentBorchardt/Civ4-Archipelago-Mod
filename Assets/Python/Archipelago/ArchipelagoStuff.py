@@ -90,13 +90,14 @@ def sendAndReceiveData(messageDict, waitForRead=True):
 
 def initialConnectToArchipelago():
     if not hasConnectedToArchipelago:
-        pass
+        showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
     else:
-        CyInterface().addImmediateMessage("in else of initialConnectToArchipelago", "")
         server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
         username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
         connectToArchipelagoServer(server, username, password)
+        if not isConnectedToArchipelago:
+            showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
 
 
 def connectToArchipelagoServer(server, username, password):
