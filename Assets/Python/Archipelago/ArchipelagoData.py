@@ -3,6 +3,7 @@
 
 from CvPythonExtensions import *
 import BugData
+import BugOptions
 
 # Unique storage tracking slot inside BUG's secure save profile
 DATA_SAVE_KEY = "ArchipelagoModSaveState"
@@ -13,14 +14,22 @@ isConnectedToArchipelago = False
 archipelagoReceivedItems = {}
 
 def saveData():
-    """Serializes the multiworld data arrays straight into BUG's safe profile registry."""
+    """Serializes trackers and instance connection settings straight into the save game."""
     try:
         dataStore = BugData.getGameData()
         
-        # Consolidate all parameters into a single master dictionary payload
+        # 1. Fetch current settings active in BUG options memory
+        server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
+        username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
+        password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
+        
+        # 2. Package everything together into our save state dictionary payload
         payload = {
             "hasConnected": hasConnectedToArchipelago,
-            "receivedItems": archipelagoReceivedItems
+            "receivedItems": archipelagoReceivedItems,
+            "savedServer": server,
+            "savedUser": username,
+            "savedPass": password
         }
         
         dataStore[DATA_SAVE_KEY] = payload
@@ -28,7 +37,7 @@ def saveData():
         CyInterface().addImmediateMessage("AP Save Data Failure: " + str(e), "")
 
 def loadData(*args):
-    """Deserializes arrays out of BUG's secure profile registry on boot loops."""
+    """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
     global hasConnectedToArchipelago, archipelagoReceivedItems
     try:
         dataStore = BugData.getGameData()
@@ -36,10 +45,24 @@ def loadData(*args):
         if DATA_SAVE_KEY in dataStore:
             payload = dataStore[DATA_SAVE_KEY]
             
-            # Extract attributes safely
+            # Extract standard tracking parameters safely
             hasConnectedToArchipelago = payload.get("hasConnected", False)
             archipelagoReceivedItems = payload.get("receivedItems", {})
+            
+            # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
+            saved_server = payload.get("savedServer", None)
+            saved_user = payload.get("savedUser", None)
+            saved_pass = payload.get("savedPass", None)
+            
+            # If the data exists in this specific save file, overwrite active BUG options
+            if saved_server is not None and saved_user is not None and saved_pass is not None:
+                BugOptions.getOption("Archipelago__ArchipelagoServer").setValue(saved_server)
+                BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(saved_user)
+                BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(saved_pass)
+                # Note: If these keys are None (e.g. an old save file generated before this update),
+                # Python skips this block entirely, cleanly falling back to whatever is inside the .ini file!
         else:
+            # Baseline defaults for a completely brand-new game map
             hasConnectedToArchipelago = False
             archipelagoReceivedItems = {}
             

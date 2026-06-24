@@ -32,7 +32,6 @@ def onGameStart(argsList):
 
 def onLoadGame(argsList):
     """Fires every time an existing save file is loaded into memory."""
-    # 1. First, make sure the dictionary data is loaded from the save
     ArchipelagoData.loadData()
     ArchipelagoStuff.initialConnectToArchipelago()
 

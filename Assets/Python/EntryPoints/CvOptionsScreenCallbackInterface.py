@@ -6,8 +6,10 @@ import string
 
 import BugOptions
 import BugOptionsScreen
+
 import ArchipelagoStuff
 import ArchipelagoTab
+import ArchipelagoConsole
 
 localText = CyTranslator()
 UserProfile = CyUserProfile()
@@ -506,7 +508,6 @@ def onConnectClicked( argsList ):
     MANDATORY BUG INTERFACE ENTRY POINT.
     Fires automatically when the Archipelago tab button is clicked.
     """
-    CyInterface().addImmediateMessage(str(argsList), "")
     (buttonName,) = argsList
 
     options = BugOptions.getOptions()
@@ -523,6 +524,11 @@ def onConnectClicked( argsList ):
         
         # Execute your active multiworld socket handshake
         ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
+
+def onOpenConsoleClicked(argsList):
+    """Callback listener hooked to the Open Console button component."""
+    CyInterface().addImmediateMessage("in OpenConsole callback", "")
+    ArchipelagoConsole.showConsole()
 
 def handleExitButtonInput ( argsList ):
 	"Exits the screen"

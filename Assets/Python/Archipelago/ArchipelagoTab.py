@@ -46,34 +46,7 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         # RIGHT HALF STACK: The Console Area
         rightStack = self.addOneColumnLayout(screen, mainRight)
         
-        # PART 3: The Bounded Scrollable Text Log Area
-        # We declare a unique string name for our target text log viewport container
-        logPanelName = "ApLogScrollBox"
-        
-        # FIX: Force the right stack column to lock its vertical dimensions!
-        # This keeps the master window stable and forces scroll panes to clip.
-        screen.setColumnLength(320)
-        
-        # PART 3: The Bounded Scrollable Text Log Area
-        logPanelName = "ApLogScrollBox"
-        screen.attachScrollPanel(rightStack, logPanelName)
-        
-        # FIX: Force the interior scroll panel container to expand to fill the right column limits
-        screen.setLayoutFlag(logPanelName, "LAYOUT_SIZE_RESIZABLE")
-        
-        # CRUCIAL HOOK: To place things inside the scroll area, the parent container string 
-        # passed to your labels must be your new logPanelName variable!
-        for i in range(0, 50):
-            label_id = "LogMsg" + str(i)
-            screen.attachLabel(logPanelName, label_id, "Server Packet Line Tracker Log Entry #" + str(i))
-            screen.setLayoutFlag(label_id, "LAYOUT_SIZE_RESIZABLE")
-
-
-        # DRAW VISUAL DIVIDER ABOVE COMMAND PROMPT
         screen.attachHSeparator(rightStack, rightStack + "Sep1")
         
-        # Command input text line box entry at the very bottom right
-        colL3, colR3 = self.addTwoColumnLayout(screen, rightStack, "TerminalSettings")
-        
-        # Map a raw text edit box straight to a custom data caching option string slot
-        self.addTextEdit(screen, colL3, colR3, "Archipelago__ArchipelagoCommand")
+        self.addLabel(screen, rightStack, "ConsoleInfoLabel", "View Archipelago Message Log:")
+        self.addButton(screen, rightStack, "BtnOpenConsole", "onOpenConsoleClicked", "Open Console Log Window")
