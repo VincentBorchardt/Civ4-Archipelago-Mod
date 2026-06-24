@@ -8,6 +8,8 @@ import BugOptions
 import socket
 import errno
 
+import ArchipelagoData
+
 # TODO NEED TO EVENTUALLY IMPLEMENT A SAFE UNPICKLER!!!
 import pickle
 
@@ -19,9 +21,6 @@ pyGame = PyGame()
 
 popupHeader = "Tutorial"
 popupMessage = "This is a Python tutorial.\n\nby Baldyr"
-
-hasConnectedToArchipelago = False
-isConnectedToArchipelago = False
 
 socket_to_archipelago = socket.socket()
 socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # enable address reuse
@@ -36,7 +35,7 @@ def showPopup(header=popupHeader, body=popupMessage):
 # TODO do I want to decouple sending and receiving?
 # Manually doing a socket every time seems wasteful, but it's a later optimization
 def sendAndReceiveData(messageDict, waitForRead=True):
-    global isConnectedToArchipelago, hasConnectedToArchipelago
+    #global isConnectedToArchipelago, hasConnectedToArchipelago
     messagePickle = pickle.dumps(messageDict, 2)
 
     socket_to_archipelago = socket.socket()  # instantiate
@@ -51,8 +50,11 @@ def sendAndReceiveData(messageDict, waitForRead=True):
             socket_to_archipelago.connect((host, port))  # connect to the server
             socket_to_archipelago.sendall(messagePickle)  # send message
 
-            isConnectedToArchipelago = True
-            hasConnectedToArchipelago = True
+            ArchipelagoData.isConnectedToArchipelago = True
+            ArchipelagoData.hasConnectedToArchipelago = True
+        
+            # Save updates out to the registry memory loop instantly
+            ArchipelagoData.saveData()
 
             if waitForRead:
                 data_pickle = socket_to_archipelago.recv(1024)
@@ -90,14 +92,14 @@ def sendAndReceiveData(messageDict, waitForRead=True):
             pass
 
 def initialConnectToArchipelago():
-    if not hasConnectedToArchipelago:
+    if not ArchipelagoData.hasConnectedToArchipelago:
         showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
     else:
         server = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
         username = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
         connectToArchipelagoServer(server, username, password)
-        if not isConnectedToArchipelago:
+        if not ArchipelagoData.isConnectedToArchipelago:
             showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
 
 

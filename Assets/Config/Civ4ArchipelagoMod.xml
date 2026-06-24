@@ -4,11 +4,16 @@
      author="Vincent" 
      version="0.1">
 
+    <!-- Custom Archipelago Event Manager -->
+    <event type="GameStart" module="ArchipelagoEvents" function="onGameStart"/>
+    <event type="OnLoad" module="ArchipelagoEvents" function="onLoadGame"/>
+    <event type="SaveGame" module="ArchipelagoData" function="saveData"/>
+    <event type="EndPlayerTurn" module="ArchipelagoEvents" function="onEndPlayerTurn"/>
+    <event type="techAcquired" module="ArchipelagoEvents" function="onTechAcquired"/>
+
     <!-- The 'options' tag MUST have the 'file' attribute specified -->
     <!-- This creates Civ4ArchipelagoMod.ini inside the mod's UserSettings folder -->
     <options id="ArchipelagoOptions" file="Civ4ArchipelagoMod.ini">
-
-
 
         <section id="ProfileSettings">
             <option id="ArchipelagoServer" 

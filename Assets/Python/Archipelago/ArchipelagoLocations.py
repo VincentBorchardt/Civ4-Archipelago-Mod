@@ -5,6 +5,7 @@ from Popup import PyPopup
 import BugOptions
 
 import ArchipelagoStuff
+import ArchipelagoData
 
 # constants
 gc = CyGlobalContext()
