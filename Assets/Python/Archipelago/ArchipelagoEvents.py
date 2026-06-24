@@ -4,7 +4,6 @@ import CvUtil
 import ArchipelagoStuff
 import ArchipelagoLocations
 import ArchipelagoItems
-import ArchipelagoScreen
 
 gc = CyGlobalContext()
 
@@ -47,7 +46,6 @@ def onEndPlayerTurn(argsList):
     Fires at the absolute end of an individual player's turn phase.
     """
     iGameTurn, iPlayer = argsList
-    
     # We only want to process incoming server checks at the end of the human's turn
     # This prevents the network loop from running on every single AI turn slice
     if gc.getPlayer(iPlayer).isHuman():

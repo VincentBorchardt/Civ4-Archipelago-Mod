@@ -53,8 +53,6 @@ def loadArchipelagoData(*args):
 def receiveItems():
     messageDict = {"type":"ReceiveItems"}
     dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=True)
-    CyInterface().addImmediateMessage(str(dataDict), "")
-    CyInterface().addImmediateMessage(dataDict.get("cmd"), "")
     if dataDict is None:
         ArchipelagoStuff.showPopup("Connection Error", "No Packet Received From receiveItems")
     # confirmed to have "cmd" in sendAndReceiveData
@@ -76,8 +74,6 @@ def receiveItems():
         ArchipelagoStuff.showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd"))
 
 def grantTech(techName):
-    CyInterface().addImmediateMessage(techName, "")
-    CyInterface().addImmediateMessage(TECH_TRANSLATION_DICT.get(techName), "")
     pPlayer = gc.getPlayer(0)
     if pPlayer is None or pPlayer.isNone() or not pPlayer.isAlive():
         CyInterface().addImmediateMessage("Player does not exist yet for some reason", "")

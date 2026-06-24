@@ -36,6 +36,7 @@ def showPopup(header=popupHeader, body=popupMessage):
 # TODO do I want to decouple sending and receiving?
 # Manually doing a socket every time seems wasteful, but it's a later optimization
 def sendAndReceiveData(messageDict, waitForRead=True):
+    global isConnectedToArchipelago, hasConnectedToArchipelago
     messagePickle = pickle.dumps(messageDict, 2)
 
     socket_to_archipelago = socket.socket()  # instantiate
