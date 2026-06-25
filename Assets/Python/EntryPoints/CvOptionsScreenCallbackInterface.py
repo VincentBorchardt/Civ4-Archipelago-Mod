@@ -527,7 +527,6 @@ def onConnectClicked( argsList ):
 
 def onOpenConsoleClicked(argsList):
     """Callback listener hooked to the Open Console button component."""
-    CyInterface().addImmediateMessage("in OpenConsole callback", "")
     ArchipelagoConsole.showConsole()
 
 def handleExitButtonInput ( argsList ):

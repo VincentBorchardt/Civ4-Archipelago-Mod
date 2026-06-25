@@ -53,6 +53,8 @@ CustDomAdvOpt = BugCore.game.CustDomAdv
 TechWindowOpt = BugCore.game.TechWindow
 # BUG - Options - end
 
+import ArchipelagoConsole
+
 g_bIsScreenActive = -1
 
 def toggleSetNoScreens():
@@ -892,6 +894,8 @@ def mouseOverPlot (argsList):
 		worldBuilderScreen.mouseOverPlot(argsList)
 
 def handleInput (argsList):
+        if ArchipelagoConsole.handleConsoleInput(argsList):
+                return 1
 	' handle input is called when a screen is up '
 	inputClass = PyScreenInput.ScreenInput(argsList)
 	
