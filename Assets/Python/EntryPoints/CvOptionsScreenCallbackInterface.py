@@ -10,6 +10,7 @@ import BugOptionsScreen
 import ArchipelagoStuff
 import ArchipelagoTab
 import ArchipelagoConsole
+import ArchipelagoItems
 
 localText = CyTranslator()
 UserProfile = CyUserProfile()
@@ -524,6 +525,15 @@ def onConnectClicked( argsList ):
         
         # Execute your active multiworld socket handshake
         ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
+
+def onSyncClicked ( argsList ):
+    ArchipelagoItems.receiveItems()
+    optionsScreen = BugOptionsScreen.g_optionsScreen
+    if optionsScreen is not None:
+        for tabInstance in optionsScreen.tabs:
+            if tabInstance.__class__.__name__ == "ArchipelagoTab":
+                tabInstance.refreshHints()
+                break
 
 def onOpenConsoleClicked(argsList):
     """Callback listener hooked to the Open Console button component."""

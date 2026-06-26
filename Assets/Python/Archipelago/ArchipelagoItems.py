@@ -52,5 +52,4 @@ def grantTech(techName):
     pTeam = gc.getTeam(iTeamID)
     eTech = gc.getInfoTypeForString(TECH_TRANSLATION_DICT.get(techName))
     # TODO decide what to do about world firsts (fourth parameter)
-    # TODO make a setting for showing tech announcements (fifth parameter)
-    pTeam.setHasTech(eTech, True, 0, True, False)
+    pTeam.setHasTech(eTech, True, 0, True, BugOptions.getOption("Archipelago__ShowAnnouncements").getValue())

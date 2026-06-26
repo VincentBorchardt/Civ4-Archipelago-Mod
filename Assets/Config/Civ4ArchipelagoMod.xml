@@ -28,6 +28,9 @@
 	    <option id="ArchipelagoCommand" 
 		    type="string"
 		    default="None"/>
+	    <option id="ShowAnnouncements" 
+		    type="bool"
+		    default="False"/>
         </section>
     </options>
 

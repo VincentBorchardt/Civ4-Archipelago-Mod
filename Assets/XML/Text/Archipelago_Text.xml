@@ -32,7 +32,7 @@
 		<Spanish>Archipelago Server:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOSERVER_HELP</Tag>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOSERVER_HOVER</Tag>
 		<English>Enter your target Archipelago server host address and port number.</English>
 		<French>Enter server address.</French>
 		<German>Enter server address.</German>
@@ -50,7 +50,7 @@
 		<Spanish>Username:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOUSERNAME_HELP</Tag>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOUSERNAME_HOVER</Tag>
 		<English>Enter your exact slot player name defined in your multiworld file.</English>
 		<French>Enter username.</French>
 		<German>Enter username.</German>
@@ -68,12 +68,28 @@
 		<Spanish>Password:</Spanish>
 	</TEXT>
 	<TEXT>
-		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOPASSWORD_HELP</Tag>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOPASSWORD_HOVER</Tag>
 		<English>Enter your Archipelago room token password if required.</English>
 		<French>Enter password.</French>
 		<German>Enter password.</German>
 		<Italian>Enter password.</Italian>
 		<Spanish>Enter password.</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__SHOWANNOUNCEMENTS_TEXT</Tag>
+		<English>Show Technology Announcements</English>
+		<French>Show Technology Announcements</French>
+		<German>Show Technology Announcements</German>
+		<Italian>Show Technology Announcements</Italian>
+		<Spanish>Show Technology Announcements</Spanish>
+	</TEXT>
+	<TEXT>
+		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__SHOWANNOUNCEMENTS_HOVER</Tag>
+		<English>Show the popup when you receive a technology from the multiworld. Recommended to turn off if you expect to receive a lot of items at once (such as starting a new game after a loss).</English>
+		<French>Show tech popup.</French>
+		<German>Show tech popup.</German>
+		<Italian>Show tech popup.</Italian>
+		<Spanish>Show tech popup.</Spanish>
 	</TEXT>
 	<TEXT>
 		<Tag>TXT_KEY_BUG_OPT_ARCHIPELAGO__ARCHIPELAGOCOMMAND_TEXT</Tag>
