@@ -5,6 +5,8 @@ from CvPythonExtensions import *
 import BugData
 import BugOptions
 
+import ArchipelagoStuff
+
 # Unique storage tracking slot inside BUG's secure save profile
 DATA_SAVE_KEY = "ArchipelagoModSaveState"
 
@@ -12,6 +14,7 @@ DATA_SAVE_KEY = "ArchipelagoModSaveState"
 hasConnectedToArchipelago = False
 isConnectedToArchipelago = False
 archipelagoReceivedItems = {}
+archipelagoHints = []
 
 def saveData():
     """Serializes trackers and instance connection settings straight into the save game."""
@@ -27,6 +30,7 @@ def saveData():
         payload = {
             "hasConnected": hasConnectedToArchipelago,
             "receivedItems": archipelagoReceivedItems,
+            "receivedHints": archipelagoHints,
             "savedServer": server,
             "savedUser": username,
             "savedPass": password
@@ -38,7 +42,7 @@ def saveData():
 
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
-    global hasConnectedToArchipelago, archipelagoReceivedItems
+    global hasConnectedToArchipelago, archipelagoReceivedItems, archipelagoHints
     try:
         dataStore = BugData.getGameData()
         
@@ -48,6 +52,7 @@ def loadData(*args):
             # Extract standard tracking parameters safely
             hasConnectedToArchipelago = payload.get("hasConnected", False)
             archipelagoReceivedItems = payload.get("receivedItems", {})
+            archipelagoHints = payload.get("receivedHints", [])
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -65,8 +70,20 @@ def loadData(*args):
             # Baseline defaults for a completely brand-new game map
             hasConnectedToArchipelago = False
             archipelagoReceivedItems = {}
+            archipelagoHints = []
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
         hasConnectedToArchipelago = False
         archipelagoReceivedItems = {}
+        archipelagoHints = []
+
+def getHints():
+    global archipelagoHints
+    messageDict = {"type":"GetHints"}
+    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict)
+    if not dataDict or (dataDict.get("cmd") != "GetHints"):
+        ArchipelagoStuff.showPopup("Connection Error", "No hint packet received")
+        return
+    archipelagoHints = dataDict.get("hints")
+    saveData()

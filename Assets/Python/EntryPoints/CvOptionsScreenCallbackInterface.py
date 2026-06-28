@@ -11,6 +11,7 @@ import ArchipelagoStuff
 import ArchipelagoTab
 import ArchipelagoConsole
 import ArchipelagoItems
+import ArchipelagoData
 
 localText = CyTranslator()
 UserProfile = CyUserProfile()
@@ -486,7 +487,15 @@ def loadProfile(szProfile):
 		popup.launch()
 		
 		return 0
-		
+
+def handleExitButtonInput ( argsList ):
+	"Exits the screen"
+	szName = argsList
+	
+	saveProfile()
+	getTabControl().destroy()
+	
+	return 1	
 ######################################## ARCHIPELAGO ########################################
 
 def connectToArchipelago( argsList ):
@@ -528,6 +537,11 @@ def onConnectClicked( argsList ):
 
 def onSyncClicked ( argsList ):
     ArchipelagoItems.receiveItems()
+    ArchipelagoData.getHints()
+    
+
+def onRefreshHintsClicked ( argsList ):
+    ArchipelagoData.getHints()
     optionsScreen = BugOptionsScreen.g_optionsScreen
     if optionsScreen is not None:
         for tabInstance in optionsScreen.tabs:
@@ -539,11 +553,4 @@ def onOpenConsoleClicked(argsList):
     """Callback listener hooked to the Open Console button component."""
     ArchipelagoConsole.showConsole()
 
-def handleExitButtonInput ( argsList ):
-	"Exits the screen"
-	szName = argsList
-	
-	saveProfile()
-	getTabControl().destroy()
-	
-	return 1
+
