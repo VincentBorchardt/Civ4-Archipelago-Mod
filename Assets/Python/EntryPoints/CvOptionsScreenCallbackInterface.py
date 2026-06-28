@@ -544,10 +544,8 @@ def onRefreshHintsClicked ( argsList ):
     ArchipelagoData.getHints()
     optionsScreen = BugOptionsScreen.g_optionsScreen
     if optionsScreen is not None:
-        for tabInstance in optionsScreen.tabs:
-            if tabInstance.__class__.__name__ == "ArchipelagoTab":
-                tabInstance.refreshHints()
-                break
+        # BUG's native cleanup handler. Safely closes the menu without breaking UI states
+        optionsScreen.close()
 
 def onOpenConsoleClicked(argsList):
     """Callback listener hooked to the Open Console button component."""

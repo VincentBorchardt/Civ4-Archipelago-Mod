@@ -18,6 +18,8 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         BugOptionsTab.BugOptionsTab.__init__(self, "ArchipelagoTab", "Archipelago Options")
 
     def create(self, screen):
+        screen.setSize(1200, 800)
+        
         """Executes rendering instructions using BUG's strict initialization hook."""
         tab = self.createTab(screen)
         panel = self.createMainPanel(screen)
@@ -58,47 +60,40 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         screen.attachHSeparator(rightStack, rightStack + "Sep1")
 
         hintsList = ArchipelagoData.archipelagoHints
+
         
         if not hintsList:
             # Baseline placeholder view if the player hasn't pressed sync yet
             self.addLabel(screen, rightStack, "NoHintsLbl", "No hint data cached.")
         else:
-            self.addLabel(screen, rightStack, "HintHeader", "<color=255,255,0>Archipelago Hints Received From Server:</color>")
-            screen.attachHSeparator(rightStack, "RightHeaderSep")
+            # Generate a multi-column row grid block inside BUG's layout sheet
+            # By passing count=7, every 7 labels we append will naturally wrap into a perfect row
+            grid = self.addMultiColumnLayout(screen, rightStack, 7, "HintGridTable", separator=True)
             
-            # Create a 4-Column Layout grid box using BUG's built-in column generator
-            gridL, gridR = self.addTwoColumnLayout(screen, rightStack, "HintGrid")
+            # 1. DRAW ROW 0: HEADERS (Enclosed in uppercase yellow text tags)
+            headers = ["Receiver", "Item", "Type", "Finder", "Location", "Entrance", "Status"]
+            for i in range(0, len(headers)):
+                self.addLabel(screen, grid[i], "Hdr_" + headers[i], headers[i])
             
+            # 2. DRAW ROWS 1+: STREAM DATA DYNAMICALLY
             row_index = 0
             for hint in hintsList:
+                szReceiver = str(hint.get("receiving_player", "Unknown"))
                 szItem = str(hint.get("item", "Unknown"))
                 szType = str(hint.get("item_type", "Normal"))
                 szFinder = str(hint.get("finding_player", "Unknown"))
                 szLocation = str(hint.get("location", "Unknown"))
+                szEntrance = str(hint.get("entrance", "Vanilla"))
+                szStatus = str(hint.get("status", "Unspecified"))
                 
-                # If it's a vital progression item, wrap it in a teal text tag
-                if szType == "Progression":
-                    szItem = "<color=0,255,255>" + szItem + "</color>"
                 
-                # Combine the strings into readable, flat label segments
-                # Because we are using the two-column grid layout, dropping these two lines 
-                # sequentially places the Item/Type on the Left, and Finder/Location on the Right
-                leftLabelText = "%s (%s)" % (szItem, szType)
-                rightLabelText = "Found by %s at %s" % (szFinder, szLocation)
-                
-                # Render using standard, un-nestable BUG labels with unique tracking IDs
-                self.addLabel(screen, gridL, "HintItem_" + str(row_index), leftLabelText)
-                self.addLabel(screen, gridR, "HintLoc_" + str(row_index), rightLabelText)
+                # Append elements sequentially; the engine handles columns 1-7 layout properties for us!
+                self.addLabel(screen, grid[0], "HintRecv_" + str(row_index), szReceiver)
+                self.addLabel(screen, grid[1], "HintItem_" + str(row_index), szItem)
+                self.addLabel(screen, grid[2], "HintType_" + str(row_index), szType)
+                self.addLabel(screen, grid[3], "HintFind_" + str(row_index), szFinder)
+                self.addLabel(screen, grid[4], "HintLoc_" + str(row_index), szLocation)
+                self.addLabel(screen, grid[5], "HintEnt_" + str(row_index), szEntrance)
+                self.addLabel(screen, grid[6], "HintStat_" + str(row_index), szStatus)
                 
                 row_index += 1
-
-    def refreshHints(self):
-        optionsScreen = BugOptionsScreen.g_optionsScreen
-        if optionsScreen is not None:
-            # Force-close the active UI window
-            optionsScreen.hideScreen()
-            
-            # Re-open it immediately! This re-triggers the create() loop on your tab,
-            # forcing it to find your fresh archipelagoHints data and draw the new labels instantly.
-            optionsScreen.interfaceScreen()
-            
