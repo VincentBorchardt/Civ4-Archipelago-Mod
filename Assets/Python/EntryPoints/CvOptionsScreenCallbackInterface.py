@@ -498,21 +498,6 @@ def handleExitButtonInput ( argsList ):
 	return 1	
 ######################################## ARCHIPELAGO ########################################
 
-def connectToArchipelago( argsList ):
-    "passes the server, username, and password to ArchipelagoStuff"
-    szName = argsList
-
-    szArchipelagoServer = getOptionsScreen().getArchipelagoServer()
-    szArchipelagoUsername = getOptionsScreen().getArchipelagoUsername()
-    szArchipelagoPassword = getOptionsScreen().getArchipelagoPassword()
-
-    ArchipelagoStuff.connectToArchipelagoServer(szArchipelagoServer, szArchipelagoUsername, szArchipelagoPassword)
-
-def disconnectFromArchipelago( argsList ):
-    szName = argsList
-
-    ArchipelagoStuff.disconnectFromArchipelagoServer()
-
 def onConnectClicked( argsList ):
     """
     MANDATORY BUG INTERFACE ENTRY POINT.
@@ -534,6 +519,23 @@ def onConnectClicked( argsList ):
         
         # Execute your active multiworld socket handshake
         ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
+
+def onSendCommandClicked( argsList ):
+    (buttonName,) = argsList
+    optionsScreen = BugOptionsScreen.g_optionsScreen
+    
+    if optionsScreen is not None:
+        BugOptions.getOptions().write()
+        CyInterface().addImmediateMessage("in first if", "")
+        szControlName = "Archipelago__ArchipelagoCommand"
+        szCommand = BugOptions.getOption("Archipelago__ArchipelagoCommand").getValue()
+        CyInterface().addImmediateMessage("command is '"+szCommand+"'", "")
+        szCommand = szCommand.strip()
+        
+        if szCommand:
+            CyInterface().addImmediateMessage("in second if", "")
+            dataDict = ArchipelagoStuff.sendAndReceiveData({"type": "Command", "cmd": szCommand}, waitForRead=False)
+            BugOptions.getOption("Archipelago__ArchipelagoCommand").setValue("")
 
 def onSyncClicked ( argsList ):
     ArchipelagoItems.receiveItems()

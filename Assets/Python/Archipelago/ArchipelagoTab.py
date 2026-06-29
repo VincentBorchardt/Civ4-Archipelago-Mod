@@ -55,6 +55,10 @@ class ArchipelagoTab(BugOptionsTab.BugOptionsTab):
         #self.addLabel(screen, rightStack, "ConsoleInfoLabel", "View Archipelago Message Log:")
         #self.addButton(screen, rightStack, "BtnOpenConsole", "onOpenConsoleClicked", "Open Full Console Log Window")
 
+        colL3, colC3, colR3 = self.addThreeColumnLayout(screen, rightStack, "CommandSending")
+        self.addTextEdit(screen, colL3, colC3, "Archipelago__ArchipelagoCommand")
+        self.addButton(screen, colR3, "BtnSendCommand", "onSendCommandClicked", "Send Command")
+                                                        
         self.addButton(screen, rightStack, "BtnRefreshHints", "onRefreshHintsClicked", "Refresh Hints")
         
         screen.attachHSeparator(rightStack, rightStack + "Sep1")

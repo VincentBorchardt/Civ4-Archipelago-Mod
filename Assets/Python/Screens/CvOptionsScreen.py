@@ -948,68 +948,6 @@ class CvOptionsScreen:
 		tab.attachRadioButton("NetPanelVBox", szWidgetName, szWidgetLbl, self.callbackIFace, szCallbackFunction, str(szWidgetName), bIsModem)
 
 
-		########## ARCHIPELAGO
-
-		tab.attachVBox("OtherPanelHBox", "ArchipelagoVBox")
-		tab.setLayoutFlag("ArchipelagoVBox", "LAYOUT_SIZE_HEXPANDING")
-		tab.setLayoutFlag("ArchipelagoVBox", "LAYOUT_SIZE_VEXPANDING")
-		
-		tab.attachLabel("ArchipelagoVBox", "ArchipelagoLabel", localText.getText("TXT_KEY_OPTIONS_ARCHIPELAGO", ()).upper() )
-
-		tab.attachPanel("ArchipelagoVBox", "ArchipelagoPanel")
-		tab.setStyle("ArchipelagoPanel", "Panel_Tan15_Style")
-		tab.setLayoutFlag("ArchipelagoPanel", "LAYOUT_SIZE_HPREFERREDEXPANDING")
-		tab.setLayoutFlag("ArchipelagoPanel", "LAYOUT_SIZE_VPREFERREDEXPANDING")
-		
-		tab.attachVBox("ArchipelagoPanel", "NetPanelVBox")
-		tab.setLayoutFlag("ArchipelagoVBox", "LAYOUT_SIZE_HPREFERREDEXPANDING")
-		tab.setLayoutFlag("ArchipelagoVBox", "LAYOUT_SIZE_VPREFERREDEXPANDING")
-
-		# Edit Box Archipelago Server
-		tab.attachLabel("ArchipelagoVBox","ArchipelagoServer",localText.getText("TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_SERVER", ()))	# Label
-		
-	
-		#szCallbackIFace = ""
-		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoServer").getValue()
-		szCallbackFunction = "DummyCallback"
-		szWidgetName = "ArchipelagoServerEditBox"
-		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
-		tab.attachEdit("ArchipelagoVBox", szWidgetName, szWideEditBoxDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
-
-		# Edit Box Archipelago Username
-		tab.attachLabel("ArchipelagoVBox","ArchipelagoUsername",localText.getText("TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_USERNAME", ()))	# Label
-		
-	
-		#szCallbackIFace = ""
-		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoUsername").getValue()
-		szCallbackFunction = "DummyCallback"
-		szWidgetName = "ArchipelagoUsernameEditBox"
-		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
-		tab.attachEdit("ArchipelagoVBox", szWidgetName, szWideEditBoxDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
-
-		# Edit Box Archipelago Password
-		tab.attachLabel("ArchipelagoVBox","ArchipelagoPassword",localText.getText("TXT_KEY_OPTIONS_SCREEN_ARCHIPELAGO_PASSWORD", ()))	# Label
-		
-	
-		#szCallbackIFace = ""
-		szEditBoxDesc = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
-		szCallbackFunction = "DummyCallback"
-		szWidgetName = "ArchipelagoPasswordEditBox"
-		szWideEditBoxDesc = CvUtil.convertToUnicode(szEditBoxDesc)
-		tab.attachEdit("ArchipelagoVBox", szWidgetName, szWideEditBoxDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
-
-		# Connect to Archipelago Button
-		szOptionDesc = localText.getText("TXT_KEY_OPTIONS_CONNECT_TO_ARCHIPELAGO", ())
-		szCallbackFunction = "connectToArchipelago"
-		szWidgetName = "ConnectToArchipelagoButton"
-		tab.attachButton("ArchipelagoVBox", szWidgetName, szOptionDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
-
-                # Disconnect from Archipelago Button
-		szOptionDesc = localText.getText("TXT_KEY_OPTIONS_DISCONNECT_FROM_ARCHIPELAGO", ())
-		szCallbackFunction = "disconnectFromArchipelago"
-		szWidgetName = "DisconnectFromArchipelagoButton"
-		tab.attachButton("ArchipelagoVBox", szWidgetName, szOptionDesc, self.callbackIFace, szCallbackFunction, szWidgetName)
-
 		########## EXIT
 
 		tab.attachHSeparator("OtherVBox", "OtherExitSeparator")
