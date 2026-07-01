@@ -8,6 +8,11 @@ import ArchipelagoData
 
 gc = CyGlobalContext()
 
+# Arbitrary unique interface ID for our custom button
+AP_GP_BUTTON_ID = "ArchipelagoGPCheckButton"
+# Custom network message macro identifier
+AP_NET_MESSAGE_ID = 9999 
+
 def onTechAcquired(argsList):
     """
     Fires whenever any player's team acquires a new technology.
@@ -52,4 +57,33 @@ def onEndPlayerTurn(argsList):
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
+def updateArchipelagoGPButton(screen, pHeadSelectedUnit):
+    """
+    Called directly from CvMainInterface.py inside the selection button
+    draw cycle to add the Archipelago check button.
+    """
+    # Ensure player is connected to the server
+    if not ArchipelagoData.isConnectedToArchipelago:
+        return
 
+    # Check if the unit is a valid Great Person type
+    info = gc.getUnitInfo(pHeadSelectedUnit.getUnitType())
+    szClassType = gc.getUnitClassInfo(info.getUnitClassType()).getType()
+    
+    validGPs = [
+        "UNITCLASS_SCIENTIST", 
+        "UNITCLASS_ENGINEER", 
+        "UNITCLASS_PROPHET", 
+        "UNITCLASS_ARTIST", 
+        "UNITCLASS_MERCHANT", 
+        "UNITCLASS_GREAT_GENERAL",
+        "UNITCLASS_GREAT_SPY",
+    ]
+    
+    if szClassType in validGPs:
+        # Places the standard text button nicely above the action tray array.
+        # Coordinates (X: 210, Y: 110) prevent collisions with basic multi-unit trays.
+        screen.setButtonGFC(AP_GP_BUTTON_ID, "Send GP Check", "", 210, 110, 150, 30, 
+                            WidgetTypes.WIDGET_GENERAL, AP_NET_MESSAGE_ID, pHeadSelectedUnit.getID(), 
+                            ButtonStyles.BUTTON_STYLE_STANDARD)
+        screen.show(AP_GP_BUTTON_ID)

@@ -14,6 +14,7 @@ DATA_SAVE_KEY = "ArchipelagoModSaveState"
 hasConnectedToArchipelago = False
 isConnectedToArchipelago = False
 archipelagoReceivedItems = {}
+archipelagoGPChecks = {}
 archipelagoHints = []
 
 def saveData():
@@ -33,7 +34,8 @@ def saveData():
             "receivedHints": archipelagoHints,
             "savedServer": server,
             "savedUser": username,
-            "savedPass": password
+            "savedPass": password,
+            "gpChecks": archipelagoGPChecks,
         }
         
         dataStore[DATA_SAVE_KEY] = payload
@@ -53,6 +55,7 @@ def loadData(*args):
             hasConnectedToArchipelago = payload.get("hasConnected", False)
             archipelagoReceivedItems = payload.get("receivedItems", {})
             archipelagoHints = payload.get("receivedHints", [])
+            archipelagoGPChecks = payload.get("gpChecks", {})
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -71,12 +74,14 @@ def loadData(*args):
             hasConnectedToArchipelago = False
             archipelagoReceivedItems = {}
             archipelagoHints = []
+            archipelagoGPChecks = {}
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
         hasConnectedToArchipelago = False
         archipelagoReceivedItems = {}
         archipelagoHints = []
+        archipelagoGPChecks = {}
 
 def getHints():
     global archipelagoHints
