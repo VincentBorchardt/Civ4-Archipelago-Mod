@@ -2428,10 +2428,8 @@ class CvMainInterface:
                                             import ArchipelagoData
                                             # 1. Verify player state and connection criteria
                                             if ArchipelagoData.isConnectedToArchipelago:
-                                                CyInterface().addImmediateMessage("in isConnected if", "")
                                                 pHeadSelectedUnit = CyInterface().getHeadSelectedUnit()
                                                 if pHeadSelectedUnit and not pHeadSelectedUnit.isNone() and pHeadSelectedUnit.getOwner() == gc.getGame().getActivePlayer():
-                                                    CyInterface().addImmediateMessage("in 'is a unit' if", "")
                                                     # 2. Check if selected unit belongs to a Great Person class
                                                     info = gc.getUnitInfo(pHeadSelectedUnit.getUnitType())
                                                     szClassType = gc.getUnitClassInfo(info.getUnitClassType()).getType()
@@ -2445,14 +2443,11 @@ class CvMainInterface:
                                                     if szClassType in validGPs:
                                                         CyInterface().addImmediateMessage("in 'is a GP' if", "")
                                                         # Path to your custom action button graphic asset icon
-                                                        szIconPath = "Art/Interface/Buttons/Actions/Join.dds" 
-                                                        CyInterface().addImmediateMessage("after icon path", "")
-                                                        # Append the custom check button cleanly directly into the active command tray multi-list container.
-                                                        # This matches the engine layout, giving it perfect grid placement and automated visibility cleanup.
+                                                        szIconPath = "Art/Interface/Buttons/archipelago_bulb.dds" 
+
                                                         screen.appendMultiListButton("BottomButtonContainer", szIconPath, 0, 
-                                                                                    WidgetTypes.WIDGET_GENERAL, 9999, pHeadSelectedUnit.getID(), True)
+                                                                                    WidgetTypes.WIDGET_ARCHIPELAGO_GP_CHECK, pHeadSelectedUnit.getID(), -1, True)
                                                         screen.show( "BottomButtonContainer" )
-                                                        CyInterface().addImmediateMessage("after adding button", "")
                                         except Exception, e:
                                             pass
                                         # --- END ARCHIPELAGO ACTION BAR INJECTION ---
@@ -5472,8 +5467,8 @@ class CvMainInterface:
 
                 # --- ARCHIPELAGO INPUT CAPTURE ---
                 # Code 11 is a click event. Data1 checks for our custom ID flag macro (9999)
-                if inputClass.getNotifyCode() == 11 and inputClass.getData1() == 9999:
-                    iUnitId = inputClass.getData2() # Data2 carries the unique unit tracking ID
+                if inputClass.getNotifyCode() == 11 and inputClass.getButtonType() == WidgetTypes.WIDGET_ARCHIPELAGO_GP_CHECK:
+                    iUnitId = inputClass.getData1() # Extracts the unit tracking ID out of Data1
                     
                     # Print a debug message to verify the click successfully fired
                     CyInterface().addImmediateMessage("GP Check Triggered - Routing to Backend Loop", "")

@@ -100,4 +100,24 @@
 		<Spanish>Send Command:</Spanish>
 	</TEXT>
 
+        <TEXT>
+		<!-- TODO: Eventually add the check name with [COLOR_TECH_TEXT] -->
+        	<Tag>TXT_KEY_ARCHIPELAGO_GP_HOVER</Tag>
+        	<English>[COLOR_CYAN]Archipelago Check[COLOR_REVERT]
+[COLOR_TECH_TEXT]Check Placeholder[COLOR_REVERT]
+Consumes this %s1 to send a location check to the Archipelago server.</English>
+		<French>[COLOR_CYAN]Archipelago Check[COLOR_REVERT]
+[COLOR_TECH_TEXT]Check Placeholder[COLOR_REVERT]
+Consumes this %s1 to send a location check to the Archipelago server.</French>
+		<German>[COLOR_CYAN]Archipelago Check[COLOR_REVERT]
+[COLOR_TECH_TEXT]Check Placeholder[COLOR_REVERT]
+Consumes this %s1 to send a location check to the Archipelago server.</German>
+		<Italian>[COLOR_CYAN]Archipelago Check[COLOR_REVERT]
+[COLOR_TECH_TEXT]Check Placeholder[COLOR_REVERT]
+Consumes this %s1 to send a location check to the Archipelago server.</Italian>
+		<Spanish>[COLOR_CYAN]Archipelago Check[COLOR_REVERT]
+[COLOR_TECH_TEXT]Check Placeholder[COLOR_REVERT]
+Consumes this %s1 to send a location check to the Archipelago server.</Spanish>
+        </TEXT>
+
 </Civ4GameText>

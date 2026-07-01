@@ -1,17 +1,28 @@
 from CvPythonExtensions import *
 import CvUtil
 
+import WidgetUtil
+
 import ArchipelagoStuff
 import ArchipelagoLocations
 import ArchipelagoItems
 import ArchipelagoData
 
 gc = CyGlobalContext()
+localizer = CyTranslator()
 
-# Arbitrary unique interface ID for our custom button
-AP_GP_BUTTON_ID = "ArchipelagoGPCheckButton"
-# Custom network message macro identifier
-AP_NET_MESSAGE_ID = 9999 
+AP_WIDGET_TYPE = None
+
+def initArchipelagoWidgets():
+    global AP_WIDGET_TYPE
+    
+    # 1. Inject a new, unique WidgetType string into the global engine enum pool.
+    # This automatically registers it safely inside the engine's memory stack.
+    AP_WIDGET_TYPE = WidgetUtil.createWidget("WIDGET_ARCHIPELAGO_GP_CHECK")
+    
+    # 2. Bind the new engine enum object straight to your custom tooltip callback handler.
+    # Note: 'widget=AP_WIDGET_TYPE' explicitly names the keyword argument expected by BUG.
+    WidgetUtil.setWidgetHelpFunction(widget=AP_WIDGET_TYPE, func=getArchipelagoButtonHover)
 
 def onTechAcquired(argsList):
     """
@@ -31,12 +42,14 @@ def onGameStart(argsList):
     """
     Fires once when a brand-new game is initiated (not triggered on loads).
     """
+    initArchipelagoWidgets()
     ArchipelagoData.loadData()
     ArchipelagoStuff.initialConnectToArchipelago()
     
 
 def onLoadGame(argsList):
     """Fires every time an existing save file is loaded into memory."""
+    initArchipelagoWidgets()
     ArchipelagoData.loadData()
     ArchipelagoStuff.initialConnectToArchipelago()
 
@@ -87,3 +100,18 @@ def updateArchipelagoGPButton(screen, pHeadSelectedUnit):
                             WidgetTypes.WIDGET_GENERAL, AP_NET_MESSAGE_ID, pHeadSelectedUnit.getID(), 
                             ButtonStyles.BUTTON_STYLE_STANDARD)
         screen.show(AP_GP_BUTTON_ID)
+
+def getArchipelagoButtonHover(eWidgetType, iData1, iData2, bOption):
+    """
+    BUG Callback handler. Returns the dynamic string shown to the player 
+    when hovering over the Archipelago action icon.
+    """
+    # iData1 now carries the Unique Unit Object ID passed from appendMultiListButton
+    pUnit = gc.getPlayer(gc.getGame().getActivePlayer()).getUnit(iData1)
+    
+    # Safely fallback to a general message if the unit evaluation slice drops
+    szUnitName = "Great Person"
+    if pUnit and not pUnit.isNone():
+        szUnitName = gc.getUnitInfo(pUnit.getUnitType()).getDescription()
+
+    return localizer.getText("TXT_KEY_ARCHIPELAGO_GP_HOVER", (szUnitName,))
