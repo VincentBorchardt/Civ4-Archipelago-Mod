@@ -5466,7 +5466,7 @@ class CvMainInterface:
 # BUG - field of view slider - end
 
                 # --- ARCHIPELAGO INPUT CAPTURE ---
-                # Code 11 is a click event. Data1 checks for our custom ID flag macro (9999)
+                # Code 11 is a click event.
                 if inputClass.getNotifyCode() == 11 and inputClass.getButtonType() == WidgetTypes.WIDGET_ARCHIPELAGO_GP_CHECK:
                     iUnitId = inputClass.getData1() # Extracts the unit tracking ID out of Data1
                     
@@ -5474,11 +5474,15 @@ class CvMainInterface:
                     CyInterface().addImmediateMessage("GP Check Triggered - Routing to Backend Loop", "")
                     
                     # Execute your backend processing functions right here!
-                    #import ArchipelagoEvents
+                    import ArchipelagoLocations
+                    if ArchipelagoLocations.processGPArchipelagoBulb(iUnitId):
+                        CyInterface().addImmediateMessage("Successful GP Check", "")
+                        # TODO Kill the unit
+                        return 1 # Tells the engine the input event was handled successfully
                     # Emulate an engine message frame to trigger your cleanup event safely
                     #ArchipelagoEvents.onGameNetMessage([9999, gc.getGame().getActivePlayer(), iUnitId, 0, 0])
                     
-                    return 1 # Tells the engine the input event was handled successfully
+                    return 0
                 # --- END ARCHIPELAGO INPUT CAPTURE ---
 
                 
