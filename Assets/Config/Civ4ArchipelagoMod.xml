@@ -10,6 +10,7 @@
     <event type="SaveGame" module="ArchipelagoData" function="saveData"/>
     <event type="EndPlayerTurn" module="ArchipelagoEvents" function="onEndPlayerTurn"/>
     <event type="techAcquired" module="ArchipelagoEvents" function="onTechAcquired"/>
+    <event type="ModNetMessage" module="ArchipelagoEvents" function="onModNetMessage"/>
 
     <!-- The 'options' tag MUST have the 'file' attribute specified -->
     <!-- This creates Civ4ArchipelagoMod.ini inside the mod's UserSettings folder -->

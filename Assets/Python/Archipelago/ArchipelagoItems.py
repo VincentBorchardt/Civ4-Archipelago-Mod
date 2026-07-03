@@ -35,7 +35,7 @@ def receiveItems():
             ArchipelagoStuff.showPopup("Received an item", str(item))
             if ArchipelagoData.archipelagoReceivedItems.get(item_index) == item_name:
                 continue  # already received item
-            if 0 < item["item_id"] < 1000: # it is a tech
+            if 0 < item["item_id"] <= 100: # it is a tech
                 grantTech(item_name)
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
             ArchipelagoData.archipelagoReceivedItems[item_index] = item_name

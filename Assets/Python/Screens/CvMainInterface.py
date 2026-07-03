@@ -2426,6 +2426,7 @@ class CvMainInterface:
 					# --- ARCHIPELAGO ACTION BAR INJECTION ---
                                         try:
                                             import ArchipelagoData
+                                            import ArchipelagoConstants
                                             # 1. Verify player state and connection criteria
                                             if ArchipelagoData.isConnectedToArchipelago:
                                                 pHeadSelectedUnit = CyInterface().getHeadSelectedUnit()
@@ -2434,14 +2435,7 @@ class CvMainInterface:
                                                     info = gc.getUnitInfo(pHeadSelectedUnit.getUnitType())
                                                     szClassType = gc.getUnitClassInfo(info.getUnitClassType()).getType()
                                                     
-                                                    validGPs = [
-                                                        "UNITCLASS_SCIENTIST", "UNITCLASS_ENGINEER", "UNITCLASS_PROPHET", 
-                                                        "UNITCLASS_ARTIST", "UNITCLASS_MERCHANT", "UNITCLASS_GREAT_GENERAL", 
-                                                        "UNITCLASS_GREAT_SPY"
-                                                    ]
-                                                    
-                                                    if szClassType in validGPs:
-                                                        CyInterface().addImmediateMessage("in 'is a GP' if", "")
+                                                    if szClassType in ArchipelagoConstants.VALID_GP_TYPES:
                                                         # Path to your custom action button graphic asset icon
                                                         szIconPath = "Art/Interface/Buttons/archipelago_bulb.dds" 
 
@@ -5468,20 +5462,15 @@ class CvMainInterface:
                 # --- ARCHIPELAGO INPUT CAPTURE ---
                 # Code 11 is a click event.
                 if inputClass.getNotifyCode() == 11 and inputClass.getButtonType() == WidgetTypes.WIDGET_ARCHIPELAGO_GP_CHECK:
-                    iUnitId = inputClass.getData1() # Extracts the unit tracking ID out of Data1
+                    iUnitId = inputClass.getData1()
                     
-                    # Print a debug message to verify the click successfully fired
-                    CyInterface().addImmediateMessage("GP Check Triggered - Routing to Backend Loop", "")
-                    
-                    # Execute your backend processing functions right here!
+                    # Do your validation check FIRST. If it fails, do nothing.
                     import ArchipelagoLocations
-                    if ArchipelagoLocations.processGPArchipelagoBulb(iUnitId):
-                        CyInterface().addImmediateMessage("Successful GP Check", "")
-                        # TODO Kill the unit
-                        return 1 # Tells the engine the input event was handled successfully
-                    # Emulate an engine message frame to trigger your cleanup event safely
-                    #ArchipelagoEvents.onGameNetMessage([9999, gc.getGame().getActivePlayer(), iUnitId, 0, 0])
-                    
+                    if ArchipelagoLocations.validateGPCheck(iUnitId):
+                        # Validation passed! Queue the unit execution through the safe ModNetMessage bridge.
+                        # Arguments: (MessageID, PlayerID, UnitID, Data3, Data4)
+                        CyMessageControl().sendModNetMessage(9999, gc.getGame().getActivePlayer(), iUnitId, 0, 0)
+                        return 1
                     return 0
                 # --- END ARCHIPELAGO INPUT CAPTURE ---
 

@@ -1,0 +1,12 @@
+# ArchipelagoConstants.py
+
+# --- Validation Constants ---
+VALID_GP_TYPES = [
+    "UNITCLASS_SCIENTIST", 
+    "UNITCLASS_ENGINEER", 
+    "UNITCLASS_PROPHET", 
+    "UNITCLASS_ARTIST", 
+    "UNITCLASS_MERCHANT", 
+    "UNITCLASS_GREAT_GENERAL", 
+    "UNITCLASS_GREAT_SPY"
+]

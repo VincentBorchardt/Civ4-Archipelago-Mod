@@ -6,6 +6,7 @@ import BugOptions
 
 import ArchipelagoStuff
 import ArchipelagoData
+from ArchipelagoConstants import *
 
 # constants
 gc = CyGlobalContext()
@@ -17,11 +18,6 @@ LOCATION_TO_LOCATION_ID = {
     "TECH_ARCHIPELAGO1" : 1
 }
 
-# TODO move this into a "ArchipelagoConstants" file along with my various mapping dicts?
-validGPs = [
-    "UNITCLASS_SCIENTIST", "UNITCLASS_ENGINEER", "UNITCLASS_PROPHET", 
-    "UNITCLASS_ARTIST", "UNITCLASS_MERCHANT", "UNITCLASS_GREAT_GENERAL", "UNITCLASS_GREAT_SPY"
-]
 
 # Should this be here? I don't know if this is persistent or not
 checkedLocations = []
@@ -48,34 +44,34 @@ def checkIfArchipelagoTech(tech):
         ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
 
 
-def processGPArchipelagoBulb(unitId):
-    CyInterface().addImmediateMessage(str(unitId), "")
-    # 1. Grab the active player instance
-    iPlayerId = gc.getGame().getActivePlayer()
-    pPlayer = gc.getPlayer(iPlayerId)
-
-    # 2. Extract the physical unit object using your unitID variable
+def validateGPCheck(unitId):
+    """Pure validation function with NO gameplay mutations (No unit killing!)."""
+    pPlayer = gc.getPlayer(gc.getGame().getActivePlayer())
     pUnit = pPlayer.getUnit(unitId)
 
     if pUnit and not pUnit.isNone():
-        iUnitType = pUnit.getUnitType()
-        iUnitClass = gc.getUnitInfo(iUnitType).getUnitClassType()
-        szClassTypeStr = gc.getUnitClassInfo(iUnitClass).getType()
-        if szClassTypeStr in validGPs:
-            checkIndex = ArchipelagoData.archipelagoGPChecks.get(szClassTypeStr)
-            if checkIndex is None:
-                checkIndex = 1
-            else:
-                checkIndex += 1
-            if checkIndex > ArchipelagoData.archipelagoMaxGPSanity:
-                CyInterface().addImmediateMessage("AP Error: Cannot bulb location above GPSanity max", "")
-                return False
-            location_name = szClassTypeStr + "_" + str(checkIndex)
-            CyInterface().addImmediateMessage(location_name, "")
-            #sendLocationCheck(location_name)
-            # TODO put the function that grabs what the next check for preview purposes here
-            #ArchipelagoData.archipelagoGPChecks[szClassTypeStr] = checkIndex
-            #ArchipelagoData.save()
-            return True
-    CyInterface().addImmediateMessage("Invalid unit selected for GP Bulb", "")
+        szClassTypeStr = gc.getUnitClassInfo(gc.getUnitInfo(pUnit.getUnitType()).getUnitClassType()).getType()
+        if szClassTypeStr in VALID_GP_TYPES:
+            checkIndex = ArchipelagoData.archipelagoGPChecks.get(szClassTypeStr, 0) + 1
+            if checkIndex <= ArchipelagoData.archipelagoMaxGPSanity:
+                return True
     return False
+
+def executeGPArchipelagoBulb(pUnit):
+    """Executes the state change and eliminates the unit safely inside the gameplay tick."""
+    szClassTypeStr = gc.getUnitClassInfo(gc.getUnitInfo(pUnit.getUnitType()).getUnitClassType()).getType()
+    
+    checkIndex = ArchipelagoData.archipelagoGPChecks.get(szClassTypeStr, 0) + 1
+    location_name = szClassTypeStr + "_" + str(checkIndex)
+    
+    # 1. Update State & Save
+    ArchipelagoData.archipelagoGPChecks[szClassTypeStr] = checkIndex
+    ArchipelagoData.saveData()
+    
+    # 2. Trigger Server Check Communication
+    # sendLocationCheck(location_name)
+    
+    # 3. Safely kill the unit!
+    pUnit.kill(True, -1)
+    CyInterface().addImmediateMessage("Sacrificed Great Person for location: " + location_name, "")
+

@@ -70,36 +70,23 @@ def onEndPlayerTurn(argsList):
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
-def updateArchipelagoGPButton(screen, pHeadSelectedUnit):
-    """
-    Called directly from CvMainInterface.py inside the selection button
-    draw cycle to add the Archipelago check button.
-    """
-    # Ensure player is connected to the server
-    if not ArchipelagoData.isConnectedToArchipelago:
+def onModNetMessage(argsList):
+    iMessageId, iData1, iData2, iData3, iData4 = argsList
+    
+    if iMessageId != 9999: # Match our custom message ID
         return
 
-    # Check if the unit is a valid Great Person type
-    info = gc.getUnitInfo(pHeadSelectedUnit.getUnitType())
-    szClassType = gc.getUnitClassInfo(info.getUnitClassType()).getType()
+    iPlayerId = iData1 # Player ID
+    iUnitId = iData2   # Unit ID
     
-    validGPs = [
-        "UNITCLASS_SCIENTIST", 
-        "UNITCLASS_ENGINEER", 
-        "UNITCLASS_PROPHET", 
-        "UNITCLASS_ARTIST", 
-        "UNITCLASS_MERCHANT", 
-        "UNITCLASS_GREAT_GENERAL",
-        "UNITCLASS_GREAT_SPY",
-    ]
+    pPlayer = gc.getPlayer(iPlayerId)
+    pUnit = pPlayer.getUnit(iUnitId)
     
-    if szClassType in validGPs:
-        # Places the standard text button nicely above the action tray array.
-        # Coordinates (X: 210, Y: 110) prevent collisions with basic multi-unit trays.
-        screen.setButtonGFC(AP_GP_BUTTON_ID, "Send GP Check", "", 210, 110, 150, 30, 
-                            WidgetTypes.WIDGET_GENERAL, AP_NET_MESSAGE_ID, pHeadSelectedUnit.getID(), 
-                            ButtonStyles.BUTTON_STYLE_STANDARD)
-        screen.show(AP_GP_BUTTON_ID)
+    if pUnit and not pUnit.isNone():
+        # Now run your logic safely!
+        # Because we already validated in handleInput, this is guaranteed safe to commit.
+        ArchipelagoLocations.executeGPArchipelagoBulb(pUnit)
+
 
 def getArchipelagoButtonHover(eWidgetType, iData1, iData2, bOption):
     """
