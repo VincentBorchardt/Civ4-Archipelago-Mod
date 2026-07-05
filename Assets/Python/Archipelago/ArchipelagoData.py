@@ -18,7 +18,9 @@ isConnectedToArchipelago = False
 archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 10 # TODO make this default to 0 once I actually add in the setting
+archipelagoTechSanityEnabled = False # TODO make this false once I add in the setting
 archipelagoHints = []
+
 
 def saveData():
     """Serializes trackers and instance connection settings straight into the save game."""

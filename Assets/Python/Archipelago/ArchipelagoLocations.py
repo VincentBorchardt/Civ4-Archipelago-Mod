@@ -43,6 +43,31 @@ def checkIfArchipelagoTech(tech):
         # Show something in the message log saying what you sent?
         ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
 
+def cannotResearchTechsanityGate(ePlayer, eTech):
+    pPlayer = gc.getPlayer(ePlayer)
+    
+    # Identify whether the technology being queried belongs to our custom Faux track
+    # Using your working hardcoded flavor value method for execution safety
+    isFauxTech = (gc.getTechInfo(eTech).getFlavorValue(8) > 0)
+
+    # --- RULE GROUP 1: THE AI PLAYERS ---
+    if not pPlayer.isHuman():
+        if isFauxTech:
+            return True  # HARD BLOCK: AI can NEVER research faux archipelago checks
+        return False     # ALLOW: AI always researches standard vanilla paths
+
+    # --- RULE GROUP 2: THE HUMAN PLAYER ---
+    if ArchipelagoData.archipelagoTechSanityEnabled:
+        if isFauxTech:
+            return False # ALLOW: Human researches Faux techs when option is active
+        return True      # HARD BLOCK: Human can never research vanilla paths directly
+    else:
+        # If Techsanity is completely turned off for this match session
+        if isFauxTech:
+            return True  # HARD BLOCK: Hide faux tracks completely
+        return False     # ALLOW: Human plays normal vanilla game rules layout
+
+
 
 def validateGPCheck(unitId):
     """Pure validation function with NO gameplay mutations (No unit killing!)."""
