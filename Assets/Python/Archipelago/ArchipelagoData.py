@@ -20,9 +20,6 @@ archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 10 # TODO make this default to 0 once I actually add in the setting
 archipelagoHints = []
 
-# 0 = Off, 1 = Normal (Vanilla Intercept), 2 = Progressive Tiers
-techsanityMode = 1 # TODO make this default to 0 once I actually add in the setting
-
 def saveData():
     """Serializes trackers and instance connection settings straight into the save game."""
     try:

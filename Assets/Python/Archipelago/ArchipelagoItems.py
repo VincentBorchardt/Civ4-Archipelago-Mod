@@ -8,14 +8,17 @@ import BugOptions
 
 import ArchipelagoStuff
 import ArchipelagoData
-import ArchipelagoEvents
-import ArchipelagoConstants
 
 # constants
 gc = CyGlobalContext()
 cyGame = CyGame()
 cyMap = CyMap()
 pyGame = PyGame()
+
+TECH_TRANSLATION_DICT = {
+    "Agriculture" : "TECH_AGRICULTURE"
+}
+
 
 def receiveItems():
     messageDict = {"type":"ReceiveItems"}
@@ -40,26 +43,13 @@ def receiveItems():
     else:
         ArchipelagoStuff.showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd"))
 
-def grantTech(item_name):
-    """Translates the incoming server item name and safely updates the team state."""
-    iPlayerId = gc.getGame().getActivePlayer()
-    pPlayer = gc.getPlayer(iPlayerId)
-    pTeam = gc.getTeam(pPlayer.getTeam())
-
-    internalTechName = ArchipelagoConstants.TECH_TRANSLATION_DICT[item_name]
-    
-    # Convert your Archipelago item name string into the engine's internal integer token ID
-    # Example: If item_name is "TECH_AGRICULTURE"
-    eTech = gc.getInfoTypeForString(internalTechName)
-    
-    if eTech == -1:
-        return
-        
-    # Trigger loop protection so our event manager knows this is a server reward, NOT human research
-    ArchipelagoEvents.bIsReceivingNetworkItem = True
-    
-    # Grant the tech permanently to the human team
-    pTeam.setHasTech(eTech, True, iPlayerId, True, True)
-    
-    # Restore intercept monitoring
-    ArchipelagoEvents.bIsReceivingNetworkItem = False
+def grantTech(techName):
+    pPlayer = gc.getPlayer(0)
+    if pPlayer is None or pPlayer.isNone() or not pPlayer.isAlive():
+        CyInterface().addImmediateMessage("Player does not exist yet for some reason", "")
+        return # Exit early if the player array isn't populated or active
+    iTeamID = pPlayer.getTeam()
+    pTeam = gc.getTeam(iTeamID)
+    eTech = gc.getInfoTypeForString(TECH_TRANSLATION_DICT.get(techName))
+    # TODO decide what to do about world firsts (fourth parameter)
+    pTeam.setHasTech(eTech, True, 0, True, BugOptions.getOption("Archipelago__ShowAnnouncements").getValue())

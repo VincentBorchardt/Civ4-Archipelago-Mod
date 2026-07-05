@@ -11,8 +11,6 @@ import ArchipelagoData
 gc = CyGlobalContext()
 localizer = CyTranslator()
 
-bIsReceivingNetworkItem = False
-
 AP_WIDGET_TYPE = None
 
 def initArchipelagoWidgets():
@@ -30,25 +28,15 @@ def onTechAcquired(argsList):
     """
     Fires whenever any player's team acquires a new technology.
     """
-    global bIsReceivingNetworkItem
+    # Unpack the standard Civ 4 argument list for this event
     eTech, iTeam, iPlayer, bFirst = argsList
     
-    pPlayer = gc.getPlayer(iPlayer)
-    
-    # 1. AI Rule: If it's the AI, ignore completely. They progress normally.
-    if not pPlayer.isHuman():
-        return
-        
-    # 2. Loop Protection: If this tech is being given by the server right now, allow it!
-    if bIsReceivingNetworkItem:
+    # 1. We only care about the human player (usually ID 0)
+    # Alternatively, check: if gc.getPlayer(iPlayer).isHuman():
+    if gc.getPlayer(iPlayer).isHuman():
         return
 
-    # 3. If Techsanity is active, hijack the research gain
-    if ArchipelagoData.techsanityMode > 0:
-        szTechType = gc.getTechInfo(eTech).getType() # e.g., "TECH_BRONZE_WORKING"
-        
-        # Route to processing module to turn this tech into a location check
-        ArchipelagoLocations.processTechLocationCheck(pPlayer, iTeam, eTech, szTechType)
+    ArchipelagoLocations.checkIfArchipelagoTech(eTech)
 
 def onGameStart(argsList):
     """

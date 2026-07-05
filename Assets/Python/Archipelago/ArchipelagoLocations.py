@@ -43,34 +43,6 @@ def checkIfArchipelagoTech(tech):
         # Show something in the message log saying what you sent?
         ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
 
-def processTechLocationCheck(pPlayer, iTeam, eTech, szTechType):
-    pTeam = gc.getTeam(iTeam)
-    
-    tech_data = TECH_LOCATION_MAP.get(szTechType)
-    if not tech_data:
-        return
-        
-    location_name = tech_data["location"]
-    
-    # CRITICAL FIX: Check if we already received this item from the multiworld server
-    # We scan the persistence cache array to see if this tech's identifier string is already owned.
-    bAlreadyOwnedFromServer = False
-    for item_name in ArchipelagoData.archipelagoReceivedItems.itervalues():
-        if item_name == szTechType:
-            bAlreadyOwnedFromServer = True
-            break
-
-    if bAlreadyOwnedFromServer:
-        # If we already own it, DO NOT strip the tech away!
-        # Just give the player a message that they found a location check they already had the item for.
-        CyInterface().addImmediateMessage("Location Check Found: " + location_name, "")
-    else:
-        # If we don't own it yet, strip it away normally to enforce Techsanity lockouts
-        pTeam.setHasTech(eTech, False, pPlayer.getID(), False, False)
-        CyInterface().addImmediateMessage("Research Intercepted! Sent Check: " + location_name, "")
-
-    # Transmit the location check to your client socket smoothly
-    # sendLocationCheck(location_name)
 
 def validateGPCheck(unitId):
     """Pure validation function with NO gameplay mutations (No unit killing!)."""
