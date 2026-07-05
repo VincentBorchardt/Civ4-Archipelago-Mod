@@ -1,2 +1,739 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Civ4GameText xmlns="http://www.piraxis.com"><TEXT><Tag>TXT_KEY_TECH_MYSTICISM_FAUX</Tag><English>Archipelago Mysticism</English><French>Archipelago Mysticism</French><German>Archipelago Mysticism</German><Italian>Archipelago Mysticism</Italian><Spanish>Archipelago Mysticism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MEDITATION_FAUX</Tag><English>Archipelago Meditation</English><French>Archipelago Meditation</French><German>Archipelago Meditation</German><Italian>Archipelago Meditation</Italian><Spanish>Archipelago Meditation</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_POLYTHEISM_FAUX</Tag><English>Archipelago Polytheism</English><French>Archipelago Polytheism</French><German>Archipelago Polytheism</German><Italian>Archipelago Polytheism</Italian><Spanish>Archipelago Polytheism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PRIESTHOOD_FAUX</Tag><English>Archipelago Priesthood</English><French>Archipelago Priesthood</French><German>Archipelago Priesthood</German><Italian>Archipelago Priesthood</Italian><Spanish>Archipelago Priesthood</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MONOTHEISM_FAUX</Tag><English>Archipelago Monotheism</English><French>Archipelago Monotheism</French><German>Archipelago Monotheism</German><Italian>Archipelago Monotheism</Italian><Spanish>Archipelago Monotheism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MONARCHY_FAUX</Tag><English>Archipelago Monarchy</English><French>Archipelago Monarchy</French><German>Archipelago Monarchy</German><Italian>Archipelago Monarchy</Italian><Spanish>Archipelago Monarchy</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_LITERATURE_FAUX</Tag><English>Archipelago Literature</English><French>Archipelago Literature</French><German>Archipelago Literature</German><Italian>Archipelago Literature</Italian><Spanish>Archipelago Literature</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CODE_OF_LAWS_FAUX</Tag><English>Archipelago Code Of Laws</English><French>Archipelago Code Of Laws</French><German>Archipelago Code Of Laws</German><Italian>Archipelago Code Of Laws</Italian><Spanish>Archipelago Code Of Laws</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_DRAMA_FAUX</Tag><English>Archipelago Drama</English><French>Archipelago Drama</French><German>Archipelago Drama</German><Italian>Archipelago Drama</Italian><Spanish>Archipelago Drama</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FEUDALISM_FAUX</Tag><English>Archipelago Feudalism</English><French>Archipelago Feudalism</French><German>Archipelago Feudalism</German><Italian>Archipelago Feudalism</Italian><Spanish>Archipelago Feudalism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_THEOLOGY_FAUX</Tag><English>Archipelago Theology</English><French>Archipelago Theology</French><German>Archipelago Theology</German><Italian>Archipelago Theology</Italian><Spanish>Archipelago Theology</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MUSIC_FAUX</Tag><English>Archipelago Music</English><French>Archipelago Music</French><German>Archipelago Music</German><Italian>Archipelago Music</Italian><Spanish>Archipelago Music</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CIVIL_SERVICE_FAUX</Tag><English>Archipelago Civil Service</English><French>Archipelago Civil Service</French><German>Archipelago Civil Service</German><Italian>Archipelago Civil Service</Italian><Spanish>Archipelago Civil Service</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_GUILDS_FAUX</Tag><English>Archipelago Guilds</English><French>Archipelago Guilds</French><German>Archipelago Guilds</German><Italian>Archipelago Guilds</Italian><Spanish>Archipelago Guilds</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_DIVINE_RIGHT_FAUX</Tag><English>Archipelago Divine Right</English><French>Archipelago Divine Right</French><German>Archipelago Divine Right</German><Italian>Archipelago Divine Right</Italian><Spanish>Archipelago Divine Right</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_NATIONALISM_FAUX</Tag><English>Archipelago Nationalism</English><French>Archipelago Nationalism</French><German>Archipelago Nationalism</German><Italian>Archipelago Nationalism</Italian><Spanish>Archipelago Nationalism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MILITARY_TRADITION_FAUX</Tag><English>Archipelago Military Tradition</English><French>Archipelago Military Tradition</French><German>Archipelago Military Tradition</German><Italian>Archipelago Military Tradition</Italian><Spanish>Archipelago Military Tradition</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CONSTITUTION_FAUX</Tag><English>Archipelago Constitution</English><French>Archipelago Constitution</French><German>Archipelago Constitution</German><Italian>Archipelago Constitution</Italian><Spanish>Archipelago Constitution</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_LIBERALISM_FAUX</Tag><English>Archipelago Liberalism</English><French>Archipelago Liberalism</French><German>Archipelago Liberalism</German><Italian>Archipelago Liberalism</Italian><Spanish>Archipelago Liberalism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_DEMOCRACY_FAUX</Tag><English>Archipelago Democracy</English><French>Archipelago Democracy</French><German>Archipelago Democracy</German><Italian>Archipelago Democracy</Italian><Spanish>Archipelago Democracy</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CORPORATION_FAUX</Tag><English>Archipelago Corporation</English><French>Archipelago Corporation</French><German>Archipelago Corporation</German><Italian>Archipelago Corporation</Italian><Spanish>Archipelago Corporation</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FASCISM_FAUX</Tag><English>Archipelago Fascism</English><French>Archipelago Fascism</French><German>Archipelago Fascism</German><Italian>Archipelago Fascism</Italian><Spanish>Archipelago Fascism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_UTOPIA_FAUX</Tag><English>Archipelago Utopia</English><French>Archipelago Utopia</French><German>Archipelago Utopia</German><Italian>Archipelago Utopia</Italian><Spanish>Archipelago Utopia</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MASS_MEDIA_FAUX</Tag><English>Archipelago Mass Media</English><French>Archipelago Mass Media</French><German>Archipelago Mass Media</German><Italian>Archipelago Mass Media</Italian><Spanish>Archipelago Mass Media</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ECOLOGY_FAUX</Tag><English>Archipelago Ecology</English><French>Archipelago Ecology</French><German>Archipelago Ecology</German><Italian>Archipelago Ecology</Italian><Spanish>Archipelago Ecology</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FISHING_FAUX</Tag><English>Archipelago Fishing</English><French>Archipelago Fishing</French><German>Archipelago Fishing</German><Italian>Archipelago Fishing</Italian><Spanish>Archipelago Fishing</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_THE_WHEEL_FAUX</Tag><English>Archipelago The Wheel</English><French>Archipelago The Wheel</French><German>Archipelago The Wheel</German><Italian>Archipelago The Wheel</Italian><Spanish>Archipelago The Wheel</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_AGRICULTURE_FAUX</Tag><English>Archipelago Agriculture</English><French>Archipelago Agriculture</French><German>Archipelago Agriculture</German><Italian>Archipelago Agriculture</Italian><Spanish>Archipelago Agriculture</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_POTTERY_FAUX</Tag><English>Archipelago Pottery</English><French>Archipelago Pottery</French><German>Archipelago Pottery</German><Italian>Archipelago Pottery</Italian><Spanish>Archipelago Pottery</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_AESTHETICS_FAUX</Tag><English>Archipelago Aesthetics</English><French>Archipelago Aesthetics</French><German>Archipelago Aesthetics</German><Italian>Archipelago Aesthetics</Italian><Spanish>Archipelago Aesthetics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_SAILING_FAUX</Tag><English>Archipelago Sailing</English><French>Archipelago Sailing</French><German>Archipelago Sailing</German><Italian>Archipelago Sailing</Italian><Spanish>Archipelago Sailing</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_WRITING_FAUX</Tag><English>Archipelago Writing</English><French>Archipelago Writing</French><German>Archipelago Writing</German><Italian>Archipelago Writing</Italian><Spanish>Archipelago Writing</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MATHEMATICS_FAUX</Tag><English>Archipelago Mathematics</English><French>Archipelago Mathematics</French><German>Archipelago Mathematics</German><Italian>Archipelago Mathematics</Italian><Spanish>Archipelago Mathematics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ALPHABET_FAUX</Tag><English>Archipelago Alphabet</English><French>Archipelago Alphabet</French><German>Archipelago Alphabet</German><Italian>Archipelago Alphabet</Italian><Spanish>Archipelago Alphabet</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CALENDAR_FAUX</Tag><English>Archipelago Calendar</English><French>Archipelago Calendar</French><German>Archipelago Calendar</German><Italian>Archipelago Calendar</Italian><Spanish>Archipelago Calendar</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CURRENCY_FAUX</Tag><English>Archipelago Currency</English><French>Archipelago Currency</French><German>Archipelago Currency</German><Italian>Archipelago Currency</Italian><Spanish>Archipelago Currency</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PHILOSOPHY_FAUX</Tag><English>Archipelago Philosophy</English><French>Archipelago Philosophy</French><German>Archipelago Philosophy</German><Italian>Archipelago Philosophy</Italian><Spanish>Archipelago Philosophy</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PAPER_FAUX</Tag><English>Archipelago Paper</English><French>Archipelago Paper</French><German>Archipelago Paper</German><Italian>Archipelago Paper</Italian><Spanish>Archipelago Paper</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_BANKING_FAUX</Tag><English>Archipelago Banking</English><French>Archipelago Banking</French><German>Archipelago Banking</German><Italian>Archipelago Banking</Italian><Spanish>Archipelago Banking</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_EDUCATION_FAUX</Tag><English>Archipelago Education</English><French>Archipelago Education</French><German>Archipelago Education</German><Italian>Archipelago Education</Italian><Spanish>Archipelago Education</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PRINTING_PRESS_FAUX</Tag><English>Archipelago Printing Press</English><French>Archipelago Printing Press</French><German>Archipelago Printing Press</German><Italian>Archipelago Printing Press</Italian><Spanish>Archipelago Printing Press</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ECONOMICS_FAUX</Tag><English>Archipelago Economics</English><French>Archipelago Economics</French><German>Archipelago Economics</German><Italian>Archipelago Economics</Italian><Spanish>Archipelago Economics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ASTRONOMY_FAUX</Tag><English>Archipelago Astronomy</English><French>Archipelago Astronomy</French><German>Archipelago Astronomy</German><Italian>Archipelago Astronomy</Italian><Spanish>Archipelago Astronomy</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CHEMISTRY_FAUX</Tag><English>Archipelago Chemistry</English><French>Archipelago Chemistry</French><German>Archipelago Chemistry</German><Italian>Archipelago Chemistry</Italian><Spanish>Archipelago Chemistry</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_SCIENTIFIC_METHOD_FAUX</Tag><English>Archipelago Scientific Method</English><French>Archipelago Scientific Method</French><German>Archipelago Scientific Method</German><Italian>Archipelago Scientific Method</Italian><Spanish>Archipelago Scientific Method</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PHYSICS_FAUX</Tag><English>Archipelago Physics</English><French>Archipelago Physics</French><German>Archipelago Physics</German><Italian>Archipelago Physics</Italian><Spanish>Archipelago Physics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_BIOLOGY_FAUX</Tag><English>Archipelago Biology</English><French>Archipelago Biology</French><German>Archipelago Biology</German><Italian>Archipelago Biology</Italian><Spanish>Archipelago Biology</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MEDICINE_FAUX</Tag><English>Archipelago Medicine</English><French>Archipelago Medicine</French><German>Archipelago Medicine</German><Italian>Archipelago Medicine</Italian><Spanish>Archipelago Medicine</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ELECTRICITY_FAUX</Tag><English>Archipelago Electricity</English><French>Archipelago Electricity</French><German>Archipelago Electricity</German><Italian>Archipelago Electricity</Italian><Spanish>Archipelago Electricity</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_COMBUSTION_FAUX</Tag><English>Archipelago Combustion</English><French>Archipelago Combustion</French><German>Archipelago Combustion</German><Italian>Archipelago Combustion</Italian><Spanish>Archipelago Combustion</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FISSION_FAUX</Tag><English>Archipelago Fission</English><French>Archipelago Fission</French><German>Archipelago Fission</German><Italian>Archipelago Fission</Italian><Spanish>Archipelago Fission</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FLIGHT_FAUX</Tag><English>Archipelago Flight</English><French>Archipelago Flight</French><German>Archipelago Flight</German><Italian>Archipelago Flight</Italian><Spanish>Archipelago Flight</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ADVANCED_FLIGHT_FAUX</Tag><English>Archipelago Advanced Flight</English><French>Archipelago Advanced Flight</French><German>Archipelago Advanced Flight</German><Italian>Archipelago Advanced Flight</Italian><Spanish>Archipelago Advanced Flight</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_PLASTICS_FAUX</Tag><English>Archipelago Plastics</English><French>Archipelago Plastics</French><German>Archipelago Plastics</German><Italian>Archipelago Plastics</Italian><Spanish>Archipelago Plastics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_COMPOSITES_FAUX</Tag><English>Archipelago Composites</English><French>Archipelago Composites</French><German>Archipelago Composites</German><Italian>Archipelago Composites</Italian><Spanish>Archipelago Composites</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_STEALTH_FAUX</Tag><English>Archipelago Stealth</English><French>Archipelago Stealth</French><German>Archipelago Stealth</German><Italian>Archipelago Stealth</Italian><Spanish>Archipelago Stealth</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_GENETICS_FAUX</Tag><English>Archipelago Genetics</English><French>Archipelago Genetics</French><German>Archipelago Genetics</German><Italian>Archipelago Genetics</Italian><Spanish>Archipelago Genetics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FIBER_OPTICS_FAUX</Tag><English>Archipelago Fiber Optics</English><French>Archipelago Fiber Optics</French><German>Archipelago Fiber Optics</German><Italian>Archipelago Fiber Optics</Italian><Spanish>Archipelago Fiber Optics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FUSION_FAUX</Tag><English>Archipelago Fusion</English><French>Archipelago Fusion</French><German>Archipelago Fusion</German><Italian>Archipelago Fusion</Italian><Spanish>Archipelago Fusion</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_HUNTING_FAUX</Tag><English>Archipelago Hunting</English><French>Archipelago Hunting</French><German>Archipelago Hunting</German><Italian>Archipelago Hunting</Italian><Spanish>Archipelago Hunting</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MINING_FAUX</Tag><English>Archipelago Mining</English><French>Archipelago Mining</French><German>Archipelago Mining</German><Italian>Archipelago Mining</Italian><Spanish>Archipelago Mining</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ARCHERY_FAUX</Tag><English>Archipelago Archery</English><French>Archipelago Archery</French><German>Archipelago Archery</German><Italian>Archipelago Archery</Italian><Spanish>Archipelago Archery</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MASONRY_FAUX</Tag><English>Archipelago Masonry</English><French>Archipelago Masonry</French><German>Archipelago Masonry</German><Italian>Archipelago Masonry</Italian><Spanish>Archipelago Masonry</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ANIMAL_HUSBANDRY_FAUX</Tag><English>Archipelago Animal Husbandry</English><French>Archipelago Animal Husbandry</French><German>Archipelago Animal Husbandry</German><Italian>Archipelago Animal Husbandry</Italian><Spanish>Archipelago Animal Husbandry</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_BRONZE_WORKING_FAUX</Tag><English>Archipelago Bronze Working</English><French>Archipelago Bronze Working</French><German>Archipelago Bronze Working</German><Italian>Archipelago Bronze Working</Italian><Spanish>Archipelago Bronze Working</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_HORSEBACK_RIDING_FAUX</Tag><English>Archipelago Horseback Riding</English><French>Archipelago Horseback Riding</French><German>Archipelago Horseback Riding</German><Italian>Archipelago Horseback Riding</Italian><Spanish>Archipelago Horseback Riding</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_IRON_WORKING_FAUX</Tag><English>Archipelago Iron Working</English><French>Archipelago Iron Working</French><German>Archipelago Iron Working</German><Italian>Archipelago Iron Working</Italian><Spanish>Archipelago Iron Working</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_METAL_CASTING_FAUX</Tag><English>Archipelago Metal Casting</English><French>Archipelago Metal Casting</French><German>Archipelago Metal Casting</German><Italian>Archipelago Metal Casting</Italian><Spanish>Archipelago Metal Casting</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_COMPASS_FAUX</Tag><English>Archipelago Compass</English><French>Archipelago Compass</French><German>Archipelago Compass</German><Italian>Archipelago Compass</Italian><Spanish>Archipelago Compass</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_CONSTRUCTION_FAUX</Tag><English>Archipelago Construction</English><French>Archipelago Construction</French><German>Archipelago Construction</German><Italian>Archipelago Construction</Italian><Spanish>Archipelago Construction</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MACHINERY_FAUX</Tag><English>Archipelago Machinery</English><French>Archipelago Machinery</French><German>Archipelago Machinery</German><Italian>Archipelago Machinery</Italian><Spanish>Archipelago Machinery</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ENGINEERING_FAUX</Tag><English>Archipelago Engineering</English><French>Archipelago Engineering</French><German>Archipelago Engineering</German><Italian>Archipelago Engineering</Italian><Spanish>Archipelago Engineering</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_OPTICS_FAUX</Tag><English>Archipelago Optics</English><French>Archipelago Optics</French><German>Archipelago Optics</German><Italian>Archipelago Optics</Italian><Spanish>Archipelago Optics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_GUNPOWDER_FAUX</Tag><English>Archipelago Gunpowder</English><French>Archipelago Gunpowder</French><German>Archipelago Gunpowder</German><Italian>Archipelago Gunpowder</Italian><Spanish>Archipelago Gunpowder</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_REPLACEABLE_PARTS_FAUX</Tag><English>Archipelago Replaceable Parts</English><French>Archipelago Replaceable Parts</French><German>Archipelago Replaceable Parts</German><Italian>Archipelago Replaceable Parts</Italian><Spanish>Archipelago Replaceable Parts</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_MILITARY_SCIENCE_FAUX</Tag><English>Archipelago Military Science</English><French>Archipelago Military Science</French><German>Archipelago Military Science</German><Italian>Archipelago Military Science</Italian><Spanish>Archipelago Military Science</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_RIFLING_FAUX</Tag><English>Archipelago Rifling</English><French>Archipelago Rifling</French><German>Archipelago Rifling</German><Italian>Archipelago Rifling</Italian><Spanish>Archipelago Rifling</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_STEAM_POWER_FAUX</Tag><English>Archipelago Steam Power</English><French>Archipelago Steam Power</French><German>Archipelago Steam Power</German><Italian>Archipelago Steam Power</Italian><Spanish>Archipelago Steam Power</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_STEEL_FAUX</Tag><English>Archipelago Steel</English><French>Archipelago Steel</French><German>Archipelago Steel</German><Italian>Archipelago Steel</Italian><Spanish>Archipelago Steel</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ASSEMBLY_LINE_FAUX</Tag><English>Archipelago Assembly Line</English><French>Archipelago Assembly Line</French><German>Archipelago Assembly Line</German><Italian>Archipelago Assembly Line</Italian><Spanish>Archipelago Assembly Line</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_RAILROAD_FAUX</Tag><English>Archipelago Railroad</English><French>Archipelago Railroad</French><German>Archipelago Railroad</German><Italian>Archipelago Railroad</Italian><Spanish>Archipelago Railroad</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ARTILLERY_FAUX</Tag><English>Archipelago Artillery</English><French>Archipelago Artillery</French><German>Archipelago Artillery</German><Italian>Archipelago Artillery</Italian><Spanish>Archipelago Artillery</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_INDUSTRIALISM_FAUX</Tag><English>Archipelago Industrialism</English><French>Archipelago Industrialism</French><German>Archipelago Industrialism</German><Italian>Archipelago Industrialism</Italian><Spanish>Archipelago Industrialism</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_RADIO_FAUX</Tag><English>Archipelago Radio</English><French>Archipelago Radio</French><German>Archipelago Radio</German><Italian>Archipelago Radio</Italian><Spanish>Archipelago Radio</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_REFRIGERATION_FAUX</Tag><English>Archipelago Refrigeration</English><French>Archipelago Refrigeration</French><German>Archipelago Refrigeration</German><Italian>Archipelago Refrigeration</Italian><Spanish>Archipelago Refrigeration</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_SUPERCONDUCTORS_FAUX</Tag><English>Archipelago Superconductors</English><French>Archipelago Superconductors</French><German>Archipelago Superconductors</German><Italian>Archipelago Superconductors</Italian><Spanish>Archipelago Superconductors</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_COMPUTERS_FAUX</Tag><English>Archipelago Computers</English><French>Archipelago Computers</French><German>Archipelago Computers</German><Italian>Archipelago Computers</Italian><Spanish>Archipelago Computers</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_LASER_FAUX</Tag><English>Archipelago Laser</English><French>Archipelago Laser</French><German>Archipelago Laser</German><Italian>Archipelago Laser</Italian><Spanish>Archipelago Laser</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ROCKETRY_FAUX</Tag><English>Archipelago Rocketry</English><French>Archipelago Rocketry</French><German>Archipelago Rocketry</German><Italian>Archipelago Rocketry</Italian><Spanish>Archipelago Rocketry</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_SATELLITES_FAUX</Tag><English>Archipelago Satellites</English><French>Archipelago Satellites</French><German>Archipelago Satellites</German><Italian>Archipelago Satellites</Italian><Spanish>Archipelago Satellites</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_ROBOTICS_FAUX</Tag><English>Archipelago Robotics</English><French>Archipelago Robotics</French><German>Archipelago Robotics</German><Italian>Archipelago Robotics</Italian><Spanish>Archipelago Robotics</Spanish></TEXT><TEXT><Tag>TXT_KEY_TECH_FUTURE_TECH_FAUX</Tag><English>Archipelago Future Tech</English><French>Archipelago Future Tech</French><German>Archipelago Future Tech</German><Italian>Archipelago Future Tech</Italian><Spanish>Archipelago Future Tech</Spanish></TEXT></Civ4GameText>
+<Civ4GameText xmlns="http://firaxis.com">
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MYSTICISM_FAUX</Tag>
+        <English>Archipelago Mysticism</English>
+        <French>Archipelago Mysticism</French>
+        <German>Archipelago Mysticism</German>
+        <Italian>Archipelago Mysticism</Italian>
+        <Spanish>Archipelago Mysticism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MEDITATION_FAUX</Tag>
+        <English>Archipelago Meditation</English>
+        <French>Archipelago Meditation</French>
+        <German>Archipelago Meditation</German>
+        <Italian>Archipelago Meditation</Italian>
+        <Spanish>Archipelago Meditation</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_POLYTHEISM_FAUX</Tag>
+        <English>Archipelago Polytheism</English>
+        <French>Archipelago Polytheism</French>
+        <German>Archipelago Polytheism</German>
+        <Italian>Archipelago Polytheism</Italian>
+        <Spanish>Archipelago Polytheism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PRIESTHOOD_FAUX</Tag>
+        <English>Archipelago Priesthood</English>
+        <French>Archipelago Priesthood</French>
+        <German>Archipelago Priesthood</German>
+        <Italian>Archipelago Priesthood</Italian>
+        <Spanish>Archipelago Priesthood</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MONOTHEISM_FAUX</Tag>
+        <English>Archipelago Monotheism</English>
+        <French>Archipelago Monotheism</French>
+        <German>Archipelago Monotheism</German>
+        <Italian>Archipelago Monotheism</Italian>
+        <Spanish>Archipelago Monotheism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MONARCHY_FAUX</Tag>
+        <English>Archipelago Monarchy</English>
+        <French>Archipelago Monarchy</French>
+        <German>Archipelago Monarchy</German>
+        <Italian>Archipelago Monarchy</Italian>
+        <Spanish>Archipelago Monarchy</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_LITERATURE_FAUX</Tag>
+        <English>Archipelago Literature</English>
+        <French>Archipelago Literature</French>
+        <German>Archipelago Literature</German>
+        <Italian>Archipelago Literature</Italian>
+        <Spanish>Archipelago Literature</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CODE_OF_LAWS_FAUX</Tag>
+        <English>Archipelago Code Of Laws</English>
+        <French>Archipelago Code Of Laws</French>
+        <German>Archipelago Code Of Laws</German>
+        <Italian>Archipelago Code Of Laws</Italian>
+        <Spanish>Archipelago Code Of Laws</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_DRAMA_FAUX</Tag>
+        <English>Archipelago Drama</English>
+        <French>Archipelago Drama</French>
+        <German>Archipelago Drama</German>
+        <Italian>Archipelago Drama</Italian>
+        <Spanish>Archipelago Drama</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FEUDALISM_FAUX</Tag>
+        <English>Archipelago Feudalism</English>
+        <French>Archipelago Feudalism</French>
+        <German>Archipelago Feudalism</German>
+        <Italian>Archipelago Feudalism</Italian>
+        <Spanish>Archipelago Feudalism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_THEOLOGY_FAUX</Tag>
+        <English>Archipelago Theology</English>
+        <French>Archipelago Theology</French>
+        <German>Archipelago Theology</German>
+        <Italian>Archipelago Theology</Italian>
+        <Spanish>Archipelago Theology</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MUSIC_FAUX</Tag>
+        <English>Archipelago Music</English>
+        <French>Archipelago Music</French>
+        <German>Archipelago Music</German>
+        <Italian>Archipelago Music</Italian>
+        <Spanish>Archipelago Music</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CIVIL_SERVICE_FAUX</Tag>
+        <English>Archipelago Civil Service</English>
+        <French>Archipelago Civil Service</French>
+        <German>Archipelago Civil Service</German>
+        <Italian>Archipelago Civil Service</Italian>
+        <Spanish>Archipelago Civil Service</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_GUILDS_FAUX</Tag>
+        <English>Archipelago Guilds</English>
+        <French>Archipelago Guilds</French>
+        <German>Archipelago Guilds</German>
+        <Italian>Archipelago Guilds</Italian>
+        <Spanish>Archipelago Guilds</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_DIVINE_RIGHT_FAUX</Tag>
+        <English>Archipelago Divine Right</English>
+        <French>Archipelago Divine Right</French>
+        <German>Archipelago Divine Right</German>
+        <Italian>Archipelago Divine Right</Italian>
+        <Spanish>Archipelago Divine Right</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_NATIONALISM_FAUX</Tag>
+        <English>Archipelago Nationalism</English>
+        <French>Archipelago Nationalism</French>
+        <German>Archipelago Nationalism</German>
+        <Italian>Archipelago Nationalism</Italian>
+        <Spanish>Archipelago Nationalism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MILITARY_TRADITION_FAUX</Tag>
+        <English>Archipelago Military Tradition</English>
+        <French>Archipelago Military Tradition</French>
+        <German>Archipelago Military Tradition</German>
+        <Italian>Archipelago Military Tradition</Italian>
+        <Spanish>Archipelago Military Tradition</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CONSTITUTION_FAUX</Tag>
+        <English>Archipelago Constitution</English>
+        <French>Archipelago Constitution</French>
+        <German>Archipelago Constitution</German>
+        <Italian>Archipelago Constitution</Italian>
+        <Spanish>Archipelago Constitution</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_LIBERALISM_FAUX</Tag>
+        <English>Archipelago Liberalism</English>
+        <French>Archipelago Liberalism</French>
+        <German>Archipelago Liberalism</German>
+        <Italian>Archipelago Liberalism</Italian>
+        <Spanish>Archipelago Liberalism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_DEMOCRACY_FAUX</Tag>
+        <English>Archipelago Democracy</English>
+        <French>Archipelago Democracy</French>
+        <German>Archipelago Democracy</German>
+        <Italian>Archipelago Democracy</Italian>
+        <Spanish>Archipelago Democracy</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CORPORATION_FAUX</Tag>
+        <English>Archipelago Corporation</English>
+        <French>Archipelago Corporation</French>
+        <German>Archipelago Corporation</German>
+        <Italian>Archipelago Corporation</Italian>
+        <Spanish>Archipelago Corporation</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FASCISM_FAUX</Tag>
+        <English>Archipelago Fascism</English>
+        <French>Archipelago Fascism</French>
+        <German>Archipelago Fascism</German>
+        <Italian>Archipelago Fascism</Italian>
+        <Spanish>Archipelago Fascism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_UTOPIA_FAUX</Tag>
+        <English>Archipelago Utopia</English>
+        <French>Archipelago Utopia</French>
+        <German>Archipelago Utopia</German>
+        <Italian>Archipelago Utopia</Italian>
+        <Spanish>Archipelago Utopia</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MASS_MEDIA_FAUX</Tag>
+        <English>Archipelago Mass Media</English>
+        <French>Archipelago Mass Media</French>
+        <German>Archipelago Mass Media</German>
+        <Italian>Archipelago Mass Media</Italian>
+        <Spanish>Archipelago Mass Media</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ECOLOGY_FAUX</Tag>
+        <English>Archipelago Ecology</English>
+        <French>Archipelago Ecology</French>
+        <German>Archipelago Ecology</German>
+        <Italian>Archipelago Ecology</Italian>
+        <Spanish>Archipelago Ecology</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FISHING_FAUX</Tag>
+        <English>Archipelago Fishing</English>
+        <French>Archipelago Fishing</French>
+        <German>Archipelago Fishing</German>
+        <Italian>Archipelago Fishing</Italian>
+        <Spanish>Archipelago Fishing</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_THE_WHEEL_FAUX</Tag>
+        <English>Archipelago The Wheel</English>
+        <French>Archipelago The Wheel</French>
+        <German>Archipelago The Wheel</German>
+        <Italian>Archipelago The Wheel</Italian>
+        <Spanish>Archipelago The Wheel</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_AGRICULTURE_FAUX</Tag>
+        <English>Archipelago Agriculture</English>
+        <French>Archipelago Agriculture</French>
+        <German>Archipelago Agriculture</German>
+        <Italian>Archipelago Agriculture</Italian>
+        <Spanish>Archipelago Agriculture</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_POTTERY_FAUX</Tag>
+        <English>Archipelago Pottery</English>
+        <French>Archipelago Pottery</French>
+        <German>Archipelago Pottery</German>
+        <Italian>Archipelago Pottery</Italian>
+        <Spanish>Archipelago Pottery</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_AESTHETICS_FAUX</Tag>
+        <English>Archipelago Aesthetics</English>
+        <French>Archipelago Aesthetics</French>
+        <German>Archipelago Aesthetics</German>
+        <Italian>Archipelago Aesthetics</Italian>
+        <Spanish>Archipelago Aesthetics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_SAILING_FAUX</Tag>
+        <English>Archipelago Sailing</English>
+        <French>Archipelago Sailing</French>
+        <German>Archipelago Sailing</German>
+        <Italian>Archipelago Sailing</Italian>
+        <Spanish>Archipelago Sailing</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_WRITING_FAUX</Tag>
+        <English>Archipelago Writing</English>
+        <French>Archipelago Writing</French>
+        <German>Archipelago Writing</German>
+        <Italian>Archipelago Writing</Italian>
+        <Spanish>Archipelago Writing</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MATHEMATICS_FAUX</Tag>
+        <English>Archipelago Mathematics</English>
+        <French>Archipelago Mathematics</French>
+        <German>Archipelago Mathematics</German>
+        <Italian>Archipelago Mathematics</Italian>
+        <Spanish>Archipelago Mathematics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ALPHABET_FAUX</Tag>
+        <English>Archipelago Alphabet</English>
+        <French>Archipelago Alphabet</French>
+        <German>Archipelago Alphabet</German>
+        <Italian>Archipelago Alphabet</Italian>
+        <Spanish>Archipelago Alphabet</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CALENDAR_FAUX</Tag>
+        <English>Archipelago Calendar</English>
+        <French>Archipelago Calendar</French>
+        <German>Archipelago Calendar</German>
+        <Italian>Archipelago Calendar</Italian>
+        <Spanish>Archipelago Calendar</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CURRENCY_FAUX</Tag>
+        <English>Archipelago Currency</English>
+        <French>Archipelago Currency</French>
+        <German>Archipelago Currency</German>
+        <Italian>Archipelago Currency</Italian>
+        <Spanish>Archipelago Currency</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PHILOSOPHY_FAUX</Tag>
+        <English>Archipelago Philosophy</English>
+        <French>Archipelago Philosophy</French>
+        <German>Archipelago Philosophy</German>
+        <Italian>Archipelago Philosophy</Italian>
+        <Spanish>Archipelago Philosophy</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PAPER_FAUX</Tag>
+        <English>Archipelago Paper</English>
+        <French>Archipelago Paper</French>
+        <German>Archipelago Paper</German>
+        <Italian>Archipelago Paper</Italian>
+        <Spanish>Archipelago Paper</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_BANKING_FAUX</Tag>
+        <English>Archipelago Banking</English>
+        <French>Archipelago Banking</French>
+        <German>Archipelago Banking</German>
+        <Italian>Archipelago Banking</Italian>
+        <Spanish>Archipelago Banking</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_EDUCATION_FAUX</Tag>
+        <English>Archipelago Education</English>
+        <French>Archipelago Education</French>
+        <German>Archipelago Education</German>
+        <Italian>Archipelago Education</Italian>
+        <Spanish>Archipelago Education</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PRINTING_PRESS_FAUX</Tag>
+        <English>Archipelago Printing Press</English>
+        <French>Archipelago Printing Press</French>
+        <German>Archipelago Printing Press</German>
+        <Italian>Archipelago Printing Press</Italian>
+        <Spanish>Archipelago Printing Press</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ECONOMICS_FAUX</Tag>
+        <English>Archipelago Economics</English>
+        <French>Archipelago Economics</French>
+        <German>Archipelago Economics</German>
+        <Italian>Archipelago Economics</Italian>
+        <Spanish>Archipelago Economics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ASTRONOMY_FAUX</Tag>
+        <English>Archipelago Astronomy</English>
+        <French>Archipelago Astronomy</French>
+        <German>Archipelago Astronomy</German>
+        <Italian>Archipelago Astronomy</Italian>
+        <Spanish>Archipelago Astronomy</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CHEMISTRY_FAUX</Tag>
+        <English>Archipelago Chemistry</English>
+        <French>Archipelago Chemistry</French>
+        <German>Archipelago Chemistry</German>
+        <Italian>Archipelago Chemistry</Italian>
+        <Spanish>Archipelago Chemistry</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_SCIENTIFIC_METHOD_FAUX</Tag>
+        <English>Archipelago Scientific Method</English>
+        <French>Archipelago Scientific Method</French>
+        <German>Archipelago Scientific Method</German>
+        <Italian>Archipelago Scientific Method</Italian>
+        <Spanish>Archipelago Scientific Method</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PHYSICS_FAUX</Tag>
+        <English>Archipelago Physics</English>
+        <French>Archipelago Physics</French>
+        <German>Archipelago Physics</German>
+        <Italian>Archipelago Physics</Italian>
+        <Spanish>Archipelago Physics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_BIOLOGY_FAUX</Tag>
+        <English>Archipelago Biology</English>
+        <French>Archipelago Biology</French>
+        <German>Archipelago Biology</German>
+        <Italian>Archipelago Biology</Italian>
+        <Spanish>Archipelago Biology</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MEDICINE_FAUX</Tag>
+        <English>Archipelago Medicine</English>
+        <French>Archipelago Medicine</French>
+        <German>Archipelago Medicine</German>
+        <Italian>Archipelago Medicine</Italian>
+        <Spanish>Archipelago Medicine</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ELECTRICITY_FAUX</Tag>
+        <English>Archipelago Electricity</English>
+        <French>Archipelago Electricity</French>
+        <German>Archipelago Electricity</German>
+        <Italian>Archipelago Electricity</Italian>
+        <Spanish>Archipelago Electricity</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_COMBUSTION_FAUX</Tag>
+        <English>Archipelago Combustion</English>
+        <French>Archipelago Combustion</French>
+        <German>Archipelago Combustion</German>
+        <Italian>Archipelago Combustion</Italian>
+        <Spanish>Archipelago Combustion</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FISSION_FAUX</Tag>
+        <English>Archipelago Fission</English>
+        <French>Archipelago Fission</French>
+        <German>Archipelago Fission</German>
+        <Italian>Archipelago Fission</Italian>
+        <Spanish>Archipelago Fission</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FLIGHT_FAUX</Tag>
+        <English>Archipelago Flight</English>
+        <French>Archipelago Flight</French>
+        <German>Archipelago Flight</German>
+        <Italian>Archipelago Flight</Italian>
+        <Spanish>Archipelago Flight</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ADVANCED_FLIGHT_FAUX</Tag>
+        <English>Archipelago Advanced Flight</English>
+        <French>Archipelago Advanced Flight</French>
+        <German>Archipelago Advanced Flight</German>
+        <Italian>Archipelago Advanced Flight</Italian>
+        <Spanish>Archipelago Advanced Flight</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_PLASTICS_FAUX</Tag>
+        <English>Archipelago Plastics</English>
+        <French>Archipelago Plastics</French>
+        <German>Archipelago Plastics</German>
+        <Italian>Archipelago Plastics</Italian>
+        <Spanish>Archipelago Plastics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_COMPOSITES_FAUX</Tag>
+        <English>Archipelago Composites</English>
+        <French>Archipelago Composites</French>
+        <German>Archipelago Composites</German>
+        <Italian>Archipelago Composites</Italian>
+        <Spanish>Archipelago Composites</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_STEALTH_FAUX</Tag>
+        <English>Archipelago Stealth</English>
+        <French>Archipelago Stealth</French>
+        <German>Archipelago Stealth</German>
+        <Italian>Archipelago Stealth</Italian>
+        <Spanish>Archipelago Stealth</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_GENETICS_FAUX</Tag>
+        <English>Archipelago Genetics</English>
+        <French>Archipelago Genetics</French>
+        <German>Archipelago Genetics</German>
+        <Italian>Archipelago Genetics</Italian>
+        <Spanish>Archipelago Genetics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FIBER_OPTICS_FAUX</Tag>
+        <English>Archipelago Fiber Optics</English>
+        <French>Archipelago Fiber Optics</French>
+        <German>Archipelago Fiber Optics</German>
+        <Italian>Archipelago Fiber Optics</Italian>
+        <Spanish>Archipelago Fiber Optics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FUSION_FAUX</Tag>
+        <English>Archipelago Fusion</English>
+        <French>Archipelago Fusion</French>
+        <German>Archipelago Fusion</German>
+        <Italian>Archipelago Fusion</Italian>
+        <Spanish>Archipelago Fusion</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_HUNTING_FAUX</Tag>
+        <English>Archipelago Hunting</English>
+        <French>Archipelago Hunting</French>
+        <German>Archipelago Hunting</German>
+        <Italian>Archipelago Hunting</Italian>
+        <Spanish>Archipelago Hunting</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MINING_FAUX</Tag>
+        <English>Archipelago Mining</English>
+        <French>Archipelago Mining</French>
+        <German>Archipelago Mining</German>
+        <Italian>Archipelago Mining</Italian>
+        <Spanish>Archipelago Mining</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ARCHERY_FAUX</Tag>
+        <English>Archipelago Archery</English>
+        <French>Archipelago Archery</French>
+        <German>Archipelago Archery</German>
+        <Italian>Archipelago Archery</Italian>
+        <Spanish>Archipelago Archery</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MASONRY_FAUX</Tag>
+        <English>Archipelago Masonry</English>
+        <French>Archipelago Masonry</French>
+        <German>Archipelago Masonry</German>
+        <Italian>Archipelago Masonry</Italian>
+        <Spanish>Archipelago Masonry</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ANIMAL_HUSBANDRY_FAUX</Tag>
+        <English>Archipelago Animal Husbandry</English>
+        <French>Archipelago Animal Husbandry</French>
+        <German>Archipelago Animal Husbandry</German>
+        <Italian>Archipelago Animal Husbandry</Italian>
+        <Spanish>Archipelago Animal Husbandry</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_BRONZE_WORKING_FAUX</Tag>
+        <English>Archipelago Bronze Working</English>
+        <French>Archipelago Bronze Working</French>
+        <German>Archipelago Bronze Working</German>
+        <Italian>Archipelago Bronze Working</Italian>
+        <Spanish>Archipelago Bronze Working</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_HORSEBACK_RIDING_FAUX</Tag>
+        <English>Archipelago Horseback Riding</English>
+        <French>Archipelago Horseback Riding</French>
+        <German>Archipelago Horseback Riding</German>
+        <Italian>Archipelago Horseback Riding</Italian>
+        <Spanish>Archipelago Horseback Riding</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_IRON_WORKING_FAUX</Tag>
+        <English>Archipelago Iron Working</English>
+        <French>Archipelago Iron Working</French>
+        <German>Archipelago Iron Working</German>
+        <Italian>Archipelago Iron Working</Italian>
+        <Spanish>Archipelago Iron Working</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_METAL_CASTING_FAUX</Tag>
+        <English>Archipelago Metal Casting</English>
+        <French>Archipelago Metal Casting</French>
+        <German>Archipelago Metal Casting</German>
+        <Italian>Archipelago Metal Casting</Italian>
+        <Spanish>Archipelago Metal Casting</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_COMPASS_FAUX</Tag>
+        <English>Archipelago Compass</English>
+        <French>Archipelago Compass</French>
+        <German>Archipelago Compass</German>
+        <Italian>Archipelago Compass</Italian>
+        <Spanish>Archipelago Compass</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_CONSTRUCTION_FAUX</Tag>
+        <English>Archipelago Construction</English>
+        <French>Archipelago Construction</French>
+        <German>Archipelago Construction</German>
+        <Italian>Archipelago Construction</Italian>
+        <Spanish>Archipelago Construction</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MACHINERY_FAUX</Tag>
+        <English>Archipelago Machinery</English>
+        <French>Archipelago Machinery</French>
+        <German>Archipelago Machinery</German>
+        <Italian>Archipelago Machinery</Italian>
+        <Spanish>Archipelago Machinery</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ENGINEERING_FAUX</Tag>
+        <English>Archipelago Engineering</English>
+        <French>Archipelago Engineering</French>
+        <German>Archipelago Engineering</German>
+        <Italian>Archipelago Engineering</Italian>
+        <Spanish>Archipelago Engineering</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_OPTICS_FAUX</Tag>
+        <English>Archipelago Optics</English>
+        <French>Archipelago Optics</French>
+        <German>Archipelago Optics</German>
+        <Italian>Archipelago Optics</Italian>
+        <Spanish>Archipelago Optics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_GUNPOWDER_FAUX</Tag>
+        <English>Archipelago Gunpowder</English>
+        <French>Archipelago Gunpowder</French>
+        <German>Archipelago Gunpowder</German>
+        <Italian>Archipelago Gunpowder</Italian>
+        <Spanish>Archipelago Gunpowder</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_REPLACEABLE_PARTS_FAUX</Tag>
+        <English>Archipelago Replaceable Parts</English>
+        <French>Archipelago Replaceable Parts</French>
+        <German>Archipelago Replaceable Parts</German>
+        <Italian>Archipelago Replaceable Parts</Italian>
+        <Spanish>Archipelago Replaceable Parts</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_MILITARY_SCIENCE_FAUX</Tag>
+        <English>Archipelago Military Science</English>
+        <French>Archipelago Military Science</French>
+        <German>Archipelago Military Science</German>
+        <Italian>Archipelago Military Science</Italian>
+        <Spanish>Archipelago Military Science</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_RIFLING_FAUX</Tag>
+        <English>Archipelago Rifling</English>
+        <French>Archipelago Rifling</French>
+        <German>Archipelago Rifling</German>
+        <Italian>Archipelago Rifling</Italian>
+        <Spanish>Archipelago Rifling</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_STEAM_POWER_FAUX</Tag>
+        <English>Archipelago Steam Power</English>
+        <French>Archipelago Steam Power</French>
+        <German>Archipelago Steam Power</German>
+        <Italian>Archipelago Steam Power</Italian>
+        <Spanish>Archipelago Steam Power</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_STEEL_FAUX</Tag>
+        <English>Archipelago Steel</English>
+        <French>Archipelago Steel</French>
+        <German>Archipelago Steel</German>
+        <Italian>Archipelago Steel</Italian>
+        <Spanish>Archipelago Steel</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ASSEMBLY_LINE_FAUX</Tag>
+        <English>Archipelago Assembly Line</English>
+        <French>Archipelago Assembly Line</French>
+        <German>Archipelago Assembly Line</German>
+        <Italian>Archipelago Assembly Line</Italian>
+        <Spanish>Archipelago Assembly Line</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_RAILROAD_FAUX</Tag>
+        <English>Archipelago Railroad</English>
+        <French>Archipelago Railroad</French>
+        <German>Archipelago Railroad</German>
+        <Italian>Archipelago Railroad</Italian>
+        <Spanish>Archipelago Railroad</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ARTILLERY_FAUX</Tag>
+        <English>Archipelago Artillery</English>
+        <French>Archipelago Artillery</French>
+        <German>Archipelago Artillery</German>
+        <Italian>Archipelago Artillery</Italian>
+        <Spanish>Archipelago Artillery</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_INDUSTRIALISM_FAUX</Tag>
+        <English>Archipelago Industrialism</English>
+        <French>Archipelago Industrialism</French>
+        <German>Archipelago Industrialism</German>
+        <Italian>Archipelago Industrialism</Italian>
+        <Spanish>Archipelago Industrialism</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_RADIO_FAUX</Tag>
+        <English>Archipelago Radio</English>
+        <French>Archipelago Radio</French>
+        <German>Archipelago Radio</German>
+        <Italian>Archipelago Radio</Italian>
+        <Spanish>Archipelago Radio</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_REFRIGERATION_FAUX</Tag>
+        <English>Archipelago Refrigeration</English>
+        <French>Archipelago Refrigeration</French>
+        <German>Archipelago Refrigeration</German>
+        <Italian>Archipelago Refrigeration</Italian>
+        <Spanish>Archipelago Refrigeration</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_SUPERCONDUCTORS_FAUX</Tag>
+        <English>Archipelago Superconductors</English>
+        <French>Archipelago Superconductors</French>
+        <German>Archipelago Superconductors</German>
+        <Italian>Archipelago Superconductors</Italian>
+        <Spanish>Archipelago Superconductors</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_COMPUTERS_FAUX</Tag>
+        <English>Archipelago Computers</English>
+        <French>Archipelago Computers</French>
+        <German>Archipelago Computers</German>
+        <Italian>Archipelago Computers</Italian>
+        <Spanish>Archipelago Computers</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_LASER_FAUX</Tag>
+        <English>Archipelago Laser</English>
+        <French>Archipelago Laser</French>
+        <German>Archipelago Laser</German>
+        <Italian>Archipelago Laser</Italian>
+        <Spanish>Archipelago Laser</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ROCKETRY_FAUX</Tag>
+        <English>Archipelago Rocketry</English>
+        <French>Archipelago Rocketry</French>
+        <German>Archipelago Rocketry</German>
+        <Italian>Archipelago Rocketry</Italian>
+        <Spanish>Archipelago Rocketry</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_SATELLITES_FAUX</Tag>
+        <English>Archipelago Satellites</English>
+        <French>Archipelago Satellites</French>
+        <German>Archipelago Satellites</German>
+        <Italian>Archipelago Satellites</Italian>
+        <Spanish>Archipelago Satellites</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_ROBOTICS_FAUX</Tag>
+        <English>Archipelago Robotics</English>
+        <French>Archipelago Robotics</French>
+        <German>Archipelago Robotics</German>
+        <Italian>Archipelago Robotics</Italian>
+        <Spanish>Archipelago Robotics</Spanish>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_TECH_FUTURE_TECH_FAUX</Tag>
+        <English>Archipelago Future Tech</English>
+        <French>Archipelago Future Tech</French>
+        <German>Archipelago Future Tech</German>
+        <Italian>Archipelago Future Tech</Italian>
+        <Spanish>Archipelago Future Tech</Spanish>
+    </TEXT>
+</Civ4GameText>

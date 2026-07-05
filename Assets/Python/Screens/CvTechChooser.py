@@ -81,6 +81,10 @@ class CvTechChooser:
 	"Tech Chooser Screen"
 
 	def __init__(self):
+                # --- ARCHIPELAGO ADVISOR STATE ---
+                self.iCurrentPage = 0 
+                # --- END ARCHIPELAGO ADVISOR STATE ---
+
 		self.nWidgetCount = 0
 		self.iCivSelected = 0
 		self.aiCurrentState = []
@@ -276,6 +280,31 @@ class CvTechChooser:
 #		self.timer.reset()
 #		self.timer.start()
 
+                # --- ARCHIPELAGO ADVISOR TABS (FIXED SIGNATURES & COLORS) ---
+                # We inject native text color codes directly into the string parameter!
+                szVanillaText = "Vanilla Technologies"
+                szArchText = "Archipelago Checks"
+                
+                if self.iCurrentPage == 0:
+                    szVanillaText = "<color=255,215,0,255>" + szVanillaText + "</color>" # Gold color code
+                    szArchText = "<color=255,255,255,255>" + szArchText + "</color>"    # White color code
+                else:
+                    szVanillaText = "<color=255,255,255,255>" + szVanillaText + "</color>"
+                    szArchText = "<color=255,215,0,255>" + szArchText + "</color>"
+
+                # Fixed parameter signature: (szName, szInstanceName, szText, iJustify, iX, iY, iZ, eWidgetType, iData1, iData2, eFontType)
+                screen.setText("VanillaTechTab", "CvTechChooser", szVanillaText, 
+                               CvUtil.FONT_LEFT_JUSTIFY, 200, 10, 0, 
+                               FontTypes.MENU_FONT, WidgetTypes.WIDGET_GENERAL, 9991, 0)
+                               
+                screen.setText("ArchipelagoTechTab", "CvTechChooser", szArchText, 
+                               CvUtil.FONT_LEFT_JUSTIFY, 400, 10, 0, 
+                               FontTypes.MENU_FONT, WidgetTypes.WIDGET_GENERAL, 9992, 0)
+                # --- END ARCHIPELAGO ADVISOR TABS ---
+
+
+
+
 		# Place the tech blocks
 		self.placeTechs(screen, sPanel, bTechPanel, bTechName, bTechIcon, bTechDetails)
 
@@ -307,6 +336,19 @@ class CvTechChooser:
 
 		# Go through all the techs
 		for i in range(gc.getNumTechInfos()):
+
+                        # --- ARCHIPELAGO PAGE FILTER ---
+                        isFauxTech = (gc.getTechInfo(i).getFlavorValue(8) > 0)
+                        
+                        # If on the Main Page, hide faux technologies
+                        if self.iCurrentPage == 0 and isFauxTech:
+                            continue
+                            
+                        # If on the Archipelago Page, hide standard vanilla technologies
+                        if self.iCurrentPage == 1 and not isFauxTech:
+                            continue
+                        # --- END ARCHIPELAGO PAGE FILTER ---
+
 
 			# Create and place a tech in its proper location
 			iX = 30 + ( (gc.getTechInfo(i).getGridX() - 1) * ( ( self.BOX_INCREMENT_X_SPACING + self.BOX_INCREMENT_WIDTH ) * self.PIXEL_INCREMENT ) )
@@ -933,6 +975,13 @@ class CvTechChooser:
 		ARROW_HEAD = ArtFileMgr.getInterfaceArtInfo("ARROW_HEAD").getPath()
 
 		for i in range(gc.getNumTechInfos()):
+                        # --- ARCHIPELAGO MASTER ARROW FILTER ---
+                        isFauxTech = (gc.getTechInfo(i).getFlavorValue(8) > 0)
+                        if self.iCurrentPage == 0 and isFauxTech:
+                            continue
+                        if self.iCurrentPage == 1 and not isFauxTech:
+                            continue
+                        # --- END ARCHIPELAGO MASTER ARROW FILTER ---
 			bFirst = 1
 			fX = (self.BOX_INCREMENT_WIDTH * self.PIXEL_INCREMENT) - 8
 
@@ -1126,6 +1175,27 @@ class CvTechChooser:
 		screen = self.getScreen()
 
 		szWidgetName = inputClass.getFunctionName() + str(inputClass.getID())
+
+                # --- ARCHIPELAGO ADVISOR INPUT (FIXED EXPLICIT RE-DRAW) ---
+                if inputClass.getNotifyCode() == 11: 
+                    iWidgetID = inputClass.getData1()
+                    
+                    if iWidgetID == 9991 and self.iCurrentPage != 0:
+                        self.iCurrentPage = 0
+                        # Grabs the active screen class reference used inside CvTechChooser
+                        screen = self.getScreen() 
+                        screen.hideScreen() # Clear out old texture layers completely
+                        self.interfaceScreen() # Re-instantiate the viewport container loop cleanly
+                        return 1
+                        
+                    elif iWidgetID == 9992 and self.iCurrentPage != 1:
+                        self.iCurrentPage = 1
+                        screen = self.getScreen()
+                        screen.hideScreen()
+                        self.interfaceScreen()
+                        return 1
+                # --- END ARCHIPELAGO ADVISOR INPUT ---
+
 
 		# Advanced Start Stuff
 		pPlayer = gc.getPlayer(self.iCivSelected)
