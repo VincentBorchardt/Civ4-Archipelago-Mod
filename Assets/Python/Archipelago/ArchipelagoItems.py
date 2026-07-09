@@ -8,16 +8,13 @@ import BugOptions
 
 import ArchipelagoStuff
 import ArchipelagoData
+from ArchipelagoConstants import *
 
 # constants
 gc = CyGlobalContext()
 cyGame = CyGame()
 cyMap = CyMap()
 pyGame = PyGame()
-
-TECH_TRANSLATION_DICT = {
-    "Agriculture" : "TECH_AGRICULTURE"
-}
 
 
 def receiveItems():
@@ -38,13 +35,20 @@ def receiveItems():
             if 0 < item["item_id"] <= 100: # it is a tech
                 grantTech(item_name)
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
+            if 1000 < item["item_id"] <= 1100: # it is gold
+                grantGold(item_name)
+                # put gold granting here
+                CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
             ArchipelagoData.archipelagoReceivedItems[item_index] = item_name
             ArchipelagoData.saveData()
     else:
         ArchipelagoStuff.showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd"))
 
 def grantTech(techName):
-    pPlayer = gc.getPlayer(0)
+    # Dynamically grab the active human player ID instead of hardcoding 0
+    iPlayerId = gc.getGame().getActivePlayer()
+    pPlayer = gc.getPlayer(iPlayerId)
+    
     if pPlayer is None or pPlayer.isNone() or not pPlayer.isAlive():
         CyInterface().addImmediateMessage("Player does not exist yet for some reason", "")
         return # Exit early if the player array isn't populated or active
@@ -53,3 +57,20 @@ def grantTech(techName):
     eTech = gc.getInfoTypeForString(TECH_TRANSLATION_DICT.get(techName))
     # TODO decide what to do about world firsts (fourth parameter)
     pTeam.setHasTech(eTech, True, 0, True, BugOptions.getOption("Archipelago__ShowAnnouncements").getValue())
+
+def grantGold(item_name):
+    # Dynamically grab the active human player ID instead of hardcoding 0
+    iPlayerId = gc.getGame().getActivePlayer()
+    pPlayer = gc.getPlayer(iPlayerId)
+    if pPlayer is None or pPlayer.isNone() or not pPlayer.isAlive():
+        CyInterface().addImmediateMessage("Player does not exist yet for some reason", "")
+        return 
+
+    try:
+        goldAmount = GOLD_TRANSLATION_DICT[item_name]
+        # Grant the gold directly into the player's active treasury!
+        pPlayer.changeGold(goldAmount)
+        
+    except Exception, e:
+        CyInterface().addImmediateMessage("AP Error granting gold: " + str(e), "")
+

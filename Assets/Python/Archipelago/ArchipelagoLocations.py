@@ -14,22 +14,20 @@ cyGame = CyGame()
 cyMap = CyMap()
 pyGame = PyGame()
 
-LOCATION_TO_LOCATION_ID = {
-    "TECH_ARCHIPELAGO1" : 1
-}
-
-
 # Should this be here? I don't know if this is persistent or not
-checkedLocations = []
+
 
 def sendLocationCheck(location_name):
     location_id = LOCATION_TO_LOCATION_ID[location_name]
-    checkedLocations.append(location_id)
+    ArchipelagoData.archipelagoCheckedLocations.append(location_id)
+    ArchipelagoData.save()
+    return sendStoredLocations()
+    
+
+def sendStoredLocations():
     messageDict = {"type" : "LocationChecks", "locations" : checkedLocations}
     dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
     return dataDict
-
-
 
 def checkIfArchipelagoTech(tech):
 	

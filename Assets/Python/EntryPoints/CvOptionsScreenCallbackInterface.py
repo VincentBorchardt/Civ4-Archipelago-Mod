@@ -10,6 +10,7 @@ import BugOptionsScreen
 import ArchipelagoStuff
 import ArchipelagoTab
 import ArchipelagoConsole
+import ArchipelagoLocations
 import ArchipelagoItems
 import ArchipelagoData
 
@@ -540,6 +541,7 @@ def onSendCommandClicked( argsList ):
 def onSyncClicked ( argsList ):
     ArchipelagoItems.receiveItems()
     ArchipelagoData.getHints()
+    ArchipelagoLocations.sendStoredLocations()
     
 
 def onRefreshHintsClicked ( argsList ):

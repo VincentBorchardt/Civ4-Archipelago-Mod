@@ -15,10 +15,11 @@ archipelagoSettings = {}
 # Cross-module active memory cache state objects
 hasConnectedToArchipelago = False
 isConnectedToArchipelago = False
+archipelagoCheckedLocations = []
 archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 10 # TODO make this default to 0 once I actually add in the setting
-archipelagoTechSanityEnabled = False # TODO make this false once I add in the setting
+archipelagoTechSanityEnabled = True # TODO make this false once I add in the setting
 archipelagoHints = []
 
 
@@ -35,6 +36,7 @@ def saveData():
         # 2. Package everything together into our save state dictionary payload
         payload = {
             "hasConnected": hasConnectedToArchipelago,
+            "checkedLocations": archipelagoCheckedLocations,
             "receivedItems": archipelagoReceivedItems,
             "receivedHints": archipelagoHints,
             "savedServer": server,
@@ -61,6 +63,7 @@ def loadData(*args):
             
             # Extract standard tracking parameters safely
             hasConnectedToArchipelago = payload.get("hasConnected", False)
+            archipelagoCheckedLocations = payload.get("checkedLocations", [])
             archipelagoReceivedItems = payload.get("receivedItems", {})
             archipelagoHints = payload.get("receivedHints", [])
             archipelagoGPChecks = payload.get("gpChecks", {})
@@ -81,6 +84,7 @@ def loadData(*args):
         else:
             # Baseline defaults for a completely brand-new game map
             hasConnectedToArchipelago = False
+            archipelagoCheckedLocations = []
             archipelagoReceivedItems = {}
             archipelagoHints = []
             archipelagoGPChecks = {}
@@ -89,6 +93,7 @@ def loadData(*args):
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
         hasConnectedToArchipelago = False
+        archipelagoCheckedLocations = []
         archipelagoReceivedItems = {}
         archipelagoHints = []
         archipelagoGPChecks = {}

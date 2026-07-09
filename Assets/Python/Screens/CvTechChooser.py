@@ -337,19 +337,32 @@ class CvTechChooser:
 		# Go through all the techs
 		for i in range(gc.getNumTechInfos()):
 
-                        # --- ARCHIPELAGO PAGE FILTER ---
-                        isFauxTech = (gc.getTechInfo(i).getFlavorValue(8) > 0)
-                        
-                        # If on the Main Page, hide faux technologies
-                        if self.iCurrentPage == 0 and isFauxTech:
-                            continue
-                            
-                        # If on the Archipelago Page, hide standard vanilla technologies
-                        if self.iCurrentPage == 1 and not isFauxTech:
-                            continue
-                        # --- END ARCHIPELAGO PAGE FILTER ---
+                        # --- ARCHIPELAGO MASTER STATE FILTER ---
+			isFauxTech = (gc.getTechInfo(i).getFlavorValue(8) > 0)
+			
+			bVisibleOnCurrentTab = True
+			if self.iCurrentPage == 0 and isFauxTech:
+				bVisibleOnCurrentTab = False
+			elif self.iCurrentPage == 1 and not isFauxTech:
+				bVisibleOnCurrentTab = False
 
-
+			# If the item shouldn't render on this tab, actively scrub its layout containers 
+			# and arrows from the visible panel surface so they vanish instantly!
+			if not bVisibleOnCurrentTab:
+				szTechRecord = sPanelWidget + "TechRecord" + str(i)
+				szTechRecordShadow = sPanelWidget + "TechRecordShadow" + str(i)
+				
+				# Explicitly hide the structural panel wrappers
+				screen.hide(szTechRecord)
+				screen.hide(szTechRecordShadow)
+				
+				# This forces the C++ engine layer to clear the cached lines/arrows 
+				# associated with this specific tech box off the active sPanel grid view!
+				screen.hide(sPanelWidget + "TechID" + str(i))
+				screen.hide(sPanelWidget + "TechButtonID" + str(i))
+				continue 
+			# --- END ARCHIPELAGO MASTER STATE FILTER ---
+            
 			# Create and place a tech in its proper location
 			iX = 30 + ( (gc.getTechInfo(i).getGridX() - 1) * ( ( self.BOX_INCREMENT_X_SPACING + self.BOX_INCREMENT_WIDTH ) * self.PIXEL_INCREMENT ) )
 			iY = ( gc.getTechInfo(i).getGridY() - 1 ) * ( self.BOX_INCREMENT_Y_SPACING * self.PIXEL_INCREMENT ) + 5
@@ -975,13 +988,6 @@ class CvTechChooser:
 		ARROW_HEAD = ArtFileMgr.getInterfaceArtInfo("ARROW_HEAD").getPath()
 
 		for i in range(gc.getNumTechInfos()):
-                        # --- ARCHIPELAGO MASTER ARROW FILTER ---
-                        isFauxTech = (gc.getTechInfo(i).getFlavorValue(8) > 0)
-                        if self.iCurrentPage == 0 and isFauxTech:
-                            continue
-                        if self.iCurrentPage == 1 and not isFauxTech:
-                            continue
-                        # --- END ARCHIPELAGO MASTER ARROW FILTER ---
 			bFirst = 1
 			fX = (self.BOX_INCREMENT_WIDTH * self.PIXEL_INCREMENT) - 8
 
@@ -1176,25 +1182,30 @@ class CvTechChooser:
 
 		szWidgetName = inputClass.getFunctionName() + str(inputClass.getID())
 
-                # --- ARCHIPELAGO ADVISOR INPUT (FIXED EXPLICIT RE-DRAW) ---
-                if inputClass.getNotifyCode() == 11: 
-                    iWidgetID = inputClass.getData1()
-                    
-                    if iWidgetID == 9991 and self.iCurrentPage != 0:
-                        self.iCurrentPage = 0
-                        # Grabs the active screen class reference used inside CvTechChooser
-                        screen = self.getScreen() 
-                        screen.hideScreen() # Clear out old texture layers completely
-                        self.interfaceScreen() # Re-instantiate the viewport container loop cleanly
-                        return 1
-                        
-                    elif iWidgetID == 9992 and self.iCurrentPage != 1:
-                        self.iCurrentPage = 1
-                        screen = self.getScreen()
-                        screen.hideScreen()
-                        self.interfaceScreen()
-                        return 1
-                # --- END ARCHIPELAGO ADVISOR INPUT ---
+		# --- ARCHIPELAGO ADVISOR INPUT (FIXED EXPLICIT RE-DRAW) ---
+		if inputClass.getNotifyCode() == 11: # Click event marker code
+			iWidgetID = inputClass.getData1()
+			
+			if iWidgetID == 9991 and self.iCurrentPage != 0:
+				self.iCurrentPage = 0
+				
+				# Grab the active screen handle
+				screen = self.getScreen()
+				
+				# Tell the BUG engine wrapper to actively hide and re-show the advisor layout.
+				# This forces a true, synchronous re-trigger of DrawTechChooser across the panels!
+				screen.hideScreen()
+				self.interfaceScreen()
+				return 1
+				
+			elif iWidgetID == 9992 and self.iCurrentPage != 1:
+				self.iCurrentPage = 1
+				screen = self.getScreen()
+				screen.hideScreen()
+				self.interfaceScreen()
+				return 1
+		# --- END ARCHIPELAGO ADVISOR INPUT ---
+
 
 
 		# Advanced Start Stuff
