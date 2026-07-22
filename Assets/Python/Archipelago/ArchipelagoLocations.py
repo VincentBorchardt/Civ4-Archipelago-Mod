@@ -6,6 +6,7 @@ import BugOptions
 
 import ArchipelagoStuff
 import ArchipelagoData
+import ArchipelagoItems
 from ArchipelagoConstants import *
 
 # constants
@@ -18,14 +19,16 @@ pyGame = PyGame()
 
 
 def sendLocationCheck(location_name):
+    CyInterface().addImmediateMessage("Sending Location Check: " + location_name, "")
     location_id = LOCATION_TO_LOCATION_ID[location_name]
     ArchipelagoData.archipelagoCheckedLocations.append(location_id)
-    ArchipelagoData.save()
-    return sendStoredLocations()
+    ArchipelagoData.saveData()
+    sendStoredLocations() # could put a variable into something
+    ArchipelagoItems.receiveItems()
     
 
 def sendStoredLocations():
-    messageDict = {"type" : "LocationChecks", "locations" : checkedLocations}
+    messageDict = {"type" : "LocationChecks", "locations" : ArchipelagoData.archipelagoCheckedLocations}
     dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
     return dataDict
 
@@ -39,7 +42,6 @@ def checkIfArchipelagoTech(tech):
         tech_name = tech_info.getType()
         sendLocationCheck(tech_name)
         # Show something in the message log saying what you sent?
-        ArchipelagoStuff.showPopup("This is an Archipelago Tech", ArchipelagoStuff.popupMessage)
 
 def cannotResearchTechsanityGate(ePlayer, eTech):
     pPlayer = gc.getPlayer(ePlayer)
@@ -55,7 +57,7 @@ def cannotResearchTechsanityGate(ePlayer, eTech):
         return False     # ALLOW: AI always researches standard vanilla paths
 
     # --- RULE GROUP 2: THE HUMAN PLAYER ---
-    if ArchipelagoData.archipelagoTechSanityEnabled:
+    if ArchipelagoData.archipelagoTechsanityEnabled:
         if isFauxTech:
             return False # ALLOW: Human researches Faux techs when option is active
         return True      # HARD BLOCK: Human can never research vanilla paths directly
@@ -92,7 +94,7 @@ def executeGPArchipelagoBulb(pUnit):
     ArchipelagoData.saveData()
     
     # 2. Trigger Server Check Communication
-    # sendLocationCheck(location_name)
+    sendLocationCheck(location_name)
     
     # 3. Safely kill the unit!
     pUnit.kill(True, -1)

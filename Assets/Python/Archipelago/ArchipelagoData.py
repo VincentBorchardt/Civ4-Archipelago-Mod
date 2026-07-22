@@ -10,16 +10,14 @@ import ArchipelagoStuff
 # Unique storage tracking slot inside BUG's secure save profile
 DATA_SAVE_KEY = "ArchipelagoModSaveState"
 
-archipelagoSettings = {}
-
-# Cross-module active memory cache state objects
+# TODO decapitalize 'sanity' once I have good refactoring tools
 hasConnectedToArchipelago = False
 isConnectedToArchipelago = False
 archipelagoCheckedLocations = []
 archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
-archipelagoMaxGPSanity = 10 # TODO make this default to 0 once I actually add in the setting
-archipelagoTechSanityEnabled = True # TODO make this false once I add in the setting
+archipelagoMaxGPSanity = 0 # TODO make this default to 0 once I actually add in the setting
+archipelagoTechsanityEnabled = False # TODO make this false once I add in the setting
 archipelagoHints = []
 
 
@@ -43,7 +41,8 @@ def saveData():
             "savedUser": username,
             "savedPass": password,
             "gpChecks": archipelagoGPChecks,
-            "apWorldSettings": archipelagoSettings,
+            "maxGPsanity": archipelagoMaxGPSanity,
+            "techsanity": archipelagoTechsanityEnabled,
             
         }
         
@@ -53,7 +52,7 @@ def saveData():
 
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
-    global hasConnectedToArchipelago, archipelagoReceivedItems, archipelagoHints
+    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()
@@ -67,7 +66,8 @@ def loadData(*args):
             archipelagoReceivedItems = payload.get("receivedItems", {})
             archipelagoHints = payload.get("receivedHints", [])
             archipelagoGPChecks = payload.get("gpChecks", {})
-            archipelagoSettings = payload.get("apWorldSettings", {})
+            archipelagoMaxGPSanity = payload.get("maxGPsanity", 0)
+            archipelagoTechsanityEnabled = payload.get("techsanity", False)
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -79,16 +79,14 @@ def loadData(*args):
                 BugOptions.getOption("Archipelago__ArchipelagoServer").setValue(saved_server)
                 BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(saved_user)
                 BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(saved_pass)
-                # Note: If these keys are None (e.g. an old save file generated before this update),
-                # Python skips this block entirely, cleanly falling back to whatever is inside the .ini file!
         else:
-            # Baseline defaults for a completely brand-new game map
             hasConnectedToArchipelago = False
             archipelagoCheckedLocations = []
             archipelagoReceivedItems = {}
             archipelagoHints = []
             archipelagoGPChecks = {}
-            archipelagoSettings = {}
+            archipelagoMaxGPSanity = 0
+            archipelagoTechsanityEnabled = False
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
@@ -97,16 +95,25 @@ def loadData(*args):
         archipelagoReceivedItems = {}
         archipelagoHints = []
         archipelagoGPChecks = {}
-        archipelagoSettings = {}
+        archipelagoMaxGPSanity = 0
+        archipelagoTechsanityEnabled = False
 
-def getSettings():
-    global archipelagoSettings
-    messageDict = {"type":"GetSettings"}
-    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict)
-    if not dataDict or (dataDict.get("cmd") != "GetSettings"):
-        ArchipelagoStuff.showPopup("Connection Error", "No settings packet received")
-        return
-    #TODO set up settings!
+##def getSettings():
+##    global archipelagoSettings
+##    messageDict = {"type":"GetSettings"}
+##    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict)
+##    if not dataDict or (dataDict.get("cmd") != "GetSettings"):
+##        ArchipelagoStuff.showPopup("Connection Error", "No settings packet received")
+##        return
+##    #TODO set up settings!
+##    saveData()
+
+def setSettings(dataDict):
+    global archipelagoMaxGPSanity, archipelagoTechsanityEnabled
+    CyInterface().addImmediateMessage(str(dataDict), "")
+    archipelagoMaxGPSanity = dataDict["gpsanity"]
+    if dataDict["techsanity"] > 0:
+        archipelagoTechsanityEnabled = True
     saveData()
 
 def getHints():

@@ -29,7 +29,6 @@ def receiveItems():
             item_index = item["index"]
             item_name = item["name"]
             player_name = item["player"]
-            ArchipelagoStuff.showPopup("Received an item", str(item))
             if ArchipelagoData.archipelagoReceivedItems.get(item_index) == item_name:
                 continue  # already received item
             if 0 < item["item_id"] <= 100: # it is a tech
@@ -37,7 +36,6 @@ def receiveItems():
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
             if 1000 < item["item_id"] <= 1100: # it is gold
                 grantGold(item_name)
-                # put gold granting here
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
             ArchipelagoData.archipelagoReceivedItems[item_index] = item_name
             ArchipelagoData.saveData()

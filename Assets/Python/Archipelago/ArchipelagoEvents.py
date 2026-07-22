@@ -7,6 +7,7 @@ import ArchipelagoStuff
 import ArchipelagoLocations
 import ArchipelagoItems
 import ArchipelagoData
+import ArchipelagoConstants
 
 gc = CyGlobalContext()
 localizer = CyTranslator()
@@ -28,12 +29,13 @@ def onTechAcquired(argsList):
     """
     Fires whenever any player's team acquires a new technology.
     """
+    CyInterface().addImmediateMessage("In onTechAcquired", "")
     # Unpack the standard Civ 4 argument list for this event
     eTech, iTeam, iPlayer, bFirst = argsList
     
     # 1. We only care about the human player (usually ID 0)
     # Alternatively, check: if gc.getPlayer(iPlayer).isHuman():
-    if gc.getPlayer(iPlayer).isHuman():
+    if not gc.getPlayer(iPlayer).isHuman():
         return
 
     ArchipelagoLocations.checkIfArchipelagoTech(eTech)
@@ -69,6 +71,23 @@ def onEndPlayerTurn(argsList):
             ArchipelagoItems.receiveItems()
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
+
+def onVictory(argsList):
+    """Fires the exact frame a victory condition is achieved on the map."""
+    iWinningTeam, eVictoryType = argsList
+    
+    # 1. Check if the active human player is part of the winning team
+    iActivePlayer = gc.getGame().getActivePlayer()
+    pPlayer = gc.getPlayer(iActivePlayer)
+    
+    if pPlayer.getTeam() == iWinningTeam:
+        # 2. Extract the canonical XML Type string of the victory (e.g., "VICTORY_SPACE_RACE")
+        szVictoryTypeStr = gc.getVictoryInfo(eVictoryType).getType()
+        victoryLocation = ArchipelagoConstants.VICTORY_TRANSLATION_DICT.get(szVictoryTypeStr)
+        if victoryLocation:
+            ArchipelagoLocations.sendLocationCheck(victoryLocation)
+            CyInterface().addImmediateMessage("Archipelago Victory Condition Sent! Type: " + victoryLocation, "")
+
 
 def onModNetMessage(argsList):
     iMessageId, iData1, iData2, iData3, iData4 = argsList

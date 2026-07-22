@@ -124,6 +124,7 @@ def connectToArchipelagoServer(server, username, password):
         showPopup("Connection Error", "No packet received from connectToArchipelagoServer")
     elif dataDict.get("cmd") == "Connected":
         showPopup("Connected", "Successfully Connected")
+        ArchipelagoData.setSettings(dataDict)
     else:
         showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd") + " in connectToArchipelagoServer")
     

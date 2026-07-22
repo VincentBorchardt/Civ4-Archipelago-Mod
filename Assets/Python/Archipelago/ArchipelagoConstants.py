@@ -184,6 +184,16 @@ LOCATION_TO_LOCATION_ID = {
     "UNITCLASS_GREAT_SPY_10": 170,
 }
 
+VICTORY_TRANSLATION_DICT = {
+  "VICTORY_SCORE": "Score Victory",
+  "VICTORY_TIME": "Time Victory",
+  "VICTORY_CONQUEST": "Conquest Victory",
+  "VICTORY_DOMINATION": "Domination Victory",
+  "VICTORY_CULTURAL": "Cultural Victory",
+  "VICTORY_SPACE_RACE": "Spaceship Victory",
+  "VICTORY_DIPLOMATIC": "Diplomatic Victory",
+}
+
 TECH_TRANSLATION_DICT = {
     "The Wheel": "TECH_THE_WHEEL",
     "Agriculture": "TECH_AGRICULTURE",
