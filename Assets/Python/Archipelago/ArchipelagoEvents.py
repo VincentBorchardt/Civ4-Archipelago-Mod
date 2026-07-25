@@ -85,7 +85,8 @@ def onVictory(argsList):
         szVictoryTypeStr = gc.getVictoryInfo(eVictoryType).getType()
         victoryLocation = ArchipelagoConstants.VICTORY_TRANSLATION_DICT.get(szVictoryTypeStr)
         if victoryLocation:
-            ArchipelagoLocations.sendLocationCheck(victoryLocation)
+            messageDict = {"type": "Victory", "victoryType": victoryLocation}
+            ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
             CyInterface().addImmediateMessage("Archipelago Victory Condition Sent! Type: " + victoryLocation, "")
 
 
