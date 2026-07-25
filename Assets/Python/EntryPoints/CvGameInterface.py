@@ -98,8 +98,25 @@ def unitCannotMoveInto(argsList):
 	return gameUtils().unitCannotMoveInto(argsList)
 
 def cannotHandleAction(argsList):
-	#CvUtil.pyPrint( "CvGameInterface.cannotHandleAction" )
-	return gameUtils().cannotHandleAction(argsList)
+    # FIX: Unpack exactly the 3 values the engine passes
+    iAction, iCommand, iData = argsList
+    
+    # 1. Pull the structural Action Info block out of the global cache
+    actionInfo = gc.getActionInfo(iCommand)
+    
+    # 2. Check if this specific action triggers the C++ bulb mission (MISSION_DISCOVER)
+    if actionInfo.getMissionType() == MissionTypes.MISSION_DISCOVER:
+        import ArchipelagoData
+        
+        # 3. Only block the human player if Techsanity is currently active
+        if ArchipelagoData.archipelagoTechsanityEnabled:
+            iActivePlayer = gc.getGame().getActivePlayer()
+            if gc.getPlayer(iActivePlayer).isHuman():
+                return True # True tells the C++ engine: "Hard-block this action right now!"
+                
+    # 4. Fallback directly to the native GameUtils rule engine guidelines
+    return gameUtils().cannotHandleAction(argsList)
+
 
 def canBuild(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.canBuild" )
@@ -223,8 +240,42 @@ def doResearch(argsList):
 	return gameUtils().doResearch(argsList)
 
 def doGoody(argsList):
-	#CvUtil.pyPrint( "CvGameInterface.doGoody" )
-	return gameUtils().doGoody(argsList)
+    # FIX: Correctly unpack the native arguments: GoodyType, CyPlot, CyUnit
+    eGoodyType, pPlot, pUnit = argsList
+    
+    if pUnit is None or pUnit.isNone():
+        return gameUtils().doGoody(argsList)
+        
+    # Extract the owner ID integer cleanly from the unit object
+    iPlayer = pUnit.getOwner()
+    pPlayer = gc.getPlayer(iPlayer)
+    
+    if pPlayer is None or pPlayer.isNone() or not pPlayer.isHuman():
+        return gameUtils().doGoody(argsList)
+        
+    szGoodyTypeStr = gc.getGoodyInfo(eGoodyType).getType()
+    
+    # If the engine selected a technology reward for the human under Techsanity settings
+    import ArchipelagoData
+    if szGoodyTypeStr == "GOODY_TECH" and ArchipelagoData.archipelagoTechsanityEnabled:
+        # Re-roll a random alternative goody entry that IS NOT a technology!
+        validAlternatives = ["GOODY_LOW_GOLD", "GOODY_HIGH_GOLD", "GOODY_MAP", "GOODY_EXPERIENCE"]
+        
+        # Pick a random item from our list using the engine's synchronized dice roller
+        iRandomIndex = gc.getGame().getSorenRandNum(len(validAlternatives), "Archipelago Hut Re-roll")
+        szSelectedGoody = validAlternatives[iRandomIndex]
+        
+        eNewGoody = gc.getInfoTypeForString(szSelectedGoody)
+        
+        if eNewGoody != -1:
+            # Overwrite the original index value in the event array argument slice!
+            # Python allows mutable list mutation-altering argsList changes the payload 
+            # the C++ engine uses to deliver the item on this frame pass.
+            argsList[0] = eNewGoody
+            
+    # Forward the modified argsList payload cleanly to the native engine rules handler
+    return gameUtils().doGoody(argsList)
+
 
 def doGrowth(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.doGrowth" )

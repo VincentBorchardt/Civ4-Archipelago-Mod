@@ -58,7 +58,7 @@
 	</Define>
 	<Define>
 		<DefineName>USE_CANNOT_HANDLE_ACTION_CALLBACK</DefineName>
-		<iDefineIntVal>0</iDefineIntVal>
+		<iDefineIntVal>1</iDefineIntVal>
 	</Define>
 	<Define>
 		<DefineName>USE_CAN_BUILD_CALLBACK</DefineName>
