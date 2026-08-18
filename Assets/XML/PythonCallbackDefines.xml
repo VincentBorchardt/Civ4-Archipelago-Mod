@@ -34,7 +34,7 @@
 	</Define>
 	<Define>
 		<DefineName>USE_CAN_CONSTRUCT_CALLBACK</DefineName>
-		<iDefineIntVal>0</iDefineIntVal>
+		<iDefineIntVal>1</iDefineIntVal>
 	</Define>
 	<Define>
 		<DefineName>USE_CAN_DECLARE_WAR_CALLBACK</DefineName>

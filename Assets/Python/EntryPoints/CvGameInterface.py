@@ -173,7 +173,54 @@ def cannotTrain(argsList):
 
 def canConstruct(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.canConstruct" )
-	return gameUtils().canConstruct(argsList)
+        pCity, eBuilding, bContinue, bTestVisible, bIgnoreCost = argsList
+        
+        if pCity is None or pCity.isNone():
+            return gameUtils().canConstruct(argsList)
+
+        # Grab the owner ID integer directly from the city object
+        iPlayer = pCity.getOwner()
+        pPlayer = gc.getPlayer(iPlayer)
+        
+        # 1. We only care about human players during an active Archipelago session
+        if pPlayer and not pPlayer.isNone() and pPlayer.isHuman():
+            # TODO add in a check for wonder obsolescence settings
+            buildingInfo = gc.getBuildingInfo(eBuilding)
+            eObsoleteTech = buildingInfo.getObsoleteTech()
+            buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+            
+            # 2. Check if this building is a Wonder and has an obsolete tech defined
+            if buildingClassInfo.getMaxGlobalInstances() == 1 and eObsoleteTech != -1:
+                pTeam = gc.getTeam(pPlayer.getTeam())
+                
+                # 3. If the human team owns the tech that would normally hide this wonder:
+                if pTeam.isHasTech(eObsoleteTech):
+                    # Check if this wonder has already been built ANYWHERE in the world
+                    if gc.getGame().getBuildingClassCreatedCount(buildingInfo.getBuildingClassType()) == 0:
+                        # --- THE SPOOFING INTERCEPTOR ---
+                        # 3. Temporarily trick the C++ engine into thinking we DON'T own the obsolete tech.
+                        # This strips away the "obsolete hide" block, exposing the wonder to normal rules!
+                        pTeam.setHasTech(eObsoleteTech, False, iPlayer, False, False)
+                        
+                        # 4. Now, force the engine to run its native C++ validation rules.
+                        # This checks if you have Literature, if the city has a Library, etc.
+                        bNativelyBuildableWithoutObsolescence = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+                        
+                        # 5. Instantly restore your actual tech knowledge so you don't lose its benefits
+                        pTeam.setHasTech(eObsoleteTech, True, iPlayer, False, False)
+                        
+                        # 6. Final Evaluation Pass:
+                        if bNativelyBuildableWithoutObsolescence:
+                            # If you passed all regular requirements, allow it to display!
+                            return True
+                        else:
+                            # If you are missing Literature or a Library, hide it normally!
+                            return False
+                        # --- END THE SPOOFING INTERCEPTOR ---
+
+        # Fallback to standard native game rules for AI players or basic buildings
+        return gameUtils().canConstruct(argsList)
+
 
 def cannotConstruct(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.cannotConstruct" )
