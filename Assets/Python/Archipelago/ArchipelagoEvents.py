@@ -72,6 +72,37 @@ def onEndPlayerTurn(argsList):
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
+def onBuildingBuilt(argsList):
+    """
+    Fires the exact frame a building finishes construction inside any city.
+    """
+    # Arguments passed by the engine: (pCity, eBuildingType)
+    pCity, eBuilding = argsList
+    if not ArchipelagoData.archipelagoWondersanityEnabled:
+        return
+    if pCity is None or pCity.isNone():
+        return    
+    iPlayerId = pCity.getOwner()
+    pPlayer = gc.getPlayer(iPlayerId)
+    
+    # 1. Only process completion locations driven by the human player
+    if not pPlayer.isHuman():
+        return  
+    buildingInfo = gc.getBuildingInfo(eBuilding)
+    buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+    
+    # 2. Check if the completed building is classified as a unique World Wonder
+    if buildingClassInfo.getMaxGlobalInstances() == 1:
+        
+        if buildingInfo.getGlobalReligionCommerce() > 0 or buildingInfo.getGlobalCorporationCommerce() > 0:
+            return # Safely ignore holy shrines and corporate headquarters!
+        szBuildingType = buildingInfo.getType() # e.g., "BUILDING_STONEHENGE"
+        
+        # 3. Route to your serialization engine to map the location check
+        CyInterface().addImmediateMessage("Wonder Location Sent! Type: " + szBuildingType, "")
+        #ArchipelagoLocations.sendLocationCheck(szBuildingType)
+
+
 def onVictory(argsList):
     """Fires the exact frame a victory condition is achieved on the map."""
     iWinningTeam, eVictoryType = argsList

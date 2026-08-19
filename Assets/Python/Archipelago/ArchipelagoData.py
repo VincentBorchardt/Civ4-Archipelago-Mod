@@ -16,8 +16,9 @@ isConnectedToArchipelago = False
 archipelagoCheckedLocations = []
 archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
-archipelagoMaxGPSanity = 0 # TODO make this default to 0 once I actually add in the setting
-archipelagoTechsanityEnabled = False # TODO make this false once I add in the setting
+archipelagoMaxGPSanity = 0
+archipelagoTechsanityEnabled = False
+archipelagoWondersanityEnabled = True # TODO make this false once I add in the setting
 archipelagoHints = []
 
 

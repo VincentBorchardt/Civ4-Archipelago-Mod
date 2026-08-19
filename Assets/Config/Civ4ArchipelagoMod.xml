@@ -9,6 +9,7 @@
     <event type="OnLoad" module="ArchipelagoEvents" function="onLoadGame"/>
     <event type="SaveGame" module="ArchipelagoData" function="saveData"/>
     <event type="EndPlayerTurn" module="ArchipelagoEvents" function="onEndPlayerTurn"/>
+    <event type="buildingBuilt" module="ArchipelagoEvents" function="onBuildingBuilt"/>
     <event type="techAcquired" module="ArchipelagoEvents" function="onTechAcquired"/>
     <event type="ModNetMessage" module="ArchipelagoEvents" function="onModNetMessage"/>
     <event type="victory" module="ArchipelagoEvents" function="onVictory"/>
