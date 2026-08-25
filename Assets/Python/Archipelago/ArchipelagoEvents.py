@@ -76,31 +76,45 @@ def onBuildingBuilt(argsList):
     """
     Fires the exact frame a building finishes construction inside any city.
     """
-    # Arguments passed by the engine: (pCity, eBuildingType)
     pCity, eBuilding = argsList
-    if not ArchipelagoData.archipelagoWorldWondersanityEnabled:
-        return
     if pCity is None or pCity.isNone():
         return    
+        
     iPlayerId = pCity.getOwner()
     pPlayer = gc.getPlayer(iPlayerId)
     
-    # 1. Only process completion locations driven by the human player
-    if not pPlayer.isHuman():
+    # 1. Shared Validation: Only process locations driven by the active human player
+    if pPlayer is None or pPlayer.isNone() or not pPlayer.isHuman():
         return  
+        
     buildingInfo = gc.getBuildingInfo(eBuilding)
     buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+    szBuildingType = buildingInfo.getType()
     
-    # 2. Check if the completed building is classified as a unique World Wonder
-    if buildingClassInfo.getMaxGlobalInstances() == 1:
-        
-        if buildingInfo.getGlobalReligionCommerce() > 0 or buildingInfo.getGlobalCorporationCommerce() > 0:
-            return # Safely ignore holy shrines and corporate headquarters!
-        szBuildingType = buildingInfo.getType() # e.g., "BUILDING_STONEHENGE"
-        
-        # 3. Route to your serialization engine to map the location check
-        CyInterface().addImmediateMessage("Wonder Location Sent! Type: " + szBuildingType, "")
+    # Core state routing flag
+    bIsValidLocationCheck = False
+    szCheckLogPrefix = ""
+    
+    # 2. Check for World Wondersanity Pass
+    if ArchipelagoData.archipelagoWorldWondersanityEnabled:
+        if buildingClassInfo.getMaxGlobalInstances() == 1:
+            # Exclude Holy Shrines and Corporation Headquarters
+            if buildingInfo.getGlobalReligionCommerce() <= 0 and buildingInfo.getGlobalCorporationCommerce() <= 0:
+                bIsValidLocationCheck = True
+                szCheckLogPrefix = "World Wonder Location Sent! Type: "
+
+    # 3. Check for National Wondersanity Pass
+    if ArchipelagoData.archipelagoNationalWondersanityEnabled and not bIsValidLocationCheck:
+        # National Wonders have a strict player cap limit of exactly 1 instance per civ
+        if buildingClassInfo.getMaxPlayerInstances() == 1 and szBuildingType != "BUILDING_PALACE":
+            bIsValidLocationCheck = True
+            szCheckLogPrefix = "National Wonder Location Sent! Type: "
+            
+    # 4. Shared Execution: Transmit the check data smoothly across active sockets
+    if bIsValidLocationCheck:
+        CyInterface().addImmediateMessage(szCheckLogPrefix + szBuildingType, "")
         ArchipelagoLocations.sendLocationCheck(szBuildingType)
+
 
 
 def onVictory(argsList):

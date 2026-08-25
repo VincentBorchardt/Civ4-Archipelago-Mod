@@ -18,7 +18,8 @@ archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
-archipelagoWorldWondersanityEnabled = True # TODO make this false once I add in the setting
+archipelagoWorldWondersanityEnabled = False
+archipelagoNationalWondersanityEnabled = False # TODO make this false once I add in the setting
 archipelagoHints = []
 
 
