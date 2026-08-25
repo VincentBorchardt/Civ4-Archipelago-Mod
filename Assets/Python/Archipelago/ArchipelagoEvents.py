@@ -78,7 +78,7 @@ def onBuildingBuilt(argsList):
     """
     # Arguments passed by the engine: (pCity, eBuildingType)
     pCity, eBuilding = argsList
-    if not ArchipelagoData.archipelagoWondersanityEnabled:
+    if not ArchipelagoData.archipelagoWorldWondersanityEnabled:
         return
     if pCity is None or pCity.isNone():
         return    
@@ -100,7 +100,7 @@ def onBuildingBuilt(argsList):
         
         # 3. Route to your serialization engine to map the location check
         CyInterface().addImmediateMessage("Wonder Location Sent! Type: " + szBuildingType, "")
-        #ArchipelagoLocations.sendLocationCheck(szBuildingType)
+        ArchipelagoLocations.sendLocationCheck(szBuildingType)
 
 
 def onVictory(argsList):

@@ -18,7 +18,7 @@ archipelagoReceivedItems = {}
 archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
-archipelagoWondersanityEnabled = True # TODO make this false once I add in the setting
+archipelagoWorldWondersanityEnabled = True # TODO make this false once I add in the setting
 archipelagoHints = []
 
 
@@ -44,6 +44,7 @@ def saveData():
             "gpChecks": archipelagoGPChecks,
             "maxGPsanity": archipelagoMaxGPSanity,
             "techsanity": archipelagoTechsanityEnabled,
+            "worldWondersanity": archipelagoWorldWondersanityEnabled
             
         }
         
@@ -69,6 +70,7 @@ def loadData(*args):
             archipelagoGPChecks = payload.get("gpChecks", {})
             archipelagoMaxGPSanity = payload.get("maxGPsanity", 0)
             archipelagoTechsanityEnabled = payload.get("techsanity", False)
+            archipelagoWorldWondersanityEnabled = payload.get("worldWondersanity", False)
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -88,6 +90,7 @@ def loadData(*args):
             archipelagoGPChecks = {}
             archipelagoMaxGPSanity = 0
             archipelagoTechsanityEnabled = False
+            archipelagoWorldWondersanityEnabled = False
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
@@ -98,6 +101,7 @@ def loadData(*args):
         archipelagoGPChecks = {}
         archipelagoMaxGPSanity = 0
         archipelagoTechsanityEnabled = False
+        archipelagoWorldWondersanityEnabled = False
 
 ##def getSettings():
 ##    global archipelagoSettings
