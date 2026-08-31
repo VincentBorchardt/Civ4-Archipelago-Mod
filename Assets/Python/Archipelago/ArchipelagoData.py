@@ -45,7 +45,8 @@ def saveData():
             "gpChecks": archipelagoGPChecks,
             "maxGPsanity": archipelagoMaxGPSanity,
             "techsanity": archipelagoTechsanityEnabled,
-            "worldWondersanity": archipelagoWorldWondersanityEnabled
+            "worldWondersanity": archipelagoWorldWondersanityEnabled,
+            "nationalWondersanity": archipelagoNationalWondersanityEnabled,
             
         }
         
@@ -55,7 +56,7 @@ def saveData():
 
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
-    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled
+    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()
@@ -72,6 +73,7 @@ def loadData(*args):
             archipelagoMaxGPSanity = payload.get("maxGPsanity", 0)
             archipelagoTechsanityEnabled = payload.get("techsanity", False)
             archipelagoWorldWondersanityEnabled = payload.get("worldWondersanity", False)
+            archipelagoNationalWondersanityEnabled = payload.get("nationalWondersanity", False)
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -84,6 +86,7 @@ def loadData(*args):
                 BugOptions.getOption("Archipelago__ArchipelagoUsername").setValue(saved_user)
                 BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(saved_pass)
         else:
+            # TODO extract this list of settings
             hasConnectedToArchipelago = False
             archipelagoCheckedLocations = []
             archipelagoReceivedItems = {}
@@ -92,6 +95,7 @@ def loadData(*args):
             archipelagoMaxGPSanity = 0
             archipelagoTechsanityEnabled = False
             archipelagoWorldWondersanityEnabled = False
+            archipelagoNationalWondersanityEnabled = False
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
@@ -103,6 +107,7 @@ def loadData(*args):
         archipelagoMaxGPSanity = 0
         archipelagoTechsanityEnabled = False
         archipelagoWorldWondersanityEnabled = False
+        archipelagoNationalWondersanityEnabled = False
 
 ##def getSettings():
 ##    global archipelagoSettings
@@ -115,11 +120,15 @@ def loadData(*args):
 ##    saveData()
 
 def setSettings(dataDict):
-    global archipelagoMaxGPSanity, archipelagoTechsanityEnabled
+    global archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
     CyInterface().addImmediateMessage(str(dataDict), "")
     archipelagoMaxGPSanity = dataDict["gpsanity"]
     if dataDict["techsanity"] > 0:
         archipelagoTechsanityEnabled = True
+    if dataDict["worldWondersanity"] > 0:
+        archipelagoWorldWondersanityEnabled = True
+    if dataDict["nationalWondersanity"] > 0:
+        archipelagoNationalWondersanityEnabled = True
     saveData()
 
 def getHints():
