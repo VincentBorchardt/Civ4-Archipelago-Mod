@@ -68,6 +68,8 @@ def grantUnit(itemName):
     # Always drop the unit into the Capital city for consistency
     pCapital = pPlayer.getCapitalCity()
     if pCapital is None or pCapital.isNone():
+        ArchipelagoData.archipelagoDeferredUnits.append(itemName)
+        CyInterface().addImmediateMessage("Deferred: " + str(itemName), "")
         return
         
     szUnitClass = UNIT_TRANSLATION_DICT.get(itemName)

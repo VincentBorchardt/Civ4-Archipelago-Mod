@@ -15,6 +15,7 @@ hasConnectedToArchipelago = False
 isConnectedToArchipelago = False
 archipelagoCheckedLocations = []
 archipelagoReceivedItems = {}
+archipelagoDeferredUnits = []
 archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
@@ -47,7 +48,7 @@ def saveData():
             "techsanity": archipelagoTechsanityEnabled,
             "worldWondersanity": archipelagoWorldWondersanityEnabled,
             "nationalWondersanity": archipelagoNationalWondersanityEnabled,
-            
+            "deferredUnits": archipelagoDeferredUnits,
         }
         
         dataStore[DATA_SAVE_KEY] = payload
@@ -56,7 +57,7 @@ def saveData():
 
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
-    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, \
+    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoDeferredUnits, \
            archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, \
            archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
     isConnectedToArchipelago = False
@@ -76,6 +77,7 @@ def loadData(*args):
             archipelagoTechsanityEnabled = payload.get("techsanity", False)
             archipelagoWorldWondersanityEnabled = payload.get("worldWondersanity", False)
             archipelagoNationalWondersanityEnabled = payload.get("nationalWondersanity", False)
+            archipelagoDeferredUnits = payload.get("deferredUnits", [])
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -98,6 +100,7 @@ def loadData(*args):
             archipelagoTechsanityEnabled = False
             archipelagoWorldWondersanityEnabled = False
             archipelagoNationalWondersanityEnabled = False
+            archipelagoDeferredUnits = []
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
@@ -110,6 +113,7 @@ def loadData(*args):
         archipelagoTechsanityEnabled = False
         archipelagoWorldWondersanityEnabled = False
         archipelagoNationalWondersanityEnabled = False
+        archipelagoDeferredUnits = []
 
 ##def getSettings():
 ##    global archipelagoSettings

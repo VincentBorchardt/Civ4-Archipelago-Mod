@@ -72,6 +72,24 @@ def onEndPlayerTurn(argsList):
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
+def onCityBuilt(argsList):
+    """
+    Fires the exact frame a player settles a new city on a plot.
+    """
+    pCity = argsList[0]
+    iPlayer = pCity.getOwner()
+    pPlayer = gc.getPlayer(iPlayer)
+    
+    if pPlayer.isHuman():
+        # Check if the player has deferred units waiting in their queue
+        if len(ArchipelagoData.archipelagoDeferredUnits) > 0:
+            # Loop through a shallow copy to prevent array mutation issues
+            for itemName in list(ArchipelagoData.archipelagoDeferredUnits):
+                ArchipelagoItems.grantUnit(itemName)
+                
+            # Clear the list completely now that everything spawned successfully!
+            ArchipelagoData.archipelagoDeferredUnits = []
+
 def onBuildingBuilt(argsList):
     """
     Fires the exact frame a building finishes construction inside any city.
