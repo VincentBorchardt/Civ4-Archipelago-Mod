@@ -56,7 +56,9 @@ def saveData():
 
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
-    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
+    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, \
+           archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, \
+           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()

@@ -338,6 +338,16 @@ TECH_TRANSLATION_DICT = {
     "Future Tech": "TECH_FUTURE_TECH"
 }
 
+UNIT_TRANSLATION_DICT = {
+    "Great Prophet": "UNITCLASS_PROPHET",
+    "Great Artist": "UNITCLASS_ARTIST",
+    "Great Scientist": "UNITCLASS_SCIENTIST",
+    "Great Merchant": "UNITCLASS_MERCHANT",
+    "Great Engineer": "UNITCLASS_ENGINEER",
+    "Great General": "UNITCLASS_GREAT_GENERAL",
+    "Great Spy": "UNITCLASS_SPY"
+}
+
 GOLD_TRANSLATION_DICT = {
     "5 Gold": 5
 }
