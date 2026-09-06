@@ -20,7 +20,8 @@ archipelagoGPChecks = {}
 archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
-archipelagoNationalWondersanityEnabled = False # TODO make this false once I add in the setting
+archipelagoNationalWondersanityEnabled = False
+archipelagoUnlockedUUs = ["UNIT_BABYLON_BOWMAN", "UNIT_MALI_SKIRMISHER"]
 archipelagoHints = []
 
 

@@ -6,6 +6,7 @@ from Popup import PyPopup
 import BugOptions
 
 import socket
+import struct
 import errno
 
 import ArchipelagoData
@@ -39,7 +40,7 @@ def sendAndReceiveData(messageDict, waitForRead=True):
     messagePickle = pickle.dumps(messageDict, 2)
 
     socket_to_archipelago = socket.socket()  # instantiate
-    socket_to_archipelago.settimeout(2.0)
+    socket_to_archipelago.settimeout(5.0)
     host = socket.gethostname()  # as both code is running on same pc
     port = 5000  # socket server port number
 
@@ -57,9 +58,26 @@ def sendAndReceiveData(messageDict, waitForRead=True):
             ArchipelagoData.saveData()
 
             if waitForRead:
-                data_pickle = socket_to_archipelago.recv(1024)
-                if data_pickle:
-                    data_dict = pickle.loads(data_pickle)
+                # 1. Read exactly 4 bytes to determine how big the oncoming payload actually is
+                headerData = socket_to_archipelago.recv(4)
+                if len(headerData) < 4:
+                    raise IOError("Network stream disconnected before frame initialization could establish.")
+        
+                payloadSize = struct.unpack(">I", headerData)[0]
+                
+                # 2. Loop buffer collection until every single byte has arrived safely from the network
+                receivedBuffer = ""
+                while len(receivedBuffer) < payloadSize:
+                    bytesToRead = payloadSize - len(receivedBuffer)
+                    # Read either chunks of 4096 or remaining leftover bytes
+                    chunk = socket_to_archipelago.recv(min(4096, bytesToRead))
+                    if not chunk:
+                        raise EOFError("Socket closed prematurely while collecting stream data buffers.")
+                    receivedBuffer += chunk
+                    
+                # 3. Now that the byte stream is 100% complete, unpickling will NEVER throw an EOFError!
+                if receivedBuffer:
+                    data_dict = pickle.loads(receivedBuffer)
                     if isinstance(data_dict, dict) and "cmd" in data_dict:
                         return data_dict
                 return None
