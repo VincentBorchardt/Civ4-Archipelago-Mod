@@ -169,7 +169,26 @@ def canTrain(argsList):
 
 def cannotTrain(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.cannotTrain" )
-	return gameUtils().cannotTrain(argsList)
+	pCity, eUnit, bContinue, bTestVisible, bIgnoreCost, bIgnoreUpgrades = argsList
+        if pCity is None or pCity.isNone():
+            return gameUtils().cannotTrain(argsList)
+            
+        iPlayer = pCity.getOwner()
+        pPlayer = gc.getPlayer(iPlayer)
+        unitInfo = gc.getUnitInfo(eUnit)
+        szUnitType = unitInfo.getType() # e.g., "UNIT_AP_BOWMAN"
+
+        # Target only our custom freestanding Archipelago Unique Units
+        if szUnitType.startswith("UNIT_AP_"):
+            if not (pPlayer and not pPlayer.isNone() and pPlayer.isHuman()):
+                return True
+        
+            import ArchipelagoData 
+            # 1. Hard-hide and block the unique option if the network token hasn't arrived
+            if szUnitType not in ArchipelagoData.archipelagoUnlockedUUs:
+                return True
+                    
+        return gameUtils().cannotTrain(argsList)
 
 def canConstruct(argsList):
 	#CvUtil.pyPrint( "CvGameInterface.canConstruct" )

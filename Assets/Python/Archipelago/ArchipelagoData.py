@@ -21,7 +21,7 @@ archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
 archipelagoNationalWondersanityEnabled = False
-archipelagoUnlockedUUs = ["UNIT_BABYLON_BOWMAN", "UNIT_MALI_SKIRMISHER"]
+archipelagoUnlockedUUs = ["UNIT_AP_BABYLON_BOWMAN", "UNIT_AP_MALI_SKIRMISHER"]
 archipelagoHints = []
 
 
