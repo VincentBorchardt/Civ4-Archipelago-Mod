@@ -348,6 +348,44 @@ UNIT_TRANSLATION_DICT = {
     "Great Spy": "UNITCLASS_SPY"
 }
 
+UNIQUE_UNIT_TRANSLATION_DICT = {
+    "American Navy Seal": "UNIT_AP_AMERICAN_NAVY_SEAL",
+    "Arabian Camel Archer": "UNIT_AP_ARABIA_CAMELARCHER",
+    "Aztec Jaguar": "UNIT_AP_AZTEC_JAGUAR",
+    "Babylonian Bowman": "UNIT_AP_BABYLON_BOWMAN",
+    "Byzantine Cataphract": "UNIT_AP_BYZANTINE_CATAPHRACT",
+    "Carthaginian Numidian Cavalry": "UNIT_AP_CARTHAGE_NUMIDIAN_CAVALRY",
+    "Celtic Gallic Warrior": "UNIT_AP_CELTIC_GALLIC_WARRIOR",
+    "Chinese Cho-Ko-Nu": "UNIT_AP_CHINA_CHOKONU",
+    "Dutch East Indiaman": "UNIT_AP_NETHERLANDS_OOSTINDIEVAARDER",
+    "Egyptian War Chariot": "UNIT_AP_EGYPT_WARCHARIOT",
+    "English Redcoat": "UNIT_AP_ENGLISH_REDCOAT",
+    "Ethiopian Oromo Warrior": "UNIT_AP_ETHIOPIAN_OROMO_WARRIOR",
+    "French Musketeer": "UNIT_AP_FRENCH_MUSKETEER",
+    "German Panzer": "UNIT_AP_GERMAN_PANZER",
+    "Greek Phalanx": "UNIT_AP_GREEK_PHALANX",
+    "Holy Roman Landsknecht": "UNIT_AP_HOLY_ROMAN_LANDSKNECHT",
+    "Incan Quechua": "UNIT_AP_INCAN_QUECHUA",
+    "Indian Fast Worker": "UNIT_AP_INDIAN_FAST_WORKER",
+    "Japanese Samurai": "UNIT_AP_JAPAN_SAMURAI",
+    "Khmer Ballista Elephant": "UNIT_AP_KHMER_BALLISTA_ELEPHANT",
+    "Korean Hwacha": "UNIT_AP_KOREAN_HWACHA",
+    "Malian Skirmisher": "UNIT_AP_MALI_SKIRMISHER",
+    "Zulu Impi": "UNIT_AP_ZULU_IMPI",
+    "Mayan Holkan": "UNIT_AP_MAYA_HOLKAN",
+    "Mongolian Keshik": "UNIT_AP_MONGOL_KESHIK",
+    "Native American Dog Soldier": "UNIT_AP_NATIVE_AMERICA_DOG_SOLDIER",
+    "Ottoman Janissary": "UNIT_AP_OTTOMAN_JANISSARY",
+    "Persian Immortal": "UNIT_AP_PERSIA_IMMORTAL",
+    "Portuguese Carrack": "UNIT_AP_PORTUGAL_CARRACK",
+    "Roman Praetorian": "UNIT_AP_ROME_PRAETORIAN",
+    "Russian Cossack": "UNIT_AP_RUSSIA_COSSACK",
+    "Spanish Conquistador": "UNIT_AP_SPANISH_CONQUISTADOR",
+    "Sumerian Vulture": "UNIT_AP_SUMERIAN_VULTURE",
+    "Viking Berserker": "UNIT_AP_VIKING_BESERKER"
+}
+
+
 GOLD_TRANSLATION_DICT = {
     "5 Gold": 5
 }
