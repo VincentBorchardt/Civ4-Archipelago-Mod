@@ -34,8 +34,11 @@ def receiveItems():
             if 0 < item["item_id"] <= 100: # it is a tech
                 grantTech(item_name)
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
-            if 100 <= item["item_id"] <= 200: # it is a unit
+            if 100 < item["item_id"] <= 200: # it is a unit
                 grantUnit(item_name)
+                CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
+            if 200 < item["item_id"] <= 300: # it is a unique unit/building
+                grantUnique(item_name)
                 CyInterface().addImmediateMessage("Received " + item_name + " from " + player_name, "")
             if 1000 < item["item_id"] <= 1100: # it is gold
                 grantGold(item_name)
@@ -93,6 +96,9 @@ def grantUnit(itemName):
         szUnitName = gc.getUnitInfo(eUnitType).getDescription()
         CyInterface().addImmediateMessage("A unit was born in your capital: " + szUnitName, "")
 
+def grantUnique(itemName):
+    # TODO implement this
+    pass
 
 def grantGold(itemName):
     iPlayerId = gc.getGame().getActivePlayer()
