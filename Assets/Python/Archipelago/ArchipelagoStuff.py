@@ -28,10 +28,10 @@ socket_to_archipelago.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # en
 
 # TODO Use the message log for some of this stuff rather than PyPopup
 def showPopup(header=popupHeader, body=popupMessage):
-	modPopup = PyPopup()
-	modPopup.setHeaderString(header)
-	modPopup.setBodyString(body)
-	modPopup.launch() 
+    modPopup = PyPopup()
+    modPopup.setHeaderString(header)
+    modPopup.setBodyString(body)
+    modPopup.launch()
 
 # TODO do I want to decouple sending and receiving?
 # Manually doing a socket every time seems wasteful, but it's a later optimization

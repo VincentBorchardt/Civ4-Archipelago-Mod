@@ -345,7 +345,7 @@ UNIT_TRANSLATION_DICT = {
     "Great Merchant": "UNITCLASS_MERCHANT",
     "Great Engineer": "UNITCLASS_ENGINEER",
     "Great General": "UNITCLASS_GREAT_GENERAL",
-    "Great Spy": "UNITCLASS_SPY"
+    "Great Spy": "UNITCLASS_GREAT_SPY"
 }
 
 UNIQUE_UNIT_TRANSLATION_DICT = {

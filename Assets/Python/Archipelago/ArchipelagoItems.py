@@ -88,7 +88,6 @@ def grantUnit(itemName):
     eUnitType = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationUnits(eUnitClass)
     
     if eUnitType != -1:
-        # --- THE CANONICAL SPAWN METHOD ---
         # Arguments: (UnitType, bIncrementThreshold, bIncrementExperience)
         pCapital.createGreatPeople(eUnitType, False, False)
         
@@ -98,7 +97,14 @@ def grantUnit(itemName):
 
 def grantUnique(itemName):
     # TODO implement this
-    pass
+    unitName = UNIQUE_UNIT_TRANSLATION_DICT.get(itemName)
+    if unitName:
+        ArchipelagoData.archipelagoUnlockedUUs.append(unitName)
+        return
+    # TODO unique building check goes here
+    CyInterface().addImmediateMessage("Error in granting unique buildable: " + itemName, "")
+    return
+
 
 def grantGold(itemName):
     iPlayerId = gc.getGame().getActivePlayer()
