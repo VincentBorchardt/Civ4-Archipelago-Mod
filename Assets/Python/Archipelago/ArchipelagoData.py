@@ -21,7 +21,9 @@ archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
 archipelagoNationalWondersanityEnabled = False
+archipelagoUniqueBuildingsEnabled = False
 archipelagoUnlockedUUs = []
+archipelagoUnlockedUBs = []
 archipelagoHints = []
 
 
