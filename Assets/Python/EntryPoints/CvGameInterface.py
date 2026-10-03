@@ -190,53 +190,97 @@ def cannotTrain(argsList):
     return gameUtils().cannotTrain(argsList)
 
 def canConstruct(argsList):
-    #CvUtil.pyPrint( "CvGameInterface.canConstruct" )
-        pCity, eBuilding, bContinue, bTestVisible, bIgnoreCost = argsList
-        
-        if pCity is None or pCity.isNone():
-            return gameUtils().canConstruct(argsList)
+    # CvUtil.pyPrint( "CvGameInterface.canConstruct" )
+    pCity, eBuilding, bContinue, bTestVisible, bIgnoreCost = argsList
 
-        # Grab the owner ID integer directly from the city object
-        iPlayer = pCity.getOwner()
-        pPlayer = gc.getPlayer(iPlayer)
-
-        if pPlayer and not pPlayer.isNone() and pPlayer.isHuman():
-            # TODO add in a check for wonder obsolescence settings
-            buildingInfo = gc.getBuildingInfo(eBuilding)
-            eObsoleteTech = buildingInfo.getObsoleteTech()
-            buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
-            
-            # 2. Check if this building is a Wonder and has an obsolete tech defined
-            if buildingClassInfo.getMaxGlobalInstances() == 1 and eObsoleteTech != -1:
-                pTeam = gc.getTeam(pPlayer.getTeam())
-                
-                # 3. If the human team owns the tech that would normally hide this wonder:
-                if pTeam.isHasTech(eObsoleteTech):
-                    # Check if this wonder has already been built ANYWHERE in the world
-                    if gc.getGame().getBuildingClassCreatedCount(buildingInfo.getBuildingClassType()) == 0:
-                        # --- THE SPOOFING INTERCEPTOR ---
-                        # 3. Temporarily trick the C++ engine into thinking we DON'T own the obsolete tech.
-                        pTeam.setHasTech(eObsoleteTech, False, iPlayer, False, False)
-                        
-                        # 4. Now, force the engine to run its native C++ validation rules.
-                        bNativelyBuildableWithoutObsolescence = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
-                        
-                        # 5. Instantly restore your actual tech knowledge so you don't lose its benefits
-                        pTeam.setHasTech(eObsoleteTech, True, iPlayer, False, False)
-                        
-                        # 6. Final Evaluation Pass:
-                        if bNativelyBuildableWithoutObsolescence:
-                            return True
-                        else:
-                            return False
-                        # --- END THE SPOOFING INTERCEPTOR ---
-
-        # Fallback to standard native game rules for AI players or basic buildings
+    if pCity is None or pCity.isNone():
         return gameUtils().canConstruct(argsList)
+
+    iPlayer = pCity.getOwner()
+    pPlayer = gc.getPlayer(iPlayer)
+
+    if pPlayer and not pPlayer.isNone() and pPlayer.isHuman():
+        buildingInfo = gc.getBuildingInfo(eBuilding)
+        szBuildingType = buildingInfo.getType()
+        eObsoleteTech = buildingInfo.getObsoleteTech()
+        buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+
+        # === INTERCEPTOR A: WONDER OBSOLESCENCE SPOOFING ===
+        # TODO add in a check for wonder obsolescence settings
+        if buildingClassInfo.getMaxGlobalInstances() == 1 and eObsoleteTech != -1:
+            pTeam = gc.getTeam(pPlayer.getTeam())
+            if pTeam.isHasTech(eObsoleteTech):
+                if gc.getGame().getBuildingClassCreatedCount(buildingInfo.getBuildingClassType()) == 0:
+                    pTeam.setHasTech(eObsoleteTech, False, iPlayer, False, False)
+                    bNativelyBuildableWithoutObsolescence = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+                    pTeam.setHasTech(eObsoleteTech, True, iPlayer, False, False)
+
+                    if bNativelyBuildableWithoutObsolescence:
+                        return True
+                    else:
+                        return False
+
+        # === INTERCEPTOR B: UNIQUE BUILDING PREREQUISITE SPOOFING ===
+        # Gather list elements we temporarily inject so they drop cleanly at the end
+        # TODO check performance to see if we should have a settings check here
+        spoofedLocalBuildings = []
+        import ArchipelagoConstants
+
+        # Scan through all 34 entries to see if this city contains an unlocked AP replacement
+        for ap_type, vanilla_class_str in ArchipelagoConstants.AP_BUILDING_TO_VANILLA_CLASS.iteritems():
+            eAPBuilding = gc.getInfoTypeForString(ap_type)
+            if eAPBuilding != -1 and pCity.getNumRealBuilding(eAPBuilding) > 0:
+                CyInterface().addImmediateMessage("Trying to spoof building: " + vanilla_class_str, "")
+                eVanillaClass = gc.getInfoTypeForString(vanilla_class_str)
+                if eVanillaClass != -1:
+                    # Discover what structural building asset this civilization maps to for the slot
+                    eVanillaBuilding = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationBuildings(eVanillaClass)
+                    CyInterface().addImmediateMessage("Part 2 of spoofing: " + str(eVanillaBuilding), "")
+                    # If the base replacement isn't physically flagged as built here, spawn a ghost node pass
+                    if eVanillaBuilding != -1 and pCity.getNumRealBuilding(eVanillaBuilding) == 0:
+                        pCity.setNumRealBuilding(eVanillaBuilding, 1)
+                        spoofedLocalBuildings.append(eVanillaBuilding)
+                        CyInterface().addImmediateMessage("Part 3 of spoofing: " + str(spoofedLocalBuildings), "")
+
+        # Execute standard validation loops while the ghost structures satisfy child prerequisite trees
+        if len(spoofedLocalBuildings) > 0:
+            bCanConstructNatively = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+
+            # Instant Clean Up: Immediately scrub the ghost pass entries completely out of city memory
+            for eVanillaBuilding in spoofedLocalBuildings:
+                pCity.setNumRealBuilding(eVanillaBuilding, 0)
+                CyInterface().addImmediateMessage("Checking if spoof worked: " + str(bCanConstructNatively), "")
+
+            if bCanConstructNatively:
+                return True
+            else:
+                return False
+
+    return gameUtils().canConstruct(argsList)
 
 
 def cannotConstruct(argsList):
     #CvUtil.pyPrint( "CvGameInterface.cannotConstruct" )
+    pCity, eBuilding, bContinue, bTestVisible, bIgnoreCost = argsList
+    if pCity is None or pCity.isNone():
+        return gameUtils().cannotConstruct(argsList)
+
+    iPlayer = pCity.getOwner()
+    pPlayer = gc.getPlayer(iPlayer)
+    buildingInfo = gc.getBuildingInfo(eBuilding)
+    szBuildingType = buildingInfo.getType()
+
+    # Intercept only our custom freestanding Archipelago Unique Buildings
+    if szBuildingType.startswith("BUILDING_AP_"):
+        # 1. Hard-block the AI from ever seeing or training these items
+        if pPlayer is None or pPlayer.isNone() or not pPlayer.isHuman():
+            return True
+
+        # 2. Hard-hide the item for the human player if the network item hasn't settled yet
+        import ArchipelagoData
+        if szBuildingType not in ArchipelagoData.archipelagoUnlockedUBs:
+            return True
+
     return gameUtils().cannotConstruct(argsList)
 
 def canCreate(argsList):

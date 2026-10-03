@@ -21,9 +21,9 @@ archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
 archipelagoNationalWondersanityEnabled = False
-archipelagoUniqueBuildingsEnabled = False
+archipelagoUniqueBuildingsEnabled = True
 archipelagoUnlockedUUs = []
-archipelagoUnlockedUBs = []
+archipelagoUnlockedUBs = ["BUILDING_AP_ARABIAN_MADRASSA", "BUILDING_AP_KOREAN_SEOWON"]
 archipelagoHints = []
 
 
