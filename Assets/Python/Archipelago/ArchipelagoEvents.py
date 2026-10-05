@@ -100,8 +100,7 @@ def onBuildingBuilt(argsList):
         
     iPlayerId = pCity.getOwner()
     pPlayer = gc.getPlayer(iPlayerId)
-    
-    # 1. Shared Validation: Only process locations driven by the active human player
+
     if pPlayer is None or pPlayer.isNone() or not pPlayer.isHuman():
         return  
         

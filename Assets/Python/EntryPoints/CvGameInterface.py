@@ -193,6 +193,7 @@ def canConstruct(argsList):
     # CvUtil.pyPrint( "CvGameInterface.canConstruct" )
     pCity, eBuilding, bContinue, bTestVisible, bIgnoreCost = argsList
 
+
     if pCity is None or pCity.isNone():
         return gameUtils().canConstruct(argsList)
 
@@ -204,10 +205,13 @@ def canConstruct(argsList):
         szBuildingType = buildingInfo.getType()
         eObsoleteTech = buildingInfo.getObsoleteTech()
         buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+        CvUtil.pyPrint("Archipelago Profiler -> Running canConstruct for building: %s" % szBuildingType)
 
         # === INTERCEPTOR A: WONDER OBSOLESCENCE SPOOFING ===
         # TODO add in a check for wonder obsolescence settings
+        # TODO need to fix the case where both interceptors are needed (Great Lighthouse)
         if buildingClassInfo.getMaxGlobalInstances() == 1 and eObsoleteTech != -1:
+            CvUtil.pyPrint("Starting Interceptor A")
             pTeam = gc.getTeam(pPlayer.getTeam())
             if pTeam.isHasTech(eObsoleteTech):
                 if gc.getGame().getBuildingClassCreatedCount(buildingInfo.getBuildingClassType()) == 0:
@@ -221,40 +225,76 @@ def canConstruct(argsList):
                         return False
 
         # === INTERCEPTOR B: UNIQUE BUILDING PREREQUISITE SPOOFING ===
-        # Gather list elements we temporarily inject so they drop cleanly at the end
-        # TODO check performance to see if we should have a settings check here
-        spoofedLocalBuildings = []
+        if bTestVisible:
+            return gameUtils().canConstruct(argsList)
+        
         import ArchipelagoConstants
+        if szBuildingType in ArchipelagoConstants.BUILDINGS_THAT_NEED_SPOOF_CHECK:
+            spoofedLocalBuildings = []
+            spoofedGlobalCities = []  # Tracks (pLoopCity, eVanillaBuilding) pairs for cleanup
+            apLoopCount = 0
+            globalLoopCount = 0
 
-        # Scan through all 34 entries to see if this city contains an unlocked AP replacement
-        for ap_type, vanilla_class_str in ArchipelagoConstants.AP_BUILDING_TO_VANILLA_CLASS.iteritems():
-            eAPBuilding = gc.getInfoTypeForString(ap_type)
-            if eAPBuilding != -1 and pCity.getNumRealBuilding(eAPBuilding) > 0:
-                CyInterface().addImmediateMessage("Trying to spoof building: " + vanilla_class_str, "")
-                eVanillaClass = gc.getInfoTypeForString(vanilla_class_str)
-                if eVanillaClass != -1:
-                    # Discover what structural building asset this civilization maps to for the slot
-                    eVanillaBuilding = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationBuildings(eVanillaClass)
-                    CyInterface().addImmediateMessage("Part 2 of spoofing: " + str(eVanillaBuilding), "")
-                    # If the base replacement isn't physically flagged as built here, spawn a ghost node pass
-                    if eVanillaBuilding != -1 and pCity.getNumRealBuilding(eVanillaBuilding) == 0:
-                        pCity.setNumRealBuilding(eVanillaBuilding, 1)
-                        spoofedLocalBuildings.append(eVanillaBuilding)
-                        CyInterface().addImmediateMessage("Part 3 of spoofing: " + str(spoofedLocalBuildings), "")
+            CvUtil.pyPrint("Starting Interceptor B")
 
-        # Execute standard validation loops while the ghost structures satisfy child prerequisite trees
-        if len(spoofedLocalBuildings) > 0:
-            bCanConstructNatively = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+            # Check if the building being evaluated is a National requiring global counts
+            targetGlobalPrereqClass = ArchipelagoConstants.NATIONAL_WONDER_PREREQS.get(szBuildingType)
 
-            # Instant Clean Up: Immediately scrub the ghost pass entries completely out of city memory
-            for eVanillaBuilding in spoofedLocalBuildings:
-                pCity.setNumRealBuilding(eVanillaBuilding, 0)
-                CyInterface().addImmediateMessage("Checking if spoof worked: " + str(bCanConstructNatively), "")
+            # Scan through all 34 entries to see if this city contains an unlocked AP replacement
+            for ap_type, vanilla_class_str in ArchipelagoConstants.AP_BUILDING_TO_VANILLA_CLASS.iteritems():
+                apLoopCount += 1
+                eAPBuilding = gc.getInfoTypeForString(ap_type)
+                if eAPBuilding != -1:
+                    eVanillaClass = gc.getInfoTypeForString(vanilla_class_str)
+                    if eVanillaClass != -1:
+                        eVanillaBuilding = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationBuildings(eVanillaClass)
+                        if eVanillaBuilding == -1:
+                            continue
 
-            if bCanConstructNatively:
-                return True
-            else:
-                return False
+                        # CASE 1: Global Prerequisite
+                        if targetGlobalPrereqClass and vanilla_class_str == targetGlobalPrereqClass:
+                            globalLoopCount += 1
+                            # Iterate through EVERY city the player owns to find AP equivalents
+                            (pLoopCity, iter) = pPlayer.firstCity(False)
+                            while pLoopCity:
+                                if not pLoopCity.isNone() and pLoopCity.getNumRealBuilding(eAPBuilding) > 0:
+                                    # If this city has an AP building and no vanilla version, spoof!
+                                    if pLoopCity.getNumRealBuilding(eVanillaBuilding) == 0:
+                                        pLoopCity.setNumRealBuilding(eVanillaBuilding, 1)
+                                        spoofedGlobalCities.append((pLoopCity, eVanillaBuilding))
+                                (pLoopCity, iter) = pPlayer.nextCity(iter, False)
+
+                        # CASE 2: Standard Local City Prerequisite
+                        # TODO should this be elif? I want to make sure the normal prereq is still being followed
+                        # AKA you need a University in the city you're building Oxford, even if you have enough
+                        elif pCity.getNumRealBuilding(eAPBuilding) > 0:
+                            if pCity.getNumRealBuilding(eVanillaBuilding) == 0:
+                                pCity.setNumRealBuilding(eVanillaBuilding, 1)
+                                spoofedLocalBuildings.append(eVanillaBuilding)
+
+            # Execute standard validation loops while the ghost structures satisfy child prerequisite trees
+            if len(spoofedLocalBuildings) > 0 or len(spoofedGlobalCities) > 0:
+                bCanConstructNatively = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+
+                # Instant Clean Up - Local
+                for eVanillaBuilding in spoofedLocalBuildings:
+                    pCity.setNumRealBuilding(eVanillaBuilding, 0)
+
+                # Instant Clean Up - Global Empire Loop
+                for pLoopCity, eVanillaBuilding in spoofedGlobalCities:
+                    pLoopCity.setNumRealBuilding(eVanillaBuilding, 0)
+
+                if apLoopCount > 0:
+                    CvUtil.pyPrint("AP checking loop " + str(apLoopCount) + " times")
+
+                if globalLoopCount > 0:
+                    CvUtil.pyPrint("Global spoofing loop ran " + str(globalLoopCount) + " times")
+                    #CyInterface().addImmediateMessage("Spoofing loop ran " + str(globalLoopCount) + " times", "")
+
+                if bCanConstructNatively:
+                    return True
+                else:
+                    return False
 
     return gameUtils().canConstruct(argsList)
 
