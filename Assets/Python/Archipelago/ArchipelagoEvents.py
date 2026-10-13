@@ -107,7 +107,17 @@ def onBuildingBuilt(argsList):
     buildingInfo = gc.getBuildingInfo(eBuilding)
     buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
     szBuildingType = buildingInfo.getType()
-    
+
+    # Check if the newly completed building belongs to a mutually exclusive group
+    if szBuildingType in ArchipelagoConstants.MUTUALLY_EXCLUSIVE_BUILDINGS:
+        competing_buildings = ArchipelagoConstants.MUTUALLY_EXCLUSIVE_BUILDINGS[szBuildingType]
+
+        for comp_type_str in competing_buildings:
+            eCompBuilding = gc.getInfoTypeForString(comp_type_str)
+            if eCompBuilding != -1 and pCity.getNumRealBuilding(eCompBuilding) > 0:
+                # Safely dismantle the alternative building to enforce singular structure allocation rules
+                pCity.setNumRealBuilding(eCompBuilding, 0)
+
     # Core state routing flag
     bIsValidLocationCheck = False
     szCheckLogPrefix = ""

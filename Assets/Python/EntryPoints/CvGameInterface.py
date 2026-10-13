@@ -7,7 +7,7 @@
 ## args to another file that contains your modifications
 ##
 ## MODDERS - If you create a GameUtils file, update the CvGameInterfaceFile reference to point to your new file
-
+import ArchipelagoData
 #
 import CvUtil
 import CvGameUtils
@@ -229,72 +229,75 @@ def canConstruct(argsList):
             return gameUtils().canConstruct(argsList)
         
         import ArchipelagoConstants
-        if szBuildingType in ArchipelagoConstants.BUILDINGS_THAT_NEED_SPOOF_CHECK:
-            spoofedLocalBuildings = []
-            spoofedGlobalCities = []  # Tracks (pLoopCity, eVanillaBuilding) pairs for cleanup
-            apLoopCount = 0
-            globalLoopCount = 0
+        if ArchipelagoData.archipelagoUniqueBuildingsEnabled:
+            buildingsToSpoof = ArchipelagoConstants.BUILDINGS_THAT_NEED_SPOOF_CHECK.get(szBuildingType)
+            if buildingsToSpoof:
+                spoofedLocalBuildings = []
+                spoofedGlobalCities = []  # Tracks (pLoopCity, eVanillaBuilding) pairs for cleanup
+                apLoopCount = 0
+                globalLoopCount = 0
 
-            CvUtil.pyPrint("Starting Interceptor B")
+                CvUtil.pyPrint("Starting Interceptor B")
 
-            # Check if the building being evaluated is a National requiring global counts
-            targetGlobalPrereqClass = ArchipelagoConstants.NATIONAL_WONDER_PREREQS.get(szBuildingType)
+                # Check if the building being evaluated is a National requiring global counts
+                targetGlobalPrereqClass = ArchipelagoConstants.NATIONAL_WONDER_PREREQS.get(szBuildingType)
 
-            # Scan through all 34 entries to see if this city contains an unlocked AP replacement
-            for ap_type, vanilla_class_str in ArchipelagoConstants.AP_BUILDING_TO_VANILLA_CLASS.iteritems():
-                apLoopCount += 1
-                eAPBuilding = gc.getInfoTypeForString(ap_type)
-                if eAPBuilding != -1:
-                    eVanillaClass = gc.getInfoTypeForString(vanilla_class_str)
-                    if eVanillaClass != -1:
-                        eVanillaBuilding = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationBuildings(eVanillaClass)
-                        if eVanillaBuilding == -1:
-                            continue
+                # Scan through all 34 entries to see if this city contains an unlocked AP replacement
+                for ap_type in buildingsToSpoof:
+                    apLoopCount += 1
+                    vanilla_class_str = ArchipelagoConstants.AP_BUILDING_TO_VANILLA_CLASS.get(ap_type)
+                    eAPBuilding = gc.getInfoTypeForString(ap_type)
+                    if eAPBuilding != -1:
+                        eVanillaClass = gc.getInfoTypeForString(vanilla_class_str)
+                        if eVanillaClass != -1:
+                            eVanillaBuilding = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationBuildings(eVanillaClass)
+                            if eVanillaBuilding == -1:
+                                continue
 
-                        # CASE 1: Global Prerequisite
-                        if targetGlobalPrereqClass and vanilla_class_str == targetGlobalPrereqClass:
-                            globalLoopCount += 1
-                            # Iterate through EVERY city the player owns to find AP equivalents
-                            (pLoopCity, iter) = pPlayer.firstCity(False)
-                            while pLoopCity:
-                                if not pLoopCity.isNone() and pLoopCity.getNumRealBuilding(eAPBuilding) > 0:
-                                    # If this city has an AP building and no vanilla version, spoof!
-                                    if pLoopCity.getNumRealBuilding(eVanillaBuilding) == 0:
-                                        pLoopCity.setNumRealBuilding(eVanillaBuilding, 1)
-                                        spoofedGlobalCities.append((pLoopCity, eVanillaBuilding))
-                                (pLoopCity, iter) = pPlayer.nextCity(iter, False)
+                            # CASE 1: Global Prerequisite
+                            if targetGlobalPrereqClass and vanilla_class_str == targetGlobalPrereqClass:
+                                globalLoopCount += 1
+                                # Iterate through EVERY city the player owns to find AP equivalents
+                                (pLoopCity, iter) = pPlayer.firstCity(False)
+                                while pLoopCity:
+                                    if not pLoopCity.isNone() and pLoopCity.getNumRealBuilding(eAPBuilding) > 0:
+                                        # If this city has an AP building and no vanilla version, spoof!
+                                        if pLoopCity.getNumRealBuilding(eVanillaBuilding) == 0:
+                                            pLoopCity.setNumRealBuilding(eVanillaBuilding, 1)
+                                            spoofedGlobalCities.append((pLoopCity, eVanillaBuilding))
+                                    (pLoopCity, iter) = pPlayer.nextCity(iter, False)
 
-                        # CASE 2: Standard Local City Prerequisite
-                        # TODO should this be elif? I want to make sure the normal prereq is still being followed
-                        # AKA you need a University in the city you're building Oxford, even if you have enough
-                        elif pCity.getNumRealBuilding(eAPBuilding) > 0:
-                            if pCity.getNumRealBuilding(eVanillaBuilding) == 0:
-                                pCity.setNumRealBuilding(eVanillaBuilding, 1)
-                                spoofedLocalBuildings.append(eVanillaBuilding)
+                            # CASE 2: Standard Local City Prerequisite
+                            elif pCity.getNumRealBuilding(eAPBuilding) > 0:
+                                if pCity.getNumRealBuilding(eVanillaBuilding) == 0:
+                                    pCity.setNumRealBuilding(eVanillaBuilding, 1)
+                                    spoofedLocalBuildings.append(eVanillaBuilding)
 
-            # Execute standard validation loops while the ghost structures satisfy child prerequisite trees
-            if len(spoofedLocalBuildings) > 0 or len(spoofedGlobalCities) > 0:
-                bCanConstructNatively = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
+                # Execute standard validation loops while the ghost structures satisfy child prerequisite trees
+                if len(spoofedLocalBuildings) > 0 or len(spoofedGlobalCities) > 0:
+                    bCanConstructNatively = pCity.canConstruct(eBuilding, bContinue, bTestVisible, bIgnoreCost)
 
-                # Instant Clean Up - Local
-                for eVanillaBuilding in spoofedLocalBuildings:
-                    pCity.setNumRealBuilding(eVanillaBuilding, 0)
+                    # Instant Clean Up - Local
+                    for eVanillaBuilding in spoofedLocalBuildings:
+                        pCity.setNumRealBuilding(eVanillaBuilding, 0)
 
-                # Instant Clean Up - Global Empire Loop
-                for pLoopCity, eVanillaBuilding in spoofedGlobalCities:
-                    pLoopCity.setNumRealBuilding(eVanillaBuilding, 0)
+                    # Instant Clean Up - Global Empire Loop
+                    for pLoopCity, eVanillaBuilding in spoofedGlobalCities:
+                        pLoopCity.setNumRealBuilding(eVanillaBuilding, 0)
 
-                if apLoopCount > 0:
-                    CvUtil.pyPrint("AP checking loop " + str(apLoopCount) + " times")
+                    if apLoopCount > 0:
+                        #CvUtil.pyPrint("AP checking loop " + str(apLoopCount) + " times")
+                        pass
 
-                if globalLoopCount > 0:
-                    CvUtil.pyPrint("Global spoofing loop ran " + str(globalLoopCount) + " times")
-                    #CyInterface().addImmediateMessage("Spoofing loop ran " + str(globalLoopCount) + " times", "")
+                    if globalLoopCount > 0:
+                        #CvUtil.pyPrint("Global spoofing loop ran " + str(globalLoopCount) + " times")
+                        pass
+                        #CyInterface().addImmediateMessage("Spoofing loop ran " + str(globalLoopCount) + " times", "")
 
-                if bCanConstructNatively:
-                    return True
-                else:
-                    return False
+                    if bCanConstructNatively:
+                        return True
+                    else:
+                        return False
 
     return gameUtils().canConstruct(argsList)
 
