@@ -101,7 +101,10 @@ def grantUnique(itemName):
     if unitName:
         ArchipelagoData.archipelagoUnlockedUUs.append(unitName)
         return
-    # TODO unique building check goes here
+    buildingName = UNIQUE_BUILDING_TRANSLATION_DICT.get(itemName)
+    if buildingName:
+        ArchipelagoData.archipelagoUnlockedUBs.append(buildingName)
+        return
     CyInterface().addImmediateMessage("Error in granting unique buildable: " + itemName, "")
     return
 

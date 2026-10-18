@@ -1,5 +1,3 @@
-## ArchipelagoData.py
-## Centralized persistence and cross-module state tracking cache
 
 from CvPythonExtensions import *
 import BugData
@@ -21,9 +19,9 @@ archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
 archipelagoNationalWondersanityEnabled = False
-archipelagoUniqueBuildingsEnabled = True
+archipelagoUniqueBuildingsEnabled = False
 archipelagoUnlockedUUs = []
-archipelagoUnlockedUBs = ["BUILDING_AP_ARABIAN_MADRASSA", "BUILDING_AP_KOREAN_SEOWON"]
+archipelagoUnlockedUBs = []
 archipelagoHints = []
 
 
@@ -51,8 +49,10 @@ def saveData():
             "techsanity": archipelagoTechsanityEnabled,
             "worldWondersanity": archipelagoWorldWondersanityEnabled,
             "nationalWondersanity": archipelagoNationalWondersanityEnabled,
+            "uniqueBuildings": archipelagoUniqueBuildingsEnabled,
             "deferredUnits": archipelagoDeferredUnits,
             "unlockedUUs": archipelagoUnlockedUUs,
+            "unlockedUBs": archipelagoUnlockedUBs,
         }
         
         dataStore[DATA_SAVE_KEY] = payload
@@ -62,8 +62,8 @@ def saveData():
 def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
     global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoDeferredUnits, \
-           archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, \
-           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoUnlockedUUs
+           archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoUniqueBuildingsEnabled,\
+           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoUnlockedUUs, archipelagoUnlockedUBs
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()
@@ -81,8 +81,10 @@ def loadData(*args):
             archipelagoTechsanityEnabled = payload.get("techsanity", False)
             archipelagoWorldWondersanityEnabled = payload.get("worldWondersanity", False)
             archipelagoNationalWondersanityEnabled = payload.get("nationalWondersanity", False)
+            archipelagoUniqueBuildingsEnabled = payload.get("uniqueBuildings", False)
             archipelagoDeferredUnits = payload.get("deferredUnits", [])
             archipelagoUnlockedUUs = payload.get("unlockedUUs", [])
+            archipelagoUnlockedUBs = payload.get("unlockedUBs", [])
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -105,8 +107,10 @@ def loadData(*args):
             archipelagoTechsanityEnabled = False
             archipelagoWorldWondersanityEnabled = False
             archipelagoNationalWondersanityEnabled = False
+            archipelagoUniqueBuildingsEnabled = False
             archipelagoDeferredUnits = []
             archipelagoUnlockedUUs = []
+            archipelagoUnlockedUBs = []
             
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
@@ -119,8 +123,10 @@ def loadData(*args):
         archipelagoTechsanityEnabled = False
         archipelagoWorldWondersanityEnabled = False
         archipelagoNationalWondersanityEnabled = False
+        archipelagoUniqueBuildingsEnabled = False
         archipelagoDeferredUnits = []
         archipelagoUnlockedUUs = []
+        archipelagoUnlockedUBs = []
 
 ##def getSettings():
 ##    global archipelagoSettings
@@ -133,7 +139,8 @@ def loadData(*args):
 ##    saveData()
 
 def setSettings(dataDict):
-    global archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled
+    global archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, \
+    archipelagoNationalWondersanityEnabled, archipelagoUniqueBuildingsEnabled
     CyInterface().addImmediateMessage(str(dataDict), "")
     archipelagoMaxGPSanity = dataDict["gpsanity"]
     if dataDict["techsanity"] > 0:
@@ -142,6 +149,8 @@ def setSettings(dataDict):
         archipelagoWorldWondersanityEnabled = True
     if dataDict["nationalWondersanity"] > 0:
         archipelagoNationalWondersanityEnabled = True
+    if dataDict["uniqueBuildings"] > 0:
+        archipelagoUniqueBuildingsEnabled = True
     saveData()
 
 def getHints():

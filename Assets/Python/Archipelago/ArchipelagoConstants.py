@@ -387,6 +387,43 @@ UNIQUE_UNIT_TRANSLATION_DICT = {
     "Viking Berserker": "UNIT_AP_VIKING_BESERKER"
 }
 
+UNIQUE_BUILDING_TRANSLATION_DICT = {
+    "American Mall": "BUILDING_AP_AMERICAN_MALL",
+    "Arabian Madrassa": "BUILDING_AP_ARABIAN_MADRASSA",
+    "Aztec Sacrificial Altar": "BUILDING_AP_AZTEC_SACRIFICIAL_ALTAR",
+    "Babylonian Garden": "BUILDING_AP_BABYLON_GARDEN",
+    "Byzantine Hippodrome": "BUILDING_AP_BYZANTINE_HIPPODROME",
+    "Carthaginian Cothon": "BUILDING_AP_CARTHAGE_COTHON",
+    "Celtic Dun": "BUILDING_AP_CELTIC_DUN",
+    "Chinese Pavilion": "BUILDING_AP_CHINESE_PAVILLION",
+    "Dutch Dike": "BUILDING_AP_NETHERLANDS_DIKE",
+    "Egyptian Obelisk": "BUILDING_AP_EGYPTIAN_OBELISK",
+    "English Stock Exchange": "BUILDING_AP_ENGLISH_STOCK_EXCHANGE",
+    "Ethiopian Stele": "BUILDING_AP_ETHIOPIAN_STELE",
+    "French Salon": "BUILDING_AP_FRENCH_SALON",
+    "German Assembly Plant": "BUILDING_AP_GERMAN_ASSEMBLY_PLANT",
+    "Greek Odeon": "BUILDING_AP_GREEK_ODEON",
+    "Holy Roman Rathaus": "BUILDING_AP_HOLY_ROMAN_RATHAUS",
+    "Incan Terrace": "BUILDING_AP_INCAN_TERRACE",
+    "Indian Mausoleum": "BUILDING_AP_INDIAN_MAUSOLEUM",
+    "Japanese Shale Plant": "BUILDING_AP_JAPANESE_SHALE_PLANT",
+    "Khmer Baray": "BUILDING_AP_KHMER_BARAY",
+    "Korean Seowon": "BUILDING_AP_KOREAN_SEOWON",
+    "Malian Mint": "BUILDING_AP_MALI_MINT",
+    "Mayan Ball Court": "BUILDING_AP_MAYA_BALL_COURT",
+    "Mongolian Ger": "BUILDING_AP_MONGOL_GER",
+    "Native American Totem Pole": "BUILDING_AP_NATIVE_AMERICA_TOTEM",
+    "Ottoman Hammam": "BUILDING_AP_OTTOMAN_HAMMAM",
+    "Persian Apothecary": "BUILDING_AP_PERSIAN_APOTHECARY",
+    "Portuguese Feitoria": "BUILDING_AP_PORTUGAL_FEITORIA",
+    "Roman Forum": "BUILDING_AP_ROMAN_FORUM",
+    "Russian Research Institute": "BUILDING_AP_RUSSIAN_RESEARCH_INSTITUTE",
+    "Spanish Citadel": "BUILDING_AP_SPANISH_CITADEL",
+    "Sumerian Ziggurat": "BUILDING_AP_SUMERIAN_ZIGGURAT",
+    "Viking Trading Post": "BUILDING_AP_VIKING_TRADING_POST",
+    "Zulu Ikhanda": "BUILDING_AP_ZULU_IKHANDA"
+}
+
 
 GOLD_TRANSLATION_DICT = {
     "5 Gold": 5
