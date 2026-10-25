@@ -7,7 +7,7 @@ import string
 import BugOptions
 import BugOptionsScreen
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 import ArchipelagoTab
 import ArchipelagoConsole
 import ArchipelagoLocations
@@ -519,7 +519,7 @@ def onConnectClicked( argsList ):
         password = BugOptions.getOption("Archipelago__ArchipelagoPassword").getValue()
         
         # Execute your active multiworld socket handshake
-        ArchipelagoStuff.connectToArchipelagoServer(server, username, password)
+        ArchipelagoConnection.connectToArchipelagoServer(server, username, password)
 
 def onSendCommandClicked( argsList ):
     (buttonName,) = argsList
@@ -535,7 +535,7 @@ def onSendCommandClicked( argsList ):
         
         if szCommand:
             CyInterface().addImmediateMessage("in second if", "")
-            dataDict = ArchipelagoStuff.sendAndReceiveData({"type": "Command", "cmd": szCommand}, waitForRead=False)
+            dataDict = ArchipelagoConnection.sendAndReceiveData({"type": "Command", "cmd": szCommand}, waitForRead=False)
             BugOptions.getOption("Archipelago__ArchipelagoCommand").setValue("")
 
 def onSyncClicked ( argsList ):

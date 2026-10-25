@@ -6,7 +6,7 @@ from Popup import PyPopup
 import BugOptions
 #import BugData
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 import ArchipelagoData
 from ArchipelagoConstants import *
 
@@ -19,9 +19,9 @@ pyGame = PyGame()
 
 def receiveItems():
     messageDict = {"type":"ReceiveItems"}
-    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=True)
+    dataDict = ArchipelagoConnection.sendAndReceiveData(messageDict, waitForRead=True)
     if dataDict is None:
-        ArchipelagoStuff.showPopup("Connection Error", "No Packet Received From receiveItems")
+        ArchipelagoConnection.showPopup("Connection Error", "No Packet Received From receiveItems")
     # confirmed to have "cmd" in sendAndReceiveData
     elif dataDict.get("cmd") == "ReceiveItems":
         items = dataDict["items"]
@@ -46,7 +46,7 @@ def receiveItems():
             ArchipelagoData.archipelagoReceivedItems[item_index] = item_name
             ArchipelagoData.saveData()
     else:
-        ArchipelagoStuff.showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd"))
+        ArchipelagoConnection.showPopup("Connection Error", "Unexpected packet type: " + dataDict.get("cmd"))
 
 def grantTech(techName):
     iPlayerId = gc.getGame().getActivePlayer()

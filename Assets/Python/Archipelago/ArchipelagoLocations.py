@@ -4,7 +4,7 @@ from Popup import PyPopup
 
 import BugOptions
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 import ArchipelagoData
 import ArchipelagoItems
 from ArchipelagoConstants import *
@@ -29,7 +29,7 @@ def sendLocationCheck(location_name):
 
 def sendStoredLocations():
     messageDict = {"type" : "LocationChecks", "locations" : ArchipelagoData.archipelagoCheckedLocations}
-    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
+    dataDict = ArchipelagoConnection.sendAndReceiveData(messageDict, waitForRead=False)
     return dataDict
 
 def checkIfArchipelagoTech(tech):

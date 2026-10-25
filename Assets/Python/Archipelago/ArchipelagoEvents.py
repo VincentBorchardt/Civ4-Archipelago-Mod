@@ -3,7 +3,7 @@ import CvUtil
 
 import WidgetUtil
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 import ArchipelagoLocations
 import ArchipelagoItems
 import ArchipelagoData
@@ -46,14 +46,14 @@ def onGameStart(argsList):
     """
     initArchipelagoWidgets()
     ArchipelagoData.loadData()
-    ArchipelagoStuff.initialConnectToArchipelago()
+    ArchipelagoConnection.initialConnectToArchipelago()
     
 
 def onLoadGame(argsList):
     """Fires every time an existing save file is loaded into memory."""
     initArchipelagoWidgets()
     ArchipelagoData.loadData()
-    ArchipelagoStuff.initialConnectToArchipelago()
+    ArchipelagoConnection.initialConnectToArchipelago()
 
 
 def onEndPlayerTurn(argsList):
@@ -65,12 +65,12 @@ def onEndPlayerTurn(argsList):
     # This prevents the network loop from running on every single AI turn slice
     if gc.getPlayer(iPlayer).isHuman():
         if not ArchipelagoData.hasConnectedToArchipelago:
-            ArchipelagoStuff.showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
+            ArchipelagoConnection.showPopup("Set Up Archipelago Connection Settings", "Go into the BUG Options (Alt+Ctrl+O) and enter in your connection information.")
         else:
             # Trigger your processing loop to fetch new network packets
             ArchipelagoItems.receiveItems()
             if not ArchipelagoData.isConnectedToArchipelago:
-                ArchipelagoStuff.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
+                ArchipelagoConnection.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
 def onCityBuilt(argsList):
     """
@@ -158,7 +158,7 @@ def onVictory(argsList):
         victoryLocation = ArchipelagoConstants.VICTORY_TRANSLATION_DICT.get(szVictoryTypeStr)
         if victoryLocation:
             messageDict = {"type": "Victory", "victoryType": victoryLocation}
-            ArchipelagoStuff.sendAndReceiveData(messageDict, waitForRead=False)
+            ArchipelagoConnection.sendAndReceiveData(messageDict, waitForRead=False)
             CyInterface().addImmediateMessage("Archipelago Victory Condition Sent! Type: " + victoryLocation, "")
 
 

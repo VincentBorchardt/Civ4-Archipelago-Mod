@@ -8,7 +8,7 @@ import BugOptionsTab
 import BugOptions
 import BugOptionsScreen
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 import ArchipelagoData
 
 class ArchipelagoTab(BugOptionsTab.BugOptionsTab):

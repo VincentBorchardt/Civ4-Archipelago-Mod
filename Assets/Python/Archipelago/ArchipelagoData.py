@@ -3,7 +3,7 @@ from CvPythonExtensions import *
 import BugData
 import BugOptions
 
-import ArchipelagoStuff
+import ArchipelagoConnection
 
 # Unique storage tracking slot inside BUG's secure save profile
 DATA_SAVE_KEY = "ArchipelagoModSaveState"
@@ -22,6 +22,8 @@ archipelagoNationalWondersanityEnabled = False
 archipelagoUniqueBuildingsEnabled = False
 archipelagoUnlockedUUs = []
 archipelagoUnlockedUBs = []
+archipelagoPeekableLocations = 0
+archipelagoLocationScouts = {}
 archipelagoHints = []
 
 
@@ -140,8 +142,9 @@ def loadData(*args):
 
 def setSettings(dataDict):
     global archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, \
-    archipelagoNationalWondersanityEnabled, archipelagoUniqueBuildingsEnabled
-    CyInterface().addImmediateMessage(str(dataDict), "")
+    archipelagoNationalWondersanityEnabled, archipelagoUniqueBuildingsEnabled, \
+    archipelagoPeekableLocations, archipelagoLocationScouts
+    #CyInterface().addImmediateMessage(str(dataDict), "")
     archipelagoMaxGPSanity = dataDict["gpsanity"]
     if dataDict["techsanity"] > 0:
         archipelagoTechsanityEnabled = True
@@ -151,14 +154,28 @@ def setSettings(dataDict):
         archipelagoNationalWondersanityEnabled = True
     if dataDict["uniqueBuildings"] > 0:
         archipelagoUniqueBuildingsEnabled = True
+    if dataDict["peekableLocations"] > 0 and len(archipelagoLocationScouts) == 0:
+        archipelagoPeekableLocations = dataDict["peekableLocations"]
+        getLocationScouts()
+    saveData()
+
+def getLocationScouts():
+    global archipelagoLocationScouts
+    CyInterface().addImmediateMessage("Sending LocationScouts", "")
+    messageDict = {"type":"GetLocationScouts"}
+    dataDict = ArchipelagoConnection.sendAndReceiveData(messageDict)
+    if not dataDict or (dataDict.get("cmd") != "GetLocationScouts"):
+        ArchipelagoConnection.showPopup("Connection Error", "No location scouts received")
+        return
+    archipelagoLocationScouts = dataDict.get("locationScouts")
     saveData()
 
 def getHints():
     global archipelagoHints
     messageDict = {"type":"GetHints"}
-    dataDict = ArchipelagoStuff.sendAndReceiveData(messageDict)
+    dataDict = ArchipelagoConnection.sendAndReceiveData(messageDict)
     if not dataDict or (dataDict.get("cmd") != "GetHints"):
-        ArchipelagoStuff.showPopup("Connection Error", "No hint packet received")
+        ArchipelagoConnection.showPopup("Connection Error", "No hint packet received")
         return
     archipelagoHints = dataDict.get("hints")
     saveData()
