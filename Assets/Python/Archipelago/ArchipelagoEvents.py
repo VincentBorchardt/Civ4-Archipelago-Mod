@@ -183,14 +183,43 @@ def onModNetMessage(argsList):
 def getArchipelagoButtonHover(eWidgetType, iData1, iData2, bOption):
     """
     BUG Callback handler. Returns the dynamic string shown to the player 
-    when hovering over the Archipelago action icon.
+    when hovering over the Archipelago action icon, complete with multiworld item previews.
     """
-    # iData1 now carries the Unique Unit Object ID passed from appendMultiListButton
-    pUnit = gc.getPlayer(gc.getGame().getActivePlayer()).getUnit(iData1)
-    
-    # Safely fallback to a general message if the unit evaluation slice drops
+    iActivePlayer = gc.getGame().getActivePlayer()
+    pPlayer = gc.getPlayer(iActivePlayer)
+    pUnit = pPlayer.getUnit(iData1)
+
     szUnitName = "Great Person"
+    szLocationKey = ""
+
     if pUnit and not pUnit.isNone():
+        # Get the standard description for the unit name (e.g., "Albert Einstein")
         szUnitName = gc.getUnitInfo(pUnit.getUnitType()).getDescription()
 
-    return localizer.getText("TXT_KEY_ARCHIPELAGO_GP_HOVER", (szUnitName,))
+        # Reconstruct the base location string prefix (e.g., "UNITCLASS_SCIENTIST")
+        eUnitClass = pUnit.getUnitClassType()
+        szClassStr = gc.getUnitClassInfo(eUnitClass).getType()
+
+        gc.getUnitClassInfo(gc.getUnitInfo(pUnit.getUnitType()).getUnitClassType()).getType()
+
+        # --- LOOKUP LOGIC PASS ---
+        # Look up which check number this specific unit object represents.
+        iCheckIndex = ArchipelagoData.archipelagoGPChecks.get(szClassStr, 0) + 1
+        if hasattr(pUnit, "archipelagoCheckIndex"):  # If you stamped it onto the object earlier
+            iCheckIndex = pUnit.archipelagoCheckIndex
+
+        szLocationKey = "%s_%d" % (szClassStr, iCheckIndex)  # Evaluates to e.g., "UNITCLASS_SCIENTIST_1"
+
+    # 1. Grab the baseline multi-line text layout straight out of your XML dictionary
+    szRawHoverText = localizer.getText("TXT_KEY_ARCHIPELAGO_GP_HOVER", (szUnitName,))
+
+    szScoutedItemName = "Unknown Item"
+    if szLocationKey in ArchipelagoData.archipelagoLocationScouts:
+        # Extract the "Item Name" from the tracked tuple data structure: ("Item Name", "Item Priority")
+        szScoutedItemName = ArchipelagoData.archipelagoLocationScouts[szLocationKey][0]
+
+    szFormattedItem = szScoutedItemName # TODO add player name and/or coloring
+    szFinalHoverText = szRawHoverText.replace("Check Placeholder", szFormattedItem)
+
+    return szFinalHoverText
+

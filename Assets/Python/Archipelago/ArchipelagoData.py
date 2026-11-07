@@ -4,6 +4,7 @@ import BugData
 import BugOptions
 
 import ArchipelagoConnection
+import ArchipelagoConstants
 
 # Unique storage tracking slot inside BUG's secure save profile
 DATA_SAVE_KEY = "ArchipelagoModSaveState"
@@ -55,6 +56,8 @@ def saveData():
             "deferredUnits": archipelagoDeferredUnits,
             "unlockedUUs": archipelagoUnlockedUUs,
             "unlockedUBs": archipelagoUnlockedUBs,
+            "peekableLocations": archipelagoPeekableLocations,
+            "locationScouts": archipelagoLocationScouts,
         }
         
         dataStore[DATA_SAVE_KEY] = payload
@@ -65,7 +68,8 @@ def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
     global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoDeferredUnits, \
            archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoUniqueBuildingsEnabled,\
-           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoUnlockedUUs, archipelagoUnlockedUBs
+           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoUnlockedUUs, archipelagoUnlockedUBs, \
+           archipelagoPeekableLocations, archipelagoLocationScouts
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()
@@ -87,6 +91,8 @@ def loadData(*args):
             archipelagoDeferredUnits = payload.get("deferredUnits", [])
             archipelagoUnlockedUUs = payload.get("unlockedUUs", [])
             archipelagoUnlockedUBs = payload.get("unlockedUBs", [])
+            archipelagoPeekableLocations = payload.get("peekableLocations", [])
+            archipelagoLocationScouts = payload.get("locationScouts", [])
             
             # 3. DUAL-LAYER FALLBACK LOGIC: Check for save-specific connection data
             saved_server = payload.get("savedServer", None)
@@ -100,35 +106,34 @@ def loadData(*args):
                 BugOptions.getOption("Archipelago__ArchipelagoPassword").setValue(saved_pass)
         else:
             # TODO extract this list of settings
-            hasConnectedToArchipelago = False
-            archipelagoCheckedLocations = []
-            archipelagoReceivedItems = {}
-            archipelagoHints = []
-            archipelagoGPChecks = {}
-            archipelagoMaxGPSanity = 0
-            archipelagoTechsanityEnabled = False
-            archipelagoWorldWondersanityEnabled = False
-            archipelagoNationalWondersanityEnabled = False
-            archipelagoUniqueBuildingsEnabled = False
-            archipelagoDeferredUnits = []
-            archipelagoUnlockedUUs = []
-            archipelagoUnlockedUBs = []
-            
+            reset_data()
+
     except Exception, e:
         CyInterface().addImmediateMessage("AP Load Data Failure: " + str(e), "")
-        hasConnectedToArchipelago = False
-        archipelagoCheckedLocations = []
-        archipelagoReceivedItems = {}
-        archipelagoHints = []
-        archipelagoGPChecks = {}
-        archipelagoMaxGPSanity = 0
-        archipelagoTechsanityEnabled = False
-        archipelagoWorldWondersanityEnabled = False
-        archipelagoNationalWondersanityEnabled = False
-        archipelagoUniqueBuildingsEnabled = False
-        archipelagoDeferredUnits = []
-        archipelagoUnlockedUUs = []
-        archipelagoUnlockedUBs = []
+        reset_data()
+
+
+def reset_data():
+    global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, \
+           archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, \
+           archipelagoUniqueBuildingsEnabled, archipelagoDeferredUnits, archipelagoUnlockedUUs, archipelagoUnlockedUBs, \
+           archipelagoPeekableLocations, archipelagoLocationScouts
+    hasConnectedToArchipelago = False
+    archipelagoCheckedLocations = []
+    archipelagoReceivedItems = {}
+    archipelagoHints = []
+    archipelagoGPChecks = {}
+    archipelagoMaxGPSanity = 0
+    archipelagoTechsanityEnabled = False
+    archipelagoWorldWondersanityEnabled = False
+    archipelagoNationalWondersanityEnabled = False
+    archipelagoUniqueBuildingsEnabled = False
+    archipelagoDeferredUnits = []
+    archipelagoUnlockedUUs = []
+    archipelagoUnlockedUBs = []
+    archipelagoPeekableLocations = []
+    archipelagoLocationScouts = []
+
 
 ##def getSettings():
 ##    global archipelagoSettings
@@ -167,7 +172,14 @@ def getLocationScouts():
     if not dataDict or (dataDict.get("cmd") != "GetLocationScouts"):
         ArchipelagoConnection.showPopup("Connection Error", "No location scouts received")
         return
-    archipelagoLocationScouts = dataDict.get("locationScouts")
+    locationScouts = dataDict.get("locations")
+    locationToItem = {}
+    for location in ArchipelagoConstants.LOCATION_TO_LOCATION_ID:
+        locationID = ArchipelagoConstants.LOCATION_TO_LOCATION_ID[location]
+        itemInfo = locationScouts.get(locationID)
+        if itemInfo:
+            locationToItem[location] = itemInfo
+    archipelagoLocationScouts = locationToItem
     saveData()
 
 def getHints():
