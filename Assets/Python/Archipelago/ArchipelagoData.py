@@ -20,6 +20,8 @@ archipelagoMaxGPSanity = 0
 archipelagoTechsanityEnabled = False
 archipelagoWorldWondersanityEnabled = False
 archipelagoNationalWondersanityEnabled = False
+archipelagoResourcesanityEnabled = False
+archipelagoConnectedResources = []
 archipelagoUniqueBuildingsEnabled = False
 archipelagoUnlockedUUs = []
 archipelagoUnlockedUBs = []
@@ -52,6 +54,8 @@ def saveData():
             "techsanity": archipelagoTechsanityEnabled,
             "worldWondersanity": archipelagoWorldWondersanityEnabled,
             "nationalWondersanity": archipelagoNationalWondersanityEnabled,
+            "resourcesanity": archipelagoResourcesanityEnabled,
+            "connectedResources": archipelagoConnectedResources,
             "uniqueBuildings": archipelagoUniqueBuildingsEnabled,
             "deferredUnits": archipelagoDeferredUnits,
             "unlockedUUs": archipelagoUnlockedUUs,
@@ -68,8 +72,8 @@ def loadData(*args):
     """Deserializes arrays out of the save, falling back to universal INI settings if missing."""
     global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoDeferredUnits, \
            archipelagoGPChecks, archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoUniqueBuildingsEnabled,\
-           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoUnlockedUUs, archipelagoUnlockedUBs, \
-           archipelagoPeekableLocations, archipelagoLocationScouts
+           archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, archipelagoResourcesanityEnabled, archipelagoConnectedResources, \
+           archipelagoUnlockedUUs, archipelagoUnlockedUBs, archipelagoPeekableLocations, archipelagoLocationScouts
     isConnectedToArchipelago = False
     try:
         dataStore = BugData.getGameData()
@@ -87,6 +91,8 @@ def loadData(*args):
             archipelagoTechsanityEnabled = payload.get("techsanity", False)
             archipelagoWorldWondersanityEnabled = payload.get("worldWondersanity", False)
             archipelagoNationalWondersanityEnabled = payload.get("nationalWondersanity", False)
+            archipelagoResourcesanityEnabled = payload.get("resourcesanity", False)
+            archipelagoConnectedResources = payload.get("connectedResources", False)
             archipelagoUniqueBuildingsEnabled = payload.get("uniqueBuildings", False)
             archipelagoDeferredUnits = payload.get("deferredUnits", [])
             archipelagoUnlockedUUs = payload.get("unlockedUUs", [])
@@ -116,8 +122,8 @@ def loadData(*args):
 def reset_data():
     global hasConnectedToArchipelago, archipelagoCheckedLocations, archipelagoReceivedItems, archipelagoHints, archipelagoGPChecks, \
            archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, archipelagoNationalWondersanityEnabled, \
-           archipelagoUniqueBuildingsEnabled, archipelagoDeferredUnits, archipelagoUnlockedUUs, archipelagoUnlockedUBs, \
-           archipelagoPeekableLocations, archipelagoLocationScouts
+           archipelagoResourcesanityEnabled, archipelagoConnectedResources, archipelagoUniqueBuildingsEnabled, archipelagoDeferredUnits,\
+           archipelagoUnlockedUUs, archipelagoUnlockedUBs, archipelagoPeekableLocations, archipelagoLocationScouts
     hasConnectedToArchipelago = False
     archipelagoCheckedLocations = []
     archipelagoReceivedItems = {}
@@ -127,6 +133,8 @@ def reset_data():
     archipelagoTechsanityEnabled = False
     archipelagoWorldWondersanityEnabled = False
     archipelagoNationalWondersanityEnabled = False
+    archipelagoResourcesanityEnabled = False
+    archipelagoConnectedResources = []
     archipelagoUniqueBuildingsEnabled = False
     archipelagoDeferredUnits = []
     archipelagoUnlockedUUs = []
@@ -147,7 +155,7 @@ def reset_data():
 
 def setSettings(dataDict):
     global archipelagoMaxGPSanity, archipelagoTechsanityEnabled, archipelagoWorldWondersanityEnabled, \
-    archipelagoNationalWondersanityEnabled, archipelagoUniqueBuildingsEnabled, \
+    archipelagoNationalWondersanityEnabled, archipelagoResourcesanityEnabled, archipelagoUniqueBuildingsEnabled, \
     archipelagoPeekableLocations, archipelagoLocationScouts
     #CyInterface().addImmediateMessage(str(dataDict), "")
     archipelagoMaxGPSanity = dataDict["gpsanity"]
@@ -157,6 +165,8 @@ def setSettings(dataDict):
         archipelagoWorldWondersanityEnabled = True
     if dataDict["nationalWondersanity"] > 0:
         archipelagoNationalWondersanityEnabled = True
+    if dataDict["resourcesanity"] > 0:
+        archipelagoResourcesanityEnabled = True
     if dataDict["uniqueBuildings"] > 0:
         archipelagoUniqueBuildingsEnabled = True
     if dataDict["peekableLocations"] > 0 and len(archipelagoLocationScouts) == 0:

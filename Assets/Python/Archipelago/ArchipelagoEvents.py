@@ -7,7 +7,7 @@ import ArchipelagoConnection
 import ArchipelagoLocations
 import ArchipelagoItems
 import ArchipelagoData
-import ArchipelagoConstants
+from ArchipelagoConstants import *
 
 gc = CyGlobalContext()
 localizer = CyTranslator()
@@ -26,9 +26,7 @@ def initArchipelagoWidgets():
     WidgetUtil.setWidgetHelpFunction(widget=AP_WIDGET_TYPE, func=getArchipelagoButtonHover)
 
 def onTechAcquired(argsList):
-    """
-    Fires whenever any player's team acquires a new technology.
-    """
+    """Fires whenever any player's team acquires a new technology."""
     CyInterface().addImmediateMessage("In onTechAcquired", "")
     # Unpack the standard Civ 4 argument list for this event
     eTech, iTeam, iPlayer, bFirst = argsList
@@ -40,10 +38,9 @@ def onTechAcquired(argsList):
 
     ArchipelagoLocations.checkIfArchipelagoTech(eTech)
 
+
 def onGameStart(argsList):
-    """
-    Fires once when a brand-new game is initiated (not triggered on loads).
-    """
+    """Fires once when a brand-new game is initiated (not triggered on loads)."""
     initArchipelagoWidgets()
     ArchipelagoData.loadData()
     ArchipelagoConnection.initialConnectToArchipelago()
@@ -56,10 +53,31 @@ def onLoadGame(argsList):
     ArchipelagoConnection.initialConnectToArchipelago()
 
 
+def onBeginPlayerTurn(argsList):
+    iGameTurn, iPlayer = argsList
+    pPlayer = gc.getPlayer(iPlayer)
+
+    if not pPlayer.isHuman() or not ArchipelagoData.archipelagoResourcesanityEnabled:
+        return
+
+    pCapital = pPlayer.getCapitalCity()
+    if pCapital is None or pCapital.isNone():
+        return
+
+    # Loop through all Bonus (Resource) types in the game (~30-40 items total)
+    for iBonus in range(gc.getNumBonusInfos()):
+        bonusInfo = gc.getBonusInfo(iBonus)
+        szBonusType = bonusInfo.getType()  # e.g., "BONUS_GOLD"
+
+        # Check if the player's Capital trade network has access to at least one of this resource
+        if pCapital.hasBonus(iBonus):
+            if szBonusType not in ArchipelagoData.archipelagoConnectedResources and szBonusType in LOCATION_TO_LOCATION_ID:
+                ArchipelagoData.archipelagoConnectedResources.append(szBonusType)
+                ArchipelagoLocations.sendLocationCheck(szBonusType)
+
+
 def onEndPlayerTurn(argsList):
-    """
-    Fires at the absolute end of an individual player's turn phase.
-    """
+    """Fires at the absolute end of an individual player's turn phase."""
     iGameTurn, iPlayer = argsList
     # We only want to process incoming server checks at the end of the human's turn
     # This prevents the network loop from running on every single AI turn slice
@@ -72,10 +90,9 @@ def onEndPlayerTurn(argsList):
             if not ArchipelagoData.isConnectedToArchipelago:
                 ArchipelagoConnection.showPopup("Archipelago Connection Lost", "Check your settings and make sure the client is open and the server is up.")
 
+
 def onCityBuilt(argsList):
-    """
-    Fires the exact frame a player settles a new city on a plot.
-    """
+    """Fires when a player settles a new city on a plot."""
     pCity = argsList[0]
     iPlayer = pCity.getOwner()
     pPlayer = gc.getPlayer(iPlayer)
@@ -90,10 +107,9 @@ def onCityBuilt(argsList):
             # Clear the list completely now that everything spawned successfully!
             ArchipelagoData.archipelagoDeferredUnits = []
 
+
 def onBuildingBuilt(argsList):
-    """
-    Fires the exact frame a building finishes construction inside any city.
-    """
+    """Fires when a building finishes construction inside any city."""
     pCity, eBuilding = argsList
     if pCity is None or pCity.isNone():
         return    
@@ -109,8 +125,8 @@ def onBuildingBuilt(argsList):
     szBuildingType = buildingInfo.getType()
 
     # Check if the newly completed building belongs to a mutually exclusive group
-    if szBuildingType in ArchipelagoConstants.MUTUALLY_EXCLUSIVE_BUILDINGS:
-        competing_buildings = ArchipelagoConstants.MUTUALLY_EXCLUSIVE_BUILDINGS[szBuildingType]
+    if szBuildingType in MUTUALLY_EXCLUSIVE_BUILDINGS:
+        competing_buildings = MUTUALLY_EXCLUSIVE_BUILDINGS[szBuildingType]
 
         for comp_type_str in competing_buildings:
             eCompBuilding = gc.getInfoTypeForString(comp_type_str)
@@ -143,9 +159,7 @@ def onBuildingBuilt(argsList):
         ArchipelagoLocations.sendLocationCheck(szBuildingType)
 
 
-
 def onVictory(argsList):
-    """Fires the exact frame a victory condition is achieved on the map."""
     iWinningTeam, eVictoryType = argsList
     
     # 1. Check if the active human player is part of the winning team
@@ -153,9 +167,9 @@ def onVictory(argsList):
     pPlayer = gc.getPlayer(iActivePlayer)
     
     if pPlayer.getTeam() == iWinningTeam:
-        # 2. Extract the canonical XML Type string of the victory (e.g., "VICTORY_SPACE_RACE")
+        # 2. Extract the XML Type string of the victory (e.g., "VICTORY_SPACE_RACE")
         szVictoryTypeStr = gc.getVictoryInfo(eVictoryType).getType()
-        victoryLocation = ArchipelagoConstants.VICTORY_TRANSLATION_DICT.get(szVictoryTypeStr)
+        victoryLocation = VICTORY_TRANSLATION_DICT.get(szVictoryTypeStr)
         if victoryLocation:
             messageDict = {"type": "Victory", "victoryType": victoryLocation}
             ArchipelagoConnection.sendAndReceiveData(messageDict, waitForRead=False)

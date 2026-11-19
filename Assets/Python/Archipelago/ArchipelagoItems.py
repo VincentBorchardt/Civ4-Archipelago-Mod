@@ -84,19 +84,15 @@ def grantUnit(itemName):
         return
         
     # Look up the actual unique Unit Type tied to this player's Civilization
-    # (This ensures variants like unique graphics or replacements spawn correctly)
     eUnitType = gc.getCivilizationInfo(pPlayer.getCivilizationType()).getCivilizationUnits(eUnitClass)
     
     if eUnitType != -1:
         # Arguments: (UnitType, bIncrementThreshold, bIncrementExperience)
         pCapital.createGreatPeople(eUnitType, False, False)
-        
-        # Display an alert notification on the player's main screen
         szUnitName = gc.getUnitInfo(eUnitType).getDescription()
         CyInterface().addImmediateMessage("A unit was born in your capital: " + szUnitName, "")
 
 def grantUnique(itemName):
-    # TODO implement this
     unitName = UNIQUE_UNIT_TRANSLATION_DICT.get(itemName)
     if unitName:
         ArchipelagoData.archipelagoUnlockedUUs.append(unitName)
