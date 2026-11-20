@@ -70,7 +70,7 @@ def onBeginPlayerTurn(argsList):
         szBonusType = bonusInfo.getType()  # e.g., "BONUS_GOLD"
 
         # Check if the player's Capital trade network has access to at least one of this resource
-        if pCapital.hasBonus(iBonus):
+        if pCapital.getNumBonuses(iBonus) > 0:
             if szBonusType not in ArchipelagoData.archipelagoConnectedResources and szBonusType in LOCATION_TO_LOCATION_ID:
                 ArchipelagoData.archipelagoConnectedResources.append(szBonusType)
                 ArchipelagoLocations.sendLocationCheck(szBonusType)
