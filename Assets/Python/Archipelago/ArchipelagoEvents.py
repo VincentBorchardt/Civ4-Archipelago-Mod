@@ -27,7 +27,7 @@ def initArchipelagoWidgets():
 
 def onTechAcquired(argsList):
     """Fires whenever any player's team acquires a new technology."""
-    CyInterface().addImmediateMessage("In onTechAcquired", "")
+    #CyInterface().addImmediateMessage("In onTechAcquired", "")
     # Unpack the standard Civ 4 argument list for this event
     eTech, iTeam, iPlayer, bFirst = argsList
     
@@ -137,6 +137,9 @@ def onBuildingBuilt(argsList):
     # Core state routing flag
     bIsValidLocationCheck = False
     szCheckLogPrefix = ""
+
+    if szBuildingType not in LOCATION_TO_LOCATION_ID:
+        return
     
     # 2. Check for World Wondersanity Pass
     if ArchipelagoData.archipelagoWorldWondersanityEnabled:
@@ -144,19 +147,44 @@ def onBuildingBuilt(argsList):
             # Exclude Holy Shrines and Corporation Headquarters
             if buildingInfo.getGlobalReligionCommerce() <= 0 and buildingInfo.getGlobalCorporationCommerce() <= 0:
                 bIsValidLocationCheck = True
-                szCheckLogPrefix = "World Wonder Location Sent! Type: "
+                #szCheckLogPrefix = "World Wonder Location Sent! Type: "
 
     # 3. Check for National Wondersanity Pass
     if ArchipelagoData.archipelagoNationalWondersanityEnabled and not bIsValidLocationCheck:
         # National Wonders have a strict player cap limit of exactly 1 instance per civ
         if buildingClassInfo.getMaxPlayerInstances() == 1 and szBuildingType != "BUILDING_PALACE":
             bIsValidLocationCheck = True
-            szCheckLogPrefix = "National Wonder Location Sent! Type: "
+            #szCheckLogPrefix = "National Wonder Location Sent! Type: "
             
     # 4. Shared Execution: Transmit the check data smoothly across active sockets
     if bIsValidLocationCheck:
         CyInterface().addImmediateMessage(szCheckLogPrefix + szBuildingType, "")
         ArchipelagoLocations.sendLocationCheck(szBuildingType)
+
+def onCityAcquiredAndKept(argsList):
+    """Fires when a player captures and keeps a city."""
+    iOwner, pCity = argsList
+    if not ArchipelagoData.archipelagoWorldWondersanityEnabled:
+        return
+    if pCity is None or pCity.isNone():
+        return
+
+    pPlayer = gc.getPlayer(iOwner)
+    if pPlayer is None or pPlayer.isNone() or not pPlayer.isHuman():
+        return
+
+    for iBuilding in range(gc.getNumBuildingInfos()):
+        if pCity.getNumRealBuilding(iBuilding) > 0:
+            buildingInfo = gc.getBuildingInfo(iBuilding)
+            szBuildingType = buildingInfo.getType()
+            buildingClassInfo = gc.getBuildingClassInfo(buildingInfo.getBuildingClassType())
+
+            if buildingClassInfo.getMaxGlobalInstances() == 1:
+                if buildingInfo.getGlobalReligionCommerce() < 0 and buildingInfo.getGlobalCorporationCommerce() < 0:
+                    if szBuildingType in LOCATION_TO_LOCATION_ID:
+                        #CyInterface().addImmediateMessage("Captured World Wonder Location Sent! Type: " + szBuildingType, "")
+                        ArchipelagoLocations.sendLocationCheck(szBuildingType)
+
 
 
 def onVictory(argsList):
